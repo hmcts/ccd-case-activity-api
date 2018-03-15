@@ -1,0 +1,14 @@
+security:
+  cors_origin_methods: CORS_ORIGIN_METHODS
+  cors_origin_whitelist: CORS_ORIGIN_WHITELIST
+idam:
+  base_url: IDAM_BASE_URL
+redis:
+  host: REDIS_HOST
+  port: REDIS_PORT
+  keyPrefix: REDIS_KEY_PREFIX
+  activityTtlSec: REDIS_ACTIVITY_TTL
+  userDetailsTtlSec: REDIS_USER_DETAILS_TTL
+app:
+  requestTimeoutSec: APP_REQUEST_TIMEOUT
+  storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB

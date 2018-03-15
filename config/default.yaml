@@ -1,0 +1,14 @@
+security:
+  cors_origin_methods: "GET,POST,OPTIONS"
+  cors_origin_whitelist: http://localhost:3451
+idam:
+  base_url: http://localhost:4501
+redis:
+  host: localhost
+  port: 6379
+  keyPrefix: "activity-dev:"
+  activityTtlSec: 1200
+  userDetailsTtlSec: 86400
+app:
+  requestTimeoutSec: 5
+  storeCleanupCrontab: "* * * * *"
