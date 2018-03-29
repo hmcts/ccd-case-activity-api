@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "e2e-test": "mocha test/e2e --timeout 15000",
     "test": "jasmine-node test/spec/ --forceexit",
-    "test:nsp": "echo 'TODO Implement NSP'",
+    "test:nsp": "nsp check",
     "lint": "eslint app.js app/**/*.js test/**/*.js",
     "lint-fix": "eslint --fix app.js app/**/*.js test/**/*.js"
   },
@@ -35,6 +35,7 @@
     "git-message": "^2.0.2",
     "jasmine-node": "^1.14.5",
     "mocha": "^3.4.2",
-    "node-mocks-http": "^1.6.5"
+    "node-mocks-http": "^1.6.5",
+    "nsp": "^3.2.1"
   }
 }
