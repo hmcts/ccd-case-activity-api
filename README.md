@@ -1,4 +1,4 @@
-# ccd-case-activity-web
+# ccd-case-activity-web [![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api)
 Real-time tracking of case activity (viewers, editors,...)
 
 ## Quickstart
