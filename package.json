@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "setup": "echo 'No setup required'",
-    "start": "node server.js",
+    "setup": "cross-env NODE_PATH=. node --version",
+    "start": "cross-env NODE_PATH=. node server.js",
     "e2e-test": "mocha test/e2e --timeout 15000",
     "test": "jasmine-node test/spec/ --forceexit",
     "test:nsp": "nsp check",
-    "lint": "eslint app.js app/**/*.js test/**/*.js",
-    "lint-fix": "eslint --fix app.js app/**/*.js test/**/*.js"
+    "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
+    "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
   },
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "^1.4.3",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "chai-http": "^2.0.1",
+    "cross-env": "^5.0.5",
     "eslint": "^4.7.2",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.7.0",
