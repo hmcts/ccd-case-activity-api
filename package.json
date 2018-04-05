@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "setup": "echo 'No setup required'",
-    "start": "node ./bin/www",
+    "start": "node server.js",
     "e2e-test": "mocha test/e2e --timeout 15000",
     "test": "jasmine-node test/spec/ --forceexit",
     "test:nsp": "nsp check",
