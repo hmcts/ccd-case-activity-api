@@ -5,11 +5,13 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
 
   userRequestAuthorizer
     .authorise(req)
-    .then(user => req.authentication.user = user)
+    .then((user) => {
+      req.authentication.user = user;
+    })
     .then(() => next())
     .catch((error) => {
       console.warn('Unsuccessful user authentication', error);
-      error.status = error.status || 401;
+      error.status = error.status || 401; // eslint-disable-line no-param-reassign
       next(error);
     });
 };

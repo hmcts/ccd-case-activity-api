@@ -19,24 +19,6 @@ const ERROR_UNAUTHORISED_USER_ID = {
   message: 'You are not authorized to access this resource',
 };
 
-const authorise = (request) => {
-  let user;
-  const bearerToken = request.get(AUTHORIZATION);
-
-  if (!bearerToken) {
-    return Promise.reject(ERROR_TOKEN_MISSING);
-  }
-
-  return userResolver
-    .getTokenDetails(bearerToken)
-    .then(tokenDetails => user = tokenDetails)
-    .then(() => Promise.all([
-      authorizeRoles(request, user),
-      verifyRequestUserId(request, user),
-    ]))
-    .then(() => user);
-};
-
 const authorizeRoles = (request, user) => new Promise((resolve, reject) => {
   const roles = authorizedRolesExtractor.extract(request);
 
@@ -58,6 +40,26 @@ const verifyRequestUserId = (request, user) => new Promise((resolve, reject) => 
     resolve();
   }
 });
+
+const authorise = (request) => {
+  let user;
+  const bearerToken = request.get(AUTHORIZATION);
+
+  if (!bearerToken) {
+    return Promise.reject(ERROR_TOKEN_MISSING);
+  }
+
+  return userResolver
+    .getTokenDetails(bearerToken)
+    .then((tokenDetails) => {
+      user = tokenDetails;
+    })
+    .then(() => Promise.all([
+      authorizeRoles(request, user),
+      verifyRequestUserId(request, user),
+    ]))
+    .then(() => user);
+};
 
 exports.ERROR_TOKEN_MISSING = ERROR_TOKEN_MISSING;
 exports.ERROR_UNAUTHORISED_ROLE = ERROR_UNAUTHORISED_ROLE;
