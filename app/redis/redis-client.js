@@ -35,7 +35,7 @@ redis.extractPipelineResults = (pipelineOutcome) => {
 
 redis
   .on('error', (err) => {
-    console.error('Redis error', err.message);
+    debug(`Redis error: ${err.message}`);
   }).on('connect', () => {
     debug('connected to Redis');
   });

@@ -1,4 +1,5 @@
 const userRequestAuthorizer = require('./user-request-authorizer');
+const debug = require('debug')('ccd-case-activity-web:auth-checker-filter');
 
 const authCheckerUserOnlyFilter = (req, res, next) => {
   req.authentication = {};
@@ -10,7 +11,7 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
     })
     .then(() => next())
     .catch((error) => {
-      console.warn('Unsuccessful user authentication', error);
+      debug(`Unsuccessful user authentication: ${error}`);
       error.status = error.status || 401; // eslint-disable-line no-param-reassign
       next(error);
     });
