@@ -18,7 +18,9 @@ const Token = JSON.stringify({ id: 242, forename: 'nayab', surname: 'gul' });
 
 chai.use(chaiHttp);
 
-describe('Activity Service', () => {
+/* Relies on activityTtlSec:5, userDetailsTtlSec:2 */
+
+describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
   beforeEach(() => redis.flushall());
 
   it('should POST a user activity on a case', (done) => {
@@ -41,7 +43,7 @@ describe('Activity Service', () => {
         });
 
         Promise.all([assertEndpointResult,
-          activityAssert.caseViewersEquals(55, '242'),
+          activityAssert.allCaseViewersEquals(55, '242'),
           activityAssert.userDetailsEquals(242, '{"forename":"nayab","surname":"gul"}')])
           .then(() => done())
           .catch(error => done(error));

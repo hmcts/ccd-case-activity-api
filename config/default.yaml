@@ -7,8 +7,8 @@ redis:
   host: localhost
   port: 6379
   keyPrefix: "activity:"
-  activityTtlSec: 1200
-  userDetailsTtlSec: 86400
+  activityTtlSec: 5
+  userDetailsTtlSec: 2
 app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"

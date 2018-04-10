@@ -14,7 +14,7 @@ let assertValueOrArray = (actual, expected) => {
     }
 }
 
-exports.caseViewersEquals = (caseId, expected) => {
+exports.allCaseViewersEquals = (caseId, expected) => {
   return activityStore.getAllCaseViewers(caseId).then(result => {
     assertValueOrArray(result, expected);
   })
@@ -25,7 +25,7 @@ exports.notExpiredCaseViewersEquals = (caseId, expected) => {
    assertValueOrArray(result, expected);
   })
 }
-exports.caseEditorsEquals = (caseId, expected) => {
+exports.allCaseEditorsEquals = (caseId, expected) => {
   return activityStore.getAllCaseEditors(caseId).then(result => {
     assertValueOrArray(result, expected);
   })
