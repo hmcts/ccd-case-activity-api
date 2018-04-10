@@ -3,8 +3,20 @@ var config = require('config');
 var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
 var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
 var moment = require('moment');
+var chai = require("chai");
+var sinon = require("sinon");
+var sinonChai = require("sinon-chai");
+chai.should();
+var expect = chai.expect;
+chai.use(sinonChai);
+var sandbox = sinon.createSandbox();
 
 describe("activity service", () => {
+
+  afterEach(function () {
+    // completely restore all fakes created through the sandbox
+    sandbox.restore();
+  });
 
   const CASE_ID = 55;
   const USER_ID = 67;
@@ -14,39 +26,38 @@ describe("activity service", () => {
   let pipStub;
 
   it("addActivity should create a redis pipeline with the correct redis commands for edit", () => {
-    pipStub = jasmine.createSpyObj(redis, ['pipeline']);
+    pipStub = sinon.stub();
     pipStub.exec = () => "result";
-    spyOn(redis, 'pipeline').andReturn(pipStub);
-    spyOn(ttlScoreGenerator, 'getScore').andReturn(SCORE);
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
+    sandbox.stub(redis, 'pipeline').returns(pipStub);
+    sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { id: USER_ID }, 'edit');
 
-    expect(redis.pipeline).toHaveBeenCalledWith([['zadd', `case:${CASE_ID}:editors`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
-    expect(config.get).toHaveBeenCalledWith('redis.userDetailsTtlSec');
-    expect(result).toEqual("result");
+    expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:editors`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
+    expect(config.get).to.have.been.calledWith('redis.userDetailsTtlSec');
+    expect(result).to.equal("result");
   });
 
   it("addActivity should create a redis pipeline with the correct redis commands for view", () => {
-    pipStub = jasmine.createSpyObj(redis, ['pipeline']);
+    pipStub = sinon.stub();
     pipStub.exec = () => "result";
-    spyOn(redis, 'pipeline').andReturn(pipStub);
-    spyOn(ttlScoreGenerator, 'getScore').andReturn(SCORE);
+    sandbox.stub(redis, 'pipeline').returns(pipStub);
+    sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
 
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { id: USER_ID }, 'view')
-    expect(redis.pipeline).toHaveBeenCalledWith([['zadd', `case:${CASE_ID}:viewers`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
-    expect(config.get).toHaveBeenCalledWith('redis.userDetailsTtlSec');
-    expect(result).toEqual("result")
+    expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:viewers`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
+    expect(config.get).to.have.been.calledWith('redis.userDetailsTtlSec');
+    expect(result).to.equal("result")
   });
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
-    spyOn(moment, 'now').andReturn(TIMESTAMP);
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
-    spyOn(redis, "pipeline").andCallFake(function (arguments) {
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
-      pipStub = jasmine.createSpyObj(redis, ['pipeline']);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
         return pipStub;
@@ -59,10 +70,10 @@ describe("activity service", () => {
     const result = activityService.getActivities(['767', '888'], { id: 900 });
 
     result.then((content) => {
-      expect(redis.pipeline).toHaveBeenCalledWith([['zrangebyscore', 'case:767:viewers', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:viewers', TIMESTAMP, '+inf']]);
-      expect(redis.pipeline).toHaveBeenCalledWith([['zrangebyscore', 'case:767:editors', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:editors', TIMESTAMP, '+inf']]);
-      expect(redis.pipeline).toHaveBeenCalledWith([['get', 'user:242'], ['get', 'user:12']]);
-      expect(content).toEqual([{
+      expect(redis.pipeline).to.have.been.calledWith([['zrangebyscore', 'case:767:viewers', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:viewers', TIMESTAMP, '+inf']]);
+      expect(redis.pipeline).to.have.been.calledWith([['zrangebyscore', 'case:767:editors', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:editors', TIMESTAMP, '+inf']]);
+      expect(redis.pipeline).to.have.been.calledWith([['get', 'user:242'], ['get', 'user:12']]);
+      expect(content).deep.equal([{
         "caseId": "767",
         viewers: [{ forename: 'nayab', surname: 'gul' }],
         unknownViewers: 0,
@@ -80,11 +91,10 @@ describe("activity service", () => {
   })
 
   it("getActivities should return unknown users if users detail are missing", (done) => {
-    spyOn(moment, 'now').andReturn(TIMESTAMP);
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
-    spyOn(redis, "pipeline").andCallFake(function (arguments) {
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
-      pipStub = jasmine.createSpyObj(redis, ['pipeline']);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
         return pipStub;
@@ -97,7 +107,7 @@ describe("activity service", () => {
     const result = activityService.getActivities(['767', '888'], { id: 111 });
 
     result.then((content) => {
-      expect(content).toEqual([{
+      expect(content).deep.equal([{
         "caseId": "767",
         viewers: [],
         unknownViewers: 1,
@@ -115,11 +125,10 @@ describe("activity service", () => {
   })
 
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
-    spyOn(moment, 'now').andReturn(TIMESTAMP);
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
-    spyOn(redis, "pipeline").andCallFake(function (arguments) {
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
-      pipStub = jasmine.createSpyObj(redis, ['pipeline']);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
@@ -132,7 +141,7 @@ describe("activity service", () => {
     const result = activityService.getActivities(['767', '888'], { id: 242 });
 
     result.then((content) => {
-      expect(content).toEqual([{
+      expect(content).deep.equal([{
         "caseId": "767",
         viewers: [],
         unknownViewers: 0,
@@ -150,11 +159,10 @@ describe("activity service", () => {
   })
 
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
-    spyOn(moment, 'now').andReturn(TIMESTAMP);
-    spyOn(config, 'get').andReturn(USER_DETAILS_TTL);
-    spyOn(redis, "pipeline").andCallFake(function (arguments) {
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
-      pipStub = jasmine.createSpyObj(redis, ['pipeline']);
       if (argStr.includes('zrangebyscore')) {
         //the following userIds will be returned for both viewers & editors
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
@@ -170,7 +178,7 @@ describe("activity service", () => {
 
     result.then((content) => {
       // don't expect unknown users since the unknown user is the requester
-      expect(content).toEqual([{
+      expect(content).deep.equal([{
         "caseId": "767",
         viewers: [],
         unknownViewers: 0,

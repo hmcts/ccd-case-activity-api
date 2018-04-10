@@ -6,7 +6,7 @@
     "setup": "cross-env NODE_PATH=. node --version",
     "start": "cross-env NODE_PATH=. node server.js",
     "e2e-test": "mocha test/e2e --timeout 15000",
-    "test": "jasmine-node test/spec/ --forceexit",
+    "test": "mocha --recursive test/spec",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 'test/e2e/*.spec.js' jasmine-node test/spec/ -- --forceexit",
     "test:nsp": "nsp check",
     "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
@@ -25,7 +25,9 @@
     "moment": "^2.19.3",
     "morgan": "~1.8.1",
     "node-cron": "^1.2.1",
-    "node-fetch": "^1.7.0"
+    "node-fetch": "^1.7.0",
+    "sinon": "^4.5.0",
+    "sinon-chai": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.0.2",
