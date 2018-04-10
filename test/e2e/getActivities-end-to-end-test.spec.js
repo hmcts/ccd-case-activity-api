@@ -26,6 +26,8 @@ chai.use(chaiHttp);
 
 /* Relies on activityTtlSec:5, userDetailsTtlSec:2 */
 
+/* eslint indent: 0 */// OFF
+
 describe('Activity Service - GetActivities', () => {
   beforeEach(() => redis.flushall());
 

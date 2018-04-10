@@ -26,7 +26,6 @@ describe('Activity Service store cleanup', () => {
   const CASE_ID = 55;
 
   it('should cleanup expired activities and list of cases with activities', (done) => {
-
     // these activities happen way before the cleanup job runs. They will have expired by that time
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
@@ -62,7 +61,6 @@ describe('Activity Service store cleanup', () => {
   });
 
   it('should not touch unexpired activities', (done) => {
-
     // these activities happen way before the cleanup job runs. They will have expired by that time
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
@@ -92,7 +90,6 @@ describe('Activity Service store cleanup', () => {
   });
 
   it('should cleanup expired user details', (done) => {
-
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
     const a3 = testUtils.addActivity(10, CASE_ID, 'edit');
