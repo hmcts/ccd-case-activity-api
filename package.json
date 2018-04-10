@@ -5,9 +5,11 @@
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
     "start": "cross-env NODE_PATH=. node server.js",
-    "e2e-test": "mocha test/e2e --timeout 15000",
     "test": "mocha --recursive test/spec",
-    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 'test/e2e/*.spec.js' jasmine-node test/spec/ -- --forceexit",
+    "test:end2end": "mocha test/e2e --timeout 15000",
+    "test:smoke": "echo SMOKE TESTS NOT CONFIGURED",
+    "test:functional": "echo 'TODO - FUNCTIONAL TEST'",
+    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 --recursive test/",
     "test:nsp": "nsp check",
     "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
     "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
