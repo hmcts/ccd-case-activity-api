@@ -30,6 +30,10 @@ variable "cors_origin" {
   default = "https://www-ccd.nonprod.platform.hmcts.net"
 }
 
+variable "redis_ssl_enabled" {
+  default = "true"
+}
+
 variable "redis_key_prefix" {
   default = "activity:"
 }

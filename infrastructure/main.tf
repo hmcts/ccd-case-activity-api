@@ -22,6 +22,7 @@ module "ccd-case-activity-api" {
     REDIS_HOST = "${module.redis-activity-service.host_name}"
     REDIS_PORT = "${module.redis-activity-service.redis_port}"
     REDIS_PASSWORD = "${module.redis-activity-service.access_key}"
+    REDIS_SSL_ENABLED = ${"var.redis_ssl_enabled}"
     REDIS_KEY_PREFIX = "${var.redis_key_prefix}"
     REDIS_ACTIVITY_TTL = "${var.redis_activity_ttl_sec}"
     REDIS_USER_DETAILS_TTL = "${var.redis_user_details_ttl_sec}"

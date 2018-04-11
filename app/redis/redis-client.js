@@ -10,6 +10,7 @@ const redis = new Redis({
   port: config.get('redis.port'),
   host: config.get('redis.host'),
   password: config.get('redis.password'),
+  tls: config.get('redis.ssl'),
   keyPrefix: config.get('redis.keyPrefix'),
   // log unhandled redis errors
   showFriendlyErrorStack: ENV === 'test' || ENV === 'dev',
