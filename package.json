@@ -7,7 +7,7 @@
     "start": "cross-env NODE_PATH=. node server.js",
     "test": "mocha --recursive test/spec",
     "test:end2end": "mocha test/e2e --timeout 15000",
-    "test:smoke": "echo SMOKE TESTS NOT CONFIGURED",
+    "test:smoke": "mocha --timeout 15000 --grep smoke test/e2e",
     "test:functional": "echo 'TODO - FUNCTIONAL TEST'",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 --recursive test/",
     "test:nsp": "nsp check",

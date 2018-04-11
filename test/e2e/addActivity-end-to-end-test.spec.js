@@ -23,7 +23,7 @@ chai.use(chaiHttp);
 describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
   beforeEach(() => redis.flushall());
 
-  it('should POST a user activity on a case', (done) => {
+  it('smoke - should POST a user activity on a case', (done) => {
     const body = {
       activity: 'view',
     };

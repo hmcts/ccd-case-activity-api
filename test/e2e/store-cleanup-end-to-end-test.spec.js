@@ -89,7 +89,7 @@ describe('Activity Service store cleanup', () => {
     });
   });
 
-  it('should cleanup expired user details', (done) => {
+  it('smoke - should cleanup expired user details', (done) => {
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
     const a3 = testUtils.addActivity(10, CASE_ID, 'edit');

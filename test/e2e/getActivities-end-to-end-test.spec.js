@@ -33,7 +33,7 @@ describe('Activity Service - GetActivities', () => {
 
   after(() => redis.flushall());
 
-  it('should retrieve all activities for a case', (done) => {
+  it('smoke - should retrieve all activities for a case', (done) => {
     const a1 = testUtils.addActivity(1242, 111, 'view', FORENAME, SURNAME);
     const a2 = testUtils.addActivity(10, 111, 'view', FORENAME, SURNAME);
     const a3 = testUtils.addActivity(10, 121, 'edit', FORENAME, SURNAME);
