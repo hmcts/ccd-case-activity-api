@@ -35,11 +35,11 @@ variable "redis_key_prefix" {
 }
 
 variable "redis_activity_ttl_sec" {
-  default = "1200"
+  default = "2"
 }
 
 variable "redis_user_details_ttl_sec" {
-  default = "86400"
+  default = "600"
 }
 
 variable "app_request_timeout_sec" {
