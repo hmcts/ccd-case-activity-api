@@ -1,11 +1,4 @@
 const config = require('config');
-
-const { REDIS_HOST } = process.env;
-const host = config.get('redis.host');
-
-console.log(`@@REDIS_HOST ${REDIS_HOST}`);
-console.log(`@@host ${host}`);
-
 const debug = require('debug')('ccd-case-activity-web:redis-client');
 const Redis = require('ioredis');
 
