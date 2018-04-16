@@ -1,5 +1,5 @@
 const userResolver = require('./user-resolver');
-const authorizedRolesExtractor = require('./authorised-roles-extractor');
+const rolesBasedAuthorizer = require('./roles-based-authorizer');
 const userIdExtractor = require('./user-id-extractor');
 
 const AUTHORIZATION = 'Authorization';
@@ -20,11 +20,7 @@ const ERROR_UNAUTHORISED_USER_ID = {
 };
 
 const authorizeRoles = (request, user) => new Promise((resolve, reject) => {
-  const roles = authorizedRolesExtractor.extract(request, user);
-
-  if (roles
-        && roles.length
-        && !roles.some(role => user.roles.includes(role))) {
+  if (!rolesBasedAuthorizer.isUserAuthorized(request, user)) {
     reject(ERROR_UNAUTHORISED_ROLE);
   } else {
     resolve();
