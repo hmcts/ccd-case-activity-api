@@ -20,7 +20,7 @@ const ERROR_UNAUTHORISED_USER_ID = {
 };
 
 const authorizeRoles = (request, user) => new Promise((resolve, reject) => {
-  const roles = authorizedRolesExtractor.extract(request);
+  const roles = authorizedRolesExtractor.extract(request, user);
 
   if (roles
         && roles.length

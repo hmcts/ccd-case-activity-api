@@ -30,6 +30,14 @@ variable "cors_origin" {
   default = "https://www-ccd.nonprod.platform.hmcts.net"
 }
 
+variable "auth_white_list" {
+  default = "^caseworker-.+"
+}
+
+variable "auth_black_list" {
+  default = "solicitor"
+}
+
 variable "redis_ssl_enabled" {
   default = "true"
 }

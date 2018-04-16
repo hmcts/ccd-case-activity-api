@@ -18,6 +18,8 @@ module "ccd-case-activity-api" {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
     /* TODO Need to change the below to the external hostnames once set up */
     CORS_ORIGIN_WHITELIST = "https://ccd-case-management-web-${local.env_ase_url},${var.cors_origin}"
+    AUTH_WHITE_LIST = "${var.auth_white_list}"
+    AUTH_BLACK_LIST = "${var.auth_black_list}"
     IDAM_BASE_URL = "${var.idam_api_url}"
     REDIS_HOST = "${module.redis-activity-service.host_name}"
     REDIS_PORT = "${module.redis-activity-service.redis_port}"

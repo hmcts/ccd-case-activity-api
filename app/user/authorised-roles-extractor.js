@@ -1,3 +1,5 @@
-const extract = () => undefined;
+require 
+
+const extract = (request, user) => undefined;
 
 exports.extract = extract;
