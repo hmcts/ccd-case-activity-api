@@ -2,8 +2,10 @@ const authorizer = require('./white-black-list-roles-authorizer');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-web:roles-based-authorizer');
 
-const whitelist = config.get('security.auth_whitelist').split(',');
-const blacklist = config.get('security.auth_blacklist').split(',');
+const whitelist = config.get('security.auth_whitelist') ?
+  config.get('security.auth_whitelist').split(',') : [];
+const blacklist = config.get('security.auth_blacklist') ?
+  config.get('security.auth_blacklist').split(',') : [];
 
 const isUserAuthorized = (request, user) => {
   const authorized = authorizer.isUserAuthorized(user.roles, whitelist, blacklist);
@@ -11,4 +13,4 @@ const isUserAuthorized = (request, user) => {
   return authorized;
 };
 
-exports.extract = isUserAuthorized;
+exports.isUserAuthorized = isUserAuthorized;
