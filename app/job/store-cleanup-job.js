@@ -48,7 +48,7 @@ const storeCleanup = () => {
     return pipeline(casesWithoutPrefix).exec()
       .then(pipelineOutcome => logPipelineFailures(pipelineOutcome, 'error in store cleanup job'))
       .catch((err) => {
-        console.error('Error in getCasesWithActivities', err.message);
+        debug('Error in getCasesWithActivities', err.message);
       });
   });
 };

@@ -6,9 +6,13 @@ idam:
 redis:
   host: REDIS_HOST
   port: REDIS_PORT
+  password: REDIS_PASSWORD
+  ssl: REDIS_SSL_ENABLED
   keyPrefix: REDIS_KEY_PREFIX
   activityTtlSec: REDIS_ACTIVITY_TTL
   userDetailsTtlSec: REDIS_USER_DETAILS_TTL
 app:
   requestTimeoutSec: APP_REQUEST_TIMEOUT
   storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB
+appInsights:
+  instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY

@@ -1,3 +1,7 @@
+const enableAppInsights = require('./app/app-insights/app-insights');
+
+enableAppInsights();
+
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
@@ -49,7 +53,7 @@ app.use((req, res, next) => {
 // FIXME `next` MUST be kept for error handling, even though it causes linting to fail
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
-  console.error('Error processing request', err);
+  debug(`Error processing request: ${err}`);
 
   // set locals, only providing error in development
   res.locals.message = err.message;

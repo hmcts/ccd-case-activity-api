@@ -4,10 +4,10 @@ Real-time tracking of case activity (viewers, editors,...)
 ## Quickstart
 
 ```
-$ git clone https://git.reform.hmcts.net/case-management/ccd-case-activity-web.git
+$ git clone https://github.com/hmcts/ccd-case-activity-api.git
 $ cd ccd-case-activity-web
-$ npm install
-$ npm start
+$ yarn install
+$ yarn start
 ```
 ## Setup Redis with Docker
 To pull the latest docker image from docker store just type:
@@ -43,7 +43,7 @@ Configuration is achieved through [node-config](https://github.com/lorenwest/nod
 The tests can be run using:
 
 ```
-$ npm test
+$ yarn test
 ```
 
 ## End to End tests
@@ -52,7 +52,7 @@ The end to end tests require a running instance of Redis. Beware before each tes
 The tests can be run using:
 
 ```
-$ npm run e2e-test
+$ yarn test:end2end
 ```
 
 ## Some notes on development and test config
@@ -60,7 +60,7 @@ You need to set the NODE_ENV to make use of environment configuration and DEBUG 
 ```
 $ export NODE_ENV=dev
 $ export DEBUG='ccd-case-activity-web:*'
-$ npm start
+$ yarn start
 
 > ccd-case-activity-web@0.0.1 start /Users/fatiho/Documents/hmcts/ws-webstorm/ccd-case-activity-web
 > node ./bin/www

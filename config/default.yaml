@@ -6,9 +6,13 @@ idam:
 redis:
   host: localhost
   port: 6379
-  keyPrefix: "activity-dev:"
-  activityTtlSec: 1200
-  userDetailsTtlSec: 86400
+  password: "testPassword"
+  ssl: false
+  keyPrefix: "activity:"
+  activityTtlSec: 5
+  userDetailsTtlSec: 2
 app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"
+appInsights:
+  instrumentationKey: "some-key"

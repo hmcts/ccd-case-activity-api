@@ -1,7 +1,9 @@
+const debug = require('debug')('ccd-case-activity-web:utils');
+
 exports.ifNotTimedOut = (request, f) => {
   if (!request.timedout) {
     f();
   } else {
-    console.warn('request timed out');
+    debug('request timed out');
   }
 };

@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 
 var debug = require('debug')('ccd-case-activity-web:server');
 var http = require('http');
@@ -14,6 +14,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3460');
+console.log('Starting on port ' + port);
 app.set('port', port);
 
 /**

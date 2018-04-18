@@ -18,14 +18,14 @@ const should = chai.should(); // eslint-disable-line no-unused-vars
 
 chai.use(chaiHttp);
 
+/* Relies on activityTtlSec:5, userDetailsTtlSec:2 */
+
 describe('Activity Service store cleanup', () => {
   beforeEach(() => redis.flushall());
 
   const CASE_ID = 55;
 
   it('should cleanup expired activities and list of cases with activities', (done) => {
-    /* Depends on activityTtlSec being 5 seconds */
-
     // these activities happen way before the cleanup job runs. They will have expired by that time
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
@@ -33,8 +33,8 @@ describe('Activity Service store cleanup', () => {
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
-        activityAssert.caseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.caseEditorsEquals(CASE_ID, ['10'])]))
+        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+        activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
       .catch(error => done(error));
 
     // these activities happen just before the cleanup job runs. They won't have expired yet
@@ -53,16 +53,14 @@ describe('Activity Service store cleanup', () => {
     const AfterCleanup = 10 * 1000;
     delayed(AfterCleanup, () => {
       Promise.all([
-        activityAssert.caseViewersEquals(CASE_ID, ['88', '98']),
-        activityAssert.caseEditorsEquals(CASE_ID, ['198'])])
+        activityAssert.allCaseViewersEquals(CASE_ID, ['88', '98']),
+        activityAssert.allCaseEditorsEquals(CASE_ID, ['198'])])
         .then(() => done())
         .catch(error => done(error));
     });
   });
 
   it('should not touch unexpired activities', (done) => {
-    /* Depends on activityTtlSec being 5 seconds */
-
     // these activities happen way before the cleanup job runs. They will have expired by that time
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
@@ -70,8 +68,8 @@ describe('Activity Service store cleanup', () => {
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
-        activityAssert.caseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.caseEditorsEquals(CASE_ID, ['10']),
+        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+        activityAssert.allCaseEditorsEquals(CASE_ID, ['10']),
         // This should no effect since none of the items are expired
         server.forceStoreCleanup()]))
       .catch(error => done(error));
@@ -84,24 +82,22 @@ describe('Activity Service store cleanup', () => {
     const AfterCleanup = 10 * 1000;
     delayed(AfterCleanup, () => {
       Promise.all([
-        activityAssert.caseViewersEquals(CASE_ID, []),
-        activityAssert.caseEditorsEquals(CASE_ID, [])])
+        activityAssert.allCaseViewersEquals(CASE_ID, []),
+        activityAssert.allCaseEditorsEquals(CASE_ID, [])])
         .then(() => done())
         .catch(error => done(error));
     });
   });
 
-  it('should cleanup expired user details', (done) => {
-    /* Depends on userDetailsTtlSec being 2 seconds */
-
+  it('smoke - should cleanup expired user details', (done) => {
     const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
     const a2 = testUtils.addActivity(10, CASE_ID, 'view');
     const a3 = testUtils.addActivity(10, CASE_ID, 'edit');
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
-        activityAssert.caseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.caseEditorsEquals(CASE_ID, ['10'])]))
+        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+        activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
       .catch(error => done(error));
 
     const AfterUserDetailsTTL = 4 * 1000;

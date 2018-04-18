@@ -9,6 +9,8 @@ const ENV = config.util.getEnv('NODE_ENV');
 const redis = new Redis({
   port: config.get('redis.port'),
   host: config.get('redis.host'),
+  password: config.get('redis.password'),
+  tls: config.get('redis.ssl'),
   keyPrefix: config.get('redis.keyPrefix'),
   // log unhandled redis errors
   showFriendlyErrorStack: ENV === 'test' || ENV === 'dev',
@@ -35,7 +37,7 @@ redis.extractPipelineResults = (pipelineOutcome) => {
 
 redis
   .on('error', (err) => {
-    console.error('Redis error', err.message);
+    debug(`Redis error: ${err.message}`);
   }).on('connect', () => {
     debug('connected to Redis');
   });

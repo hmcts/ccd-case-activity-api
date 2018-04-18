@@ -4,12 +4,24 @@ var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
 var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator)
 var addActivityRoute = require('../../../../app/routes/add-activity')(activityService)
 var httpMocks = require('node-mocks-http')
+var chai = require("chai");
+var sinon = require("sinon");
+var sinonChai = require("sinon-chai");
+chai.should();
+var expect = chai.expect;
+chai.use(sinonChai);
+var sandbox = sinon.createSandbox();
 
 function buildResponse() {
   return httpMocks.createResponse({ eventEmitter: require('events').EventEmitter })
 }
 
 describe("add activity route", () => {
+
+  afterEach(function () {
+    // completely restore all fakes created through the sandbox
+    sandbox.restore();
+  });
 
   it("should invoke activity service and return response on successful requests", (done) => {
     let req = {
@@ -21,16 +33,17 @@ describe("add activity route", () => {
     let next = () => { };
     var res = buildResponse()
     res.on('end', function () {
-      expect(res.statusCode).toEqual(201);
-      expect(res._getData()).toEqual('{"case":55,"user":"900","activity":"edit"}');
+      expect(res.statusCode).to.equal(201);
+      expect(res._getData()).to.equal('{"case":55,"user":"900","activity":"edit"}');
+      //seems not to be invoked
       done();
     });
-    spyOn(activityService, 'addActivity').andReturn(Promise.resolve('unused result'));
+    sandbox.stub(activityService, 'addActivity').returns(Promise.resolve('unused result'));
     addActivityRoute(req, res, next)
-    expect(activityService.addActivity).toHaveBeenCalledWith(req.params.caseid, req.authentication.user, req.body.activity)
+    expect(activityService.addActivity).to.have.been.calledWith(req.params.caseid, req.authentication.user, req.body.activity)
   });
 
-  it("should return status code 422 when activity is missing", (done) => {
+  it("should return status code 422 when activity is missing", () => {
     let req = {
       params: { caseid: 55 },
       body: {},
@@ -39,15 +52,14 @@ describe("add activity route", () => {
     };
 
     let res = buildResponse();
-    spyOn(activityService, 'addActivity');
+    sandbox.spy(activityService, 'addActivity');
     addActivityRoute(req, res, function (error) {
-      expect(error.status).toEqual(422)
+      expect(error.status).to.equal(422)
     });
-    expect(activityService.addActivity).not.toHaveBeenCalled();
-    done()
+    expect(activityService.addActivity).not.to.have.been.called;
   });
 
-  it("should return status code 422 when activity is unknown", (done) => {
+  it("should return status code 422 when activity is unknown", () => {
     let req = {
       params: { caseid: 55 },
       body: { activity: "unknown" },
@@ -56,12 +68,11 @@ describe("add activity route", () => {
     };
 
     var res = buildResponse();
-    spyOn(activityService, 'addActivity');
+    sandbox.spy(activityService, 'addActivity');
     addActivityRoute(req, res, function (error) {
-      expect(error.status).toEqual(422)
+      expect(error.status).to.equal(422)
     });
-    expect(activityService.addActivity).not.toHaveBeenCalled();
-    done()
+    expect(activityService.addActivity).not.to.have.been.called;
   });
 
   it("should not return a result when request is successful after it has timed out", (done) => {
@@ -77,9 +88,9 @@ describe("add activity route", () => {
     res.on('end', function () {
       done(new Error("Received unexpected response"))
     })
-    spyOn(activityService, 'addActivity').andReturn(Promise.resolve('unused result'));
+    sandbox.stub(activityService, 'addActivity').returns(Promise.resolve('unused result'));
     addActivityRoute(req, res, next);
-    expect(activityService.addActivity).toHaveBeenCalled();
+    expect(activityService.addActivity).to.have.been.called;
     //required to avoid false positives
     setTimeout(done)
   });
@@ -92,14 +103,14 @@ describe("add activity route", () => {
       timedout: true
     };
     let res = buildResponse();
-    spyOn(activityService, 'addActivity').andReturn(Promise.reject('error'));
+    sandbox.stub(activityService, 'addActivity').returns(Promise.reject('error'));
     res.on('end', function () {
       done(new Error("Received unexpected response"))
     });
     addActivityRoute(req, res, function (error) {
       done(new Error("Received unexpected response"))
     });
-    expect(activityService.addActivity).toHaveBeenCalled();
+    expect(activityService.addActivity).to.have.been.called;
     //required to avoid false positives
     setTimeout(done)
   })
