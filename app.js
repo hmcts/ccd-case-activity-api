@@ -1,3 +1,7 @@
+const enableAppInsights = require('./app/app-insights/app-insights');
+
+enableAppInsights();
+
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
