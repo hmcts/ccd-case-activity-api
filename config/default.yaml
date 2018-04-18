@@ -16,3 +16,5 @@ redis:
 app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"
+appInsights:
+  instrumentationKey: "some-key"
