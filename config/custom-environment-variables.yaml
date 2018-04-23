@@ -1,6 +1,8 @@
 security:
   cors_origin_methods: CORS_ORIGIN_METHODS
   cors_origin_whitelist: CORS_ORIGIN_WHITELIST
+  auth_whitelist: AUTH_WHITE_LIST
+  auth_blacklist: AUTH_BLACK_LIST
 idam:
   base_url: IDAM_BASE_URL
 redis:
