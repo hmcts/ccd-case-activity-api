@@ -4,6 +4,8 @@ const authorizer = require('./white-black-list-roles-authorizer');
 chai.should();
 const { expect } = chai;
 
+/* eslint-disable no-unused-expressions */  
+
 describe('white-black-list-roles-authorizer case single role', () => {
   it('should not authorize when whitelist and blacklist are empty', () => {
     const authorized = authorizer.isUserAuthorized(['caseworker-probate'], [], []);
