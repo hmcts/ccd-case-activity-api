@@ -1,6 +1,6 @@
 {
   "name": "ccd-case-activity-web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
@@ -19,16 +19,16 @@
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "applicationinsights": "^1.0.2",
-    "body-parser": "~1.17.1",
+    "body-parser": "^1.18.2",
     "chai-arrays": "^1.1.0",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "debug": "~2.6.3",
-    "express": "~4.15.2",
+    "express": "^4.16.0",
     "ioredis": "^3.1.4",
     "mock-require": "^2.0.2",
     "moment": "^2.19.3",
-    "morgan": "~1.8.1",
+    "morgan": "^1.9.0",
     "node-cron": "^1.2.1",
     "node-fetch": "^1.7.0",
     "sinon": "^4.5.0",
