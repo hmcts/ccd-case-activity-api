@@ -27,9 +27,9 @@ describe('Activity Service store cleanup', () => {
 
   it('should cleanup expired activities and list of cases with activities', (done) => {
     // these activities happen way before the cleanup job runs. They will have expired by that time
-    const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
-    const a2 = testUtils.addActivity(10, CASE_ID, 'view');
-    const a3 = testUtils.addActivity(10, CASE_ID, 'edit');
+    const a1 = testUtils.addActivity('1242', CASE_ID, 'view');
+    const a2 = testUtils.addActivity('10', CASE_ID, 'view');
+    const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
@@ -40,9 +40,9 @@ describe('Activity Service store cleanup', () => {
     // these activities happen just before the cleanup job runs. They won't have expired yet
     const BeforeCleanup = 5 * 1000;
     delayed(BeforeCleanup, () => {
-      testUtils.addActivity(88, CASE_ID, 'view').end();
-      testUtils.addActivity(98, CASE_ID, 'view').end();
-      testUtils.addActivity(198, CASE_ID, 'edit').end();
+      testUtils.addActivity('88', CASE_ID, 'view').end();
+      testUtils.addActivity('98', CASE_ID, 'view').end();
+      testUtils.addActivity('198', CASE_ID, 'edit').end();
     });
 
     delayed(7 * 1000, () => {
@@ -62,9 +62,9 @@ describe('Activity Service store cleanup', () => {
 
   it('should not touch unexpired activities', (done) => {
     // these activities happen way before the cleanup job runs. They will have expired by that time
-    const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
-    const a2 = testUtils.addActivity(10, CASE_ID, 'view');
-    const a3 = testUtils.addActivity(10, CASE_ID, 'edit');
+    const a1 = testUtils.addActivity('1242', CASE_ID, 'view');
+    const a2 = testUtils.addActivity('10', CASE_ID, 'view');
+    const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
@@ -90,9 +90,9 @@ describe('Activity Service store cleanup', () => {
   });
 
   it('smoke - should cleanup expired user details', (done) => {
-    const a1 = testUtils.addActivity(1242, CASE_ID, 'view');
-    const a2 = testUtils.addActivity(10, CASE_ID, 'view');
-    const a3 = testUtils.addActivity(10, CASE_ID, 'edit');
+    const a1 = testUtils.addActivity('1242', CASE_ID, 'view');
+    const a2 = testUtils.addActivity('10', CASE_ID, 'view');
+    const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
     Promise.all([a1, a2, a3]).then(() =>
       Promise.all([
@@ -103,8 +103,8 @@ describe('Activity Service store cleanup', () => {
     const AfterUserDetailsTTL = 4 * 1000;
     delayed(AfterUserDetailsTTL, () => {
       Promise.all([
-        activityAssert.userDetailsEquals(1242, undefined),
-        activityAssert.userDetailsEquals(10, undefined)])
+        activityAssert.userDetailsEquals('1242', undefined),
+        activityAssert.userDetailsEquals('10', undefined)])
         .then(() => done())
         .catch(error => done(error));
     });

@@ -19,7 +19,7 @@ describe("activity service", () => {
   });
 
   const CASE_ID = 55;
-  const USER_ID = 67;
+  const USER_ID = '67';
   const SCORE = 30;
   const USER_DETAILS_TTL = 15;
   const TIMESTAMP = 40;
@@ -67,7 +67,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: 900 });
+    const result = activityService.getActivities(['767', '888'], { id: '900' });
 
     result.then((content) => {
       expect(redis.pipeline).to.have.been.calledWith([['zrangebyscore', 'case:767:viewers', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:viewers', TIMESTAMP, '+inf']]);
@@ -96,7 +96,7 @@ describe("activity service", () => {
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
-        pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
+        pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
       } else {
         pipStub.exec = () => Promise.resolve([[null, null], [null, "{\"forename\":\"sam\",\"surname\":\"gamgee\"}"]]);
@@ -104,7 +104,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: 111 });
+    const result = activityService.getActivities(['767', '888'], { id: '111' });
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -138,7 +138,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: 242 });
+    const result = activityService.getActivities(['767', '888'], { id: '242' });
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -174,7 +174,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: 242 });
+    const result = activityService.getActivities(['767', '888'], { id: '242' });
 
     result.then((content) => {
       // don't expect unknown users since the unknown user is the requester

@@ -14,7 +14,7 @@ const activityAssert = require('./utils/activity-store-asserts');
 
 const should = chai.should(); // eslint-disable-line no-unused-vars
 
-const Token = JSON.stringify({ id: 242, forename: 'nayab', surname: 'gul' });
+const Token = JSON.stringify({ id: '242', forename: 'nayab', surname: 'gul' });
 
 chai.use(chaiHttp);
 
@@ -44,7 +44,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
 
         Promise.all([assertEndpointResult,
           activityAssert.allCaseViewersEquals(55, '242'),
-          activityAssert.userDetailsEquals(242, '{"forename":"nayab","surname":"gul"}')])
+          activityAssert.userDetailsEquals('242', '{"forename":"nayab","surname":"gul"}')])
           .then(() => done())
           .catch(error => done(error));
       });

@@ -20,7 +20,7 @@ const SURNAME = 'smith';
 const should = chai.should(); // eslint-disable-line no-unused-vars
 
 
-const Token = JSON.stringify({ id: 242, forename: 'nayab', surname: 'gul' });
+const Token = JSON.stringify({ id: '242', forename: 'nayab', surname: 'gul' });
 
 chai.use(chaiHttp);
 
@@ -34,9 +34,9 @@ describe('Activity Service - GetActivities', () => {
   after(() => redis.flushall());
 
   it('smoke - should retrieve all activities for a case', (done) => {
-    const a1 = testUtils.addActivity(1242, 111, 'view', FORENAME, SURNAME);
-    const a2 = testUtils.addActivity(10, 111, 'view', FORENAME, SURNAME);
-    const a3 = testUtils.addActivity(10, 121, 'edit', FORENAME, SURNAME);
+    const a1 = testUtils.addActivity('1242', 111, 'view', FORENAME, SURNAME);
+    const a2 = testUtils.addActivity('10', 111, 'view', FORENAME, SURNAME);
+    const a3 = testUtils.addActivity('10', 121, 'edit', FORENAME, SURNAME);
 
     Promise.all([a1, a2, a3])
       .then(() => {
@@ -64,9 +64,9 @@ describe('Activity Service - GetActivities', () => {
   });
 
   it('should retrieve all activities for a list of cases', (done) => {
-    const a1 = testUtils.addActivity(1242, 111, 'view', FORENAME, SURNAME);
-    const a2 = testUtils.addActivity(10, 111, 'view', FORENAME, SURNAME);
-    const a3 = testUtils.addActivity(10, 121, 'edit', FORENAME, SURNAME);
+    const a1 = testUtils.addActivity('1242', 111, 'view', FORENAME, SURNAME);
+    const a2 = testUtils.addActivity('10', 111, 'view', FORENAME, SURNAME);
+    const a3 = testUtils.addActivity('10', 121, 'edit', FORENAME, SURNAME);
 
     Promise.all([a1, a2, a3])
       .then(() => {
@@ -96,9 +96,9 @@ describe('Activity Service - GetActivities', () => {
   });
 
   it('should get only the non expired activities', (done) => {
-    const a1 = testUtils.addActivity(1242, 111, 'view', FORENAME, SURNAME);
-    const a2 = testUtils.addActivity(10, 111, 'view', FORENAME, SURNAME);
-    const a3 = testUtils.addActivity(10, 121, 'edit', FORENAME, SURNAME);
+    const a1 = testUtils.addActivity('1242', 111, 'view', FORENAME, SURNAME);
+    const a2 = testUtils.addActivity('10', 111, 'view', FORENAME, SURNAME);
+    const a3 = testUtils.addActivity('10', 121, 'edit', FORENAME, SURNAME);
 
     Promise.all([a1, a2, a3])
       .then(() => Promise.all([
@@ -109,9 +109,9 @@ describe('Activity Service - GetActivities', () => {
 
     const AfterActivitiesExpired = 7 * 1000;
     delayed(AfterActivitiesExpired, () => {
-      const a4 = testUtils.addActivity(88, 111, 'view', FORENAME, SURNAME);
-      const a5 = testUtils.addActivity(98, 111, 'view', FORENAME, SURNAME);
-      const a6 = testUtils.addActivity(198, 121, 'edit', FORENAME, SURNAME);
+      const a4 = testUtils.addActivity('88', 111, 'view', FORENAME, SURNAME);
+      const a5 = testUtils.addActivity('98', 111, 'view', FORENAME, SURNAME);
+      const a6 = testUtils.addActivity('198', 121, 'edit', FORENAME, SURNAME);
 
       Promise.all([a4, a5, a6])
         .then(() => {
@@ -154,9 +154,9 @@ describe('Activity Service - GetActivities', () => {
 
     const USER_EXPIRED_TIME = 3 * 1000;
     delayed(USER_EXPIRED_TIME, () => {
-      const a4 = testUtils.addActivity(88, 111, 'view', FORENAME, SURNAME);
-      const a5 = testUtils.addActivity(98, 111, 'view', FORENAME, SURNAME);
-      const a6 = testUtils.addActivity(198, 121, 'edit', FORENAME, SURNAME);
+      const a4 = testUtils.addActivity('88', 111, 'view', FORENAME, SURNAME);
+      const a5 = testUtils.addActivity('98', 111, 'view', FORENAME, SURNAME);
+      const a6 = testUtils.addActivity('198', 121, 'edit', FORENAME, SURNAME);
 
       Promise.all([a4, a5, a6])
         .then(() => {
