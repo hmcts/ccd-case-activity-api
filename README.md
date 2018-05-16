@@ -31,7 +31,7 @@ Once you get the Container Id run the following command with proper container id
 ```
 $ docker exec -it 8a1fd6f05643 /bin/bash
 ```
-Now you are in. You can run `redis-cli` to access the Redis Command Line Interface and execute commands like GET, SET, etc. 
+Now you are in. You can run `redis-cli` to access the Redis Command Line Interface and execute commands like GET, SET, etc.
 See [redis documentation](https://redis.io) for details
 
 ## Config
@@ -62,7 +62,7 @@ $ export NODE_ENV=dev
 $ export DEBUG='ccd-case-activity-api:*'
 $ yarn start
 
-> ccd-case-activity-api@0.0.1 start /Users/fatiho/Documents/hmcts/ws-webstorm/ccd-case-activity-api
+> ccd-case-activity-api@0.0.2 start /Users/fatiho/Documents/hmcts/ws-webstorm/ccd-case-activity-api
 > node ./bin/www
 
   ccd-case-activity-api:app starting application with environment: dev +0ms
