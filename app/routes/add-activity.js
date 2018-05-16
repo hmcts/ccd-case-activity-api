@@ -1,4 +1,4 @@
-const debug = require('debug')('ccd-case-activity-web:add-activity');
+const debug = require('debug')('ccd-case-activity-api:add-activity');
 const utils = require('../util/utils');
 
 const Activity = ['view', 'edit'];
