@@ -1,6 +1,5 @@
 const userResolver = require('./user-resolver');
 const rolesBasedAuthorizer = require('./roles-based-authorizer');
-const userIdExtractor = require('./user-id-extractor');
 
 const AUTHORIZATION = 'Authorization';
 const ERROR_TOKEN_MISSING = {
@@ -27,16 +26,6 @@ const authorizeRoles = (request, user) => new Promise((resolve, reject) => {
   }
 });
 
-const verifyRequestUserId = (request, user) => new Promise((resolve, reject) => {
-  const resourceUserId = userIdExtractor.extract(request);
-
-  if (resourceUserId && resourceUserId !== String(user.id)) {
-    reject(ERROR_UNAUTHORISED_USER_ID);
-  } else {
-    resolve();
-  }
-});
-
 const authorise = (request) => {
   let user;
   const bearerToken = request.get(AUTHORIZATION);
@@ -50,10 +39,7 @@ const authorise = (request) => {
     .then((tokenDetails) => {
       user = tokenDetails;
     })
-    .then(() => Promise.all([
-      authorizeRoles(request, user),
-      verifyRequestUserId(request, user),
-    ]))
+    .then(() => authorizeRoles(request, user))
     .then(() => user);
 };
 
