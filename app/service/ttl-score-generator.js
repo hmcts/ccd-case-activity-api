@@ -1,6 +1,6 @@
 const config = require('config');
 const moment = require('moment');
-const debug = require('debug')('ccd-case-activity-web:score-generator');
+const debug = require('debug')('ccd-case-activity-api:score-generator');
 
 exports.getScore = () => {
   const now = moment();

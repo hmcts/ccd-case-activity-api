@@ -1,5 +1,5 @@
 const config = require('config');
-const debug = require('debug')('ccd-case-activity-web:redis-client');
+const debug = require('debug')('ccd-case-activity-api:redis-client');
 const Redis = require('ioredis');
 
 const ERROR = 0;
