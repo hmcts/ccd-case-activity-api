@@ -34,7 +34,7 @@ module "ccd-case-activity-api" {
 }
 
 module "redis-activity-service" {
-  source   = "git@github.com:contino/moj-module-redis?ref=master"
+  source   = "git@github.com:hmcts/moj-module-redis?ref=master"
   product  = "${var.product}-activity-service"
   location = "${var.location}"
   env      = "${var.env}"
