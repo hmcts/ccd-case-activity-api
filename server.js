@@ -6,7 +6,7 @@
 
 var app = require('./app');
 
-var debug = require('debug')('ccd-case-activity-web:server');
+var debug = require('debug')('ccd-case-activity-api:server');
 var http = require('http');
 
 /**

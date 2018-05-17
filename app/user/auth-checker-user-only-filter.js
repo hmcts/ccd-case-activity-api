@@ -1,5 +1,5 @@
 const userRequestAuthorizer = require('./user-request-authorizer');
-const debug = require('debug')('ccd-case-activity-web:auth-checker-filter');
+const debug = require('debug')('ccd-case-activity-api:auth-checker-filter');
 
 const authCheckerUserOnlyFilter = (req, res, next) => {
   req.authentication = {};
