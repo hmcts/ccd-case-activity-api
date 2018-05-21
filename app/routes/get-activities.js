@@ -1,4 +1,4 @@
-const debug = require('debug')('ccd-case-activity-web:get-activities');
+const debug = require('debug')('ccd-case-activity-api:get-activities');
 const utils = require('../util/utils');
 
 const { ifNotTimedOut } = utils;

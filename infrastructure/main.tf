@@ -7,7 +7,7 @@ locals {
 }
 
 module "ccd-case-activity-api" {
-  source   = "git@github.com:contino/moj-module-webapp?ref=master"
+  source   = "git@github.com:hmcts/moj-module-webapp?ref=master"
   product  = "${var.product}-case-activity-api"
   location = "${var.location}"
   env      = "${var.env}"
