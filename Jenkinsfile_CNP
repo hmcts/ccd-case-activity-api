@@ -6,9 +6,10 @@ properties(
 
 @Library("Infrastructure")
 
+def type = "nodejs"
 def product = "ccd"
 def component = "case-activity-api"
 
-withPipeline("nodejs", product, component) {
+withPipeline(type, product, component) {
 
 }
