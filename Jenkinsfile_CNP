@@ -1,0 +1,14 @@
+#!groovy
+properties(
+        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/ccd-api-gateway'],
+         pipelineTriggers([[$class: 'GitHubPushTrigger']])]
+)
+
+@Library("Infrastructure")
+
+def product = "ccd"
+def component = "case-activity-api"
+
+withPipeline("nodejs", product, component) {
+
+}
