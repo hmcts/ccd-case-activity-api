@@ -1,4 +1,8 @@
-# ccd-case-activity-api [![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api)
+# ccd-case-activity-api
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2c055c7bb9547beb87f7f70e5e642f6)](https://www.codacy.com/app/adr1ancho/ccd-case-activity-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hmcts/ccd-case-activity-api&amp;utm_campaign=Badge_Grade)
+
 Real-time tracking of case activity (viewers, editors,...)
 
 ## Quickstart
