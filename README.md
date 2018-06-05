@@ -1,7 +1,11 @@
 # ccd-case-activity-api
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api)
+[![codecov](https://codecov.io/gh/hmcts/ccd-case-activity-api/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/ccd-case-activity-api)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2c055c7bb9547beb87f7f70e5e642f6)](https://www.codacy.com/app/adr1ancho/ccd-case-activity-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hmcts/ccd-case-activity-api&amp;utm_campaign=Badge_Grade)
+[![Known Vulnerabilities](https://snyk.io/test/github/hmcts/ccd-case-activity-api/badge.svg)](https://snyk.io/test/github/hmcts/ccd-case-activity-api)
+[![HitCount](http://hits.dwyl.io/hmcts/ccd-case-activity-api.svg)](http://hits.dwyl.io/hmcts/ccd-case-activity-api)
+[![Issue Stats](http://issuestats.com/github/hmcts/ccd-case-activity-api/badge/pr)](http://issuestats.com/github/hmcts/ccd-case-activity-api)
 
 Real-time tracking of case activity (viewers, editors,...)
 
