@@ -18,6 +18,10 @@ variable "ilbIp" {}
 
 variable "subscription" {}
 
+variable "capacity" {
+  default = "1"
+}
+
 variable "vault_section" {
   default = "test"
 }
@@ -47,11 +51,11 @@ variable "redis_key_prefix" {
 }
 
 variable "redis_activity_ttl_sec" {
-  default = "2"
+  default = "5"
 }
 
 variable "redis_user_details_ttl_sec" {
-  default = "600"
+  default = "6000"
 }
 
 variable "app_request_timeout_sec" {
