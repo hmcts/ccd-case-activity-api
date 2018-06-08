@@ -26,8 +26,8 @@ module "ccd-case-activity-api" {
     REDIS_PASSWORD = "${module.redis-activity-service.access_key}"
     REDIS_SSL_ENABLED = "${var.redis_ssl_enabled}"
     REDIS_KEY_PREFIX = "${var.redis_key_prefix}"
-    REDIS_ACTIVITY_TTL = "${var.redis_activity_ttl_sec}"
-    REDIS_USER_DETAILS_TTL = "${var.redis_user_details_ttl_sec}"
+    REDIS_ACTIVITY_TTL = "5"
+    REDIS_USER_DETAILS_TTL = "6000"
     APP_REQUEST_TIMEOUT = "${var.app_request_timeout_sec}"
     APP_STORE_CLEANUP_CRONTAB = "${var.app_store_cleanup_crontab}"
   }
