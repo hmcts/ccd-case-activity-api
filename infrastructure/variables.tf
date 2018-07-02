@@ -65,3 +65,7 @@ variable "app_request_timeout_sec" {
 variable "app_store_cleanup_crontab" {
   default = "* * * * *"
 }
+
+variable "common_tags" {
+  type = "map"
+}
