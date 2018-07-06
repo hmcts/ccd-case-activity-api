@@ -13,6 +13,7 @@ module "ccd-case-activity-api" {
   env      = "${var.env}"
   ilbIp    = "${var.ilbIp}"
   subscription = "${var.subscription}"
+  common_tags  = "${var.common_tags}"
 
   app_settings = {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
@@ -39,4 +40,5 @@ module "redis-activity-service" {
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  common_tags  = "${var.common_tags}"
 }
