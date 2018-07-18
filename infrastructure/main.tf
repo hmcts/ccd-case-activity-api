@@ -13,6 +13,7 @@ module "ccd-case-activity-api" {
   env      = "${var.env}"
   ilbIp    = "${var.ilbIp}"
   subscription = "${var.subscription}"
+  common_tags  = "${var.common_tags}"
 
   app_settings = {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
@@ -26,8 +27,8 @@ module "ccd-case-activity-api" {
     REDIS_PASSWORD = "${module.redis-activity-service.access_key}"
     REDIS_SSL_ENABLED = "${var.redis_ssl_enabled}"
     REDIS_KEY_PREFIX = "${var.redis_key_prefix}"
-    REDIS_ACTIVITY_TTL = "${var.redis_activity_ttl_sec}"
-    REDIS_USER_DETAILS_TTL = "${var.redis_user_details_ttl_sec}"
+    REDIS_ACTIVITY_TTL = "5"
+    REDIS_USER_DETAILS_TTL = "6000"
     APP_REQUEST_TIMEOUT = "${var.app_request_timeout_sec}"
     APP_STORE_CLEANUP_CRONTAB = "${var.app_store_cleanup_crontab}"
   }
@@ -39,4 +40,5 @@ module "redis-activity-service" {
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  common_tags  = "${var.common_tags}"
 }
