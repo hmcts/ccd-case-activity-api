@@ -1,4 +1,4 @@
-# ccd-case-activity-api [![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api)
+# ccd-case-activity-api [![Build Status](https://travis-ci.org/hmcts/ccd-case-activity-api.svg?branch=master)](https://travis-ci.org/hmcts/ccd-case-activity-api) [![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/ccd-case-activity-api.svg)](https://greenkeeper.io/)
 Real-time tracking of case activity (viewers, editors,...)
 
 ## Quickstart
