@@ -12,4 +12,8 @@ def component = "case-activity-api"
 
 withPipeline(type, product, component) {
 
+    afterCheckout {
+        sh "yarn cache clean"
+    }
+
 }
