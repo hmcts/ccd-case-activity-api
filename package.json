@@ -20,7 +20,7 @@
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "applicationinsights": "^1.0.2",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "chai-arrays": "^1.1.0",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
