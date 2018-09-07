@@ -22,10 +22,6 @@ variable "capacity" {
   default = "1"
 }
 
-variable "vault_section" {
-  default = "test"
-}
-
 variable "idam_api_url" {
   default = "http://betaDevBccidamAppLB.reform.hmcts.net"
 }
