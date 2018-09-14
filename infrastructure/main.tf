@@ -3,7 +3,7 @@ locals {
 }
 
 module "ccd-case-activity-api" {
-  source   = "git@github.com:hmcts/moj-module-webapp?ref=master"
+  source   = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product  = "${var.product}-case-activity-api"
   location = "${var.location}"
   env      = "${var.env}"
@@ -31,7 +31,7 @@ module "ccd-case-activity-api" {
 }
 
 module "redis-activity-service" {
-  source   = "git@github.com:hmcts/moj-module-redis?ref=master"
+  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = "${var.product}-activity-service"
   location = "${var.location}"
   env      = "${var.env}"
