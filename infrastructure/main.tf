@@ -10,6 +10,8 @@ module "ccd-case-activity-api" {
   ilbIp    = "${var.ilbIp}"
   subscription = "${var.subscription}"
   common_tags  = "${var.common_tags}"
+  asp_name = "${var.asp_name}"
+  asp_rg = "${var.asp_rg}"
 
   app_settings = {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"

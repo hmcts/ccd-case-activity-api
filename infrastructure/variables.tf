@@ -65,3 +65,11 @@ variable "app_store_cleanup_crontab" {
 variable "common_tags" {
   type = "map"
 }
+
+variable "asp_name" {
+  type = "string"
+}
+
+variable "asp_rg" {
+  type = "string"
+}
