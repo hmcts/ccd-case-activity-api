@@ -46,7 +46,7 @@
     "istanbul": "^0.4.5",
     "jasmine-node": "^1.14.5",
     "mocha": "^3.4.2",
-    "node-mocks-http": "^1.6.5",
+    "node-mocks-http": "^1.7.0",
     "nsp": "^3.2.1",
     "sonar-scanner": "^3.0.3"
   }
