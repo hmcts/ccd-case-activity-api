@@ -7,6 +7,7 @@ locals {
   sharedResourceGroup = "${(var.env == "preview" || var.env == "spreview") ? local.previewResourceGroup : local.nonPreviewResourceGroup}"
 
   sharedAppServicePlan = "${var.raw_product}-${var.env}"
+  sharedASPResourceGroup = "${var.raw_product}-shared-${var.env}"
 }
 
 module "ccd-case-activity-api" {
@@ -18,7 +19,7 @@ module "ccd-case-activity-api" {
   subscription = "${var.subscription}"
   common_tags  = "${var.common_tags}"
   asp_name = "${(var.asp_name == "use_shared") ? local.sharedAppServicePlan : var.asp_name}"
-  asp_rg = "${(var.asp_rg == "use_shared") ? local.sharedResourceGroup : var.asp_rg}"
+  asp_rg = "${(var.asp_rg == "use_shared") ? local.sharedASPResourceGroup : var.asp_rg}"
 
   app_settings = {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
