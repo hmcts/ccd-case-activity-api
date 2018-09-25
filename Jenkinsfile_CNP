@@ -21,6 +21,8 @@ withPipeline(type, product, component) {
         enableSlackNotifications('#ccd-pr-builds')
     }
 
+    enableDockerBuild()
+
     afterCheckout {
         sh "yarn cache clean"
     }
