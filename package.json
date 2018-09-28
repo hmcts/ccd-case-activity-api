@@ -2,6 +2,9 @@
   "name": "ccd-case-activity-api",
   "version": "0.0.2",
   "private": true,
+  "engines": {
+    "node": "^8.9.4"
+  },
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
     "start": "cross-env NODE_PATH=. node server.js",
