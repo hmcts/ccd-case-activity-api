@@ -27,7 +27,7 @@
     "chai-arrays": "^1.1.0",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
-    "debug": "~2.6.3",
+    "debug": "~4.0.1",
     "express": "^4.16.0",
     "ioredis": "^3.1.4",
     "mock-require": "^2.0.2",
