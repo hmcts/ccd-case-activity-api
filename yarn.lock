@@ -1690,9 +1690,11 @@ nise@^1.2.0:
     path-to-regexp "^1.7.0"
     text-encoding "^0.6.4"
 
-node-cron@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/node-cron/-/node-cron-1.2.1.tgz#8c90bc5dc723a56289b0786655ab4a1c4cb60368"
+node-cron@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/node-cron/-/node-cron-2.0.1.tgz#c30ba49a34a0123dec3ccfa3cda752f09a872954"
+  dependencies:
+    tz-offset "0.0.1"
 
 node-fetch@^1.7.0:
   version "1.7.3"
@@ -2404,6 +2406,10 @@ type-is@^1.6.14, type-is@~1.6.15, type-is@~1.6.16:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+tz-offset@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/tz-offset/-/tz-offset-0.0.1.tgz#fef920257024d3583ed9072a767721a18bdb8a76"
 
 uglify-js@^2.6:
   version "2.8.29"
