@@ -3,10 +3,13 @@ const appInsights = require('applicationinsights');
 
 const enableAppInsights = () => {
   const appInsightsKey = config.get('appInsights.instrumentationKey');
+  const appInsightsRoleName = config.get('appInsights.roleName');
   appInsights.setup(appInsightsKey)
     .setAutoDependencyCorrelation(true)
-    .setAutoCollectConsole(true, true)
-    .start();
+    .setAutoCollectConsole(true, true);
+  appInsights.defaultClient.context.tags[
+    appInsights.defaultClient.context.keys.cloudRole] = appInsightsRoleName;
+  appInsights.start();
 };
 
 module.exports = enableAppInsights;

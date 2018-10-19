@@ -18,3 +18,4 @@ app:
   storeCleanupCrontab: "* * * * *"
 appInsights:
   instrumentationKey: "some-key"
+  roleName: "ccd-case-activity-api"

@@ -22,6 +22,7 @@ module "ccd-case-activity-api" {
   asp_rg = "${(var.asp_rg == "use_shared") ? local.sharedASPResourceGroup : var.asp_rg}"
   website_local_cache_sizeinmb = 700
   capacity = "${var.capacity}"
+  appinsights_instrumentation_key = "${(var.use_shared_appinsight == "true") ? var.appinsights_instrumentation_key : ""}"
 
   app_settings = {
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
