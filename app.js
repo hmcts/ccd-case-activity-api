@@ -1,12 +1,12 @@
-const enableAppInsights = require('./app/app-insights/app-insights');
-
-enableAppInsights();
-
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-api:app');
+const enableAppInsights = require('./app/app-insights/app-insights');
+
+enableAppInsights();
+
 const health = require('./app/health');
 const storeCleanupJob = require('./app/job/store-cleanup-job');
 const authCheckerUserOnlyFilter = require('./app/user/auth-checker-user-only-filter');

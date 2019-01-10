@@ -1,8 +1,8 @@
 const cron = require('node-cron');
 const debug = require('debug')('ccd-case-activity-api:store-cleanup-job');
-const redis = require('../redis/redis-client');
 const moment = require('moment');
 const config = require('config');
+const redis = require('../redis/redis-client');
 
 const { logPipelineFailures } = redis;
 const now = () => moment().valueOf();
