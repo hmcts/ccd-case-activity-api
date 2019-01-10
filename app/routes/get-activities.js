@@ -9,15 +9,13 @@ const getActivities = activityService => (req, res, next) => {
 
   debug(`GET_ACTIVITIES request for caseIds: ${caseIds}`);
   activityService.getActivities(caseIds, user)
-    .then(result =>
-      ifNotTimedOut(req, () => {
-        debug(`GET_ACTIVITIES response is ==> ${JSON.stringify(result)}`);
-        res.status(200).json(result);
-      }))
-    .catch(err =>
-      ifNotTimedOut(req, () => {
-        next(err.message);
-      }));
+    .then(result => ifNotTimedOut(req, () => {
+      debug(`GET_ACTIVITIES response is ==> ${JSON.stringify(result)}`);
+      res.status(200).json(result);
+    }))
+    .catch(err => ifNotTimedOut(req, () => {
+      next(err.message);
+    }));
 };
 
 module.exports = getActivities;

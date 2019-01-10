@@ -19,15 +19,13 @@ const addActivity = activityService => (req, res, next) => {
     next(err);
   } else {
     activityService.addActivity(caseId, user, activity)
-      .then(result =>
-        ifNotTimedOut(req, () => {
-          debug(`ADD_ACTIVITY response is ==> ${JSON.stringify(result)}`);
-          res.status(201).json({ case: caseId, user: user.id.toString(), activity });
-        }))
-      .catch(err =>
-        ifNotTimedOut(req, () => {
-          next(err.message);
-        }));
+      .then(result => ifNotTimedOut(req, () => {
+        debug(`ADD_ACTIVITY response is ==> ${JSON.stringify(result)}`);
+        res.status(201).json({ case: caseId, user: user.id.toString(), activity });
+      }))
+      .catch(err => ifNotTimedOut(req, () => {
+        next(err.message);
+      }));
   }
 };
 
