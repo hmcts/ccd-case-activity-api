@@ -31,10 +31,9 @@ describe('Activity Service store cleanup', () => {
     const a2 = testUtils.addActivity('10', CASE_ID, 'view');
     const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
-    Promise.all([a1, a2, a3]).then(() =>
-      Promise.all([
-        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
+    Promise.all([a1, a2, a3]).then(() => Promise.all([
+      activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+      activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
       .catch(error => done(error));
 
     // these activities happen just before the cleanup job runs. They won't have expired yet
@@ -66,12 +65,11 @@ describe('Activity Service store cleanup', () => {
     const a2 = testUtils.addActivity('10', CASE_ID, 'view');
     const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
-    Promise.all([a1, a2, a3]).then(() =>
-      Promise.all([
-        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.allCaseEditorsEquals(CASE_ID, ['10']),
-        // This should no effect since none of the items are expired
-        server.forceStoreCleanup()]))
+    Promise.all([a1, a2, a3]).then(() => Promise.all([
+      activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+      activityAssert.allCaseEditorsEquals(CASE_ID, ['10']),
+      // This should no effect since none of the items are expired
+      server.forceStoreCleanup()]))
       .catch(error => done(error));
 
     delayed(7 * 1000, () => { // Do regular cleanup and clean items
@@ -94,10 +92,9 @@ describe('Activity Service store cleanup', () => {
     const a2 = testUtils.addActivity('10', CASE_ID, 'view');
     const a3 = testUtils.addActivity('10', CASE_ID, 'edit');
 
-    Promise.all([a1, a2, a3]).then(() =>
-      Promise.all([
-        activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
-        activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
+    Promise.all([a1, a2, a3]).then(() => Promise.all([
+      activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
+      activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
       .catch(error => done(error));
 
     const AfterUserDetailsTTL = 4 * 1000;
