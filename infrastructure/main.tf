@@ -18,6 +18,7 @@ module "ccd-case-activity-api" {
   source   = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product  = "${var.product}-case-activity-api"
   location = "${var.location}"
+  appinsights_location = "${var.location}"
   env      = "${var.env}"
   ilbIp    = "${var.ilbIp}"
   subscription = "${var.subscription}"
