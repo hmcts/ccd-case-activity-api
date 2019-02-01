@@ -1,0 +1,3 @@
+nodejs:
+  environment:
+    REDIS_SSL_ENABLED: false
