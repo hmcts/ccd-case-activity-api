@@ -28,6 +28,7 @@
     "chai-arrays": "^1.1.0",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
+    "cross-env": "^5.2.0",
     "debug": "~2.6.3",
     "express": "^4.16.0",
     "ioredis": "^3.1.4",
@@ -42,7 +43,6 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
-    "cross-env": "^5.2.0",
     "eslint": "^4.7.2",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.14.0",
