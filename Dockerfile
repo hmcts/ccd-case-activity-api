@@ -1,6 +1,5 @@
+# ---- Base Image ----
 FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8 as base
-
-WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash -s \
@@ -22,3 +21,6 @@ HEALTHCHECK --interval=10s \
 
 EXPOSE 3460
 CMD [ "yarn", "start" ]
+
+
+
