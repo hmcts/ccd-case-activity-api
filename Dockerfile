@@ -1,9 +1,9 @@
 # ---- Base Image ----
 FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8 as base
+COPY package.json yarn.lock ./
 RUN export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH" \
     && yarn install --production \
     && yarn cache clean
-COPY package.json yarn.lock ./
 
 # ---- Build Image ----
 FROM base as build
