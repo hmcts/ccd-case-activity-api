@@ -14,4 +14,3 @@ RUN yarn install
 FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8 as runtime
 COPY --from=build $WORKDIR .
 EXPOSE 3460
-USER hmcts
