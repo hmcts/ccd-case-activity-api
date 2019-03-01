@@ -14,6 +14,12 @@ locals {
   sharedASPResourceGroup = "${var.raw_product}-shared-${var.env}"
 }
 
+data "azurerm_subnet" "core_infra_redis_subnet" {
+  name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name = "core-infra-${var.env}"
+}
+
 module "ccd-case-activity-api" {
   source   = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product  = "${var.product}-case-activity-api"
@@ -53,6 +59,6 @@ module "redis-activity-service" {
   product  = "${var.product}-activity-service"
   location = "${var.location}"
   env      = "${var.env}"
-  subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  subnetid = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
   common_tags  = "${var.common_tags}"
 }
