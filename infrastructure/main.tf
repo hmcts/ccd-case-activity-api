@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 locals {
-  env_ase_url = "${var.env}.service.${data.terraform_remote_state.core_apps_compute.ase_name[0]}.internal"
+  env_ase_url = "${var.env}.service.core-compute-${var.env}.internal"
 
   // Shared Resource Group
   previewResourceGroup = "${var.raw_product}-shared-aat"
