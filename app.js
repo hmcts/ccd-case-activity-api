@@ -21,6 +21,7 @@ const activity = require('./app/routes/activity-route')(activityService, config)
 const app = express();
 
 app.get('/health', health);
+app.get('/health/liveness', health);
 
 if (config.util.getEnv('NODE_ENV') !== 'test') {
   app.use(logger('dev'));
