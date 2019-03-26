@@ -21,7 +21,7 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis
     REDIS_PORT: 6379
     REDIS_PASSWORD: fake-password
-    REDIS_SSL_ENABLED: true
+    REDIS_SSL_ENABLED: false
     REDIS_KEY_PREFIX: 'activity:'
     REDIS_ACTIVITY_TTL: 5
     REDIS_USER_DETAILS_TTL: 6000
