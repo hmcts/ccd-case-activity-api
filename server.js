@@ -14,7 +14,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3460');
-console.log('Starting on port ' + port);
+console.log('Lets begin ' + port);
 app.set('port', port);
 
 /**
@@ -27,8 +27,11 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+console.log('Binding error');
 server.on('error', onError);
+console.log('Binding listening');
 server.on('listening', onListening);
+console.log('Starting to listen on port ' + port);
 server.listen(port);
 console.log('Listening on port ' + port);
 
