@@ -31,7 +31,7 @@
     "cross-env": "^5.2.0",
     "debug": "~2.6.3",
     "express": "^4.16.0",
-    "ioredis": "^3.1.4",
+    "ioredis": "^4.9.5",
     "mock-require": "^2.0.2",
     "moment": "^2.19.3",
     "morgan": "^1.9.1",
