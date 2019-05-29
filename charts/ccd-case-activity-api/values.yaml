@@ -8,7 +8,6 @@ redis:
   password: fake-password
 
 nodejs:
-  ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
   applicationPort: 3460
   environment:
