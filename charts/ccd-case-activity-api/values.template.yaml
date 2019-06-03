@@ -17,7 +17,7 @@ nodejs:
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.aat.platform.hmcts.net
-    REDIS_HOST: ${SERVICE_NAME}-redis-master-0
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: false
