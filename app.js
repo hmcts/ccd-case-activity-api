@@ -1,3 +1,4 @@
+const healthcheck = require('@hmcts/nodejs-healthcheck');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
@@ -7,11 +8,9 @@ const enableAppInsights = require('./app/app-insights/app-insights');
 
 enableAppInsights();
 
-const health = require('./app/health');
 const storeCleanupJob = require('./app/job/store-cleanup-job');
 const authCheckerUserOnlyFilter = require('./app/user/auth-checker-user-only-filter');
 const corsHandler = require('./app/security/cors');
-
 
 const redis = require('./app/redis/redis-client');
 const ttlScoreGenerator = require('./app/service/ttl-score-generator');
@@ -19,8 +18,13 @@ const activityService = require('./app/service/activity-service')(config, redis,
 const activity = require('./app/routes/activity-route')(activityService, config);
 
 const app = express();
+const appHealth = express();
 
-app.get('/health', health);
+const healthConfig = {
+  checks: {},
+};
+healthcheck.addTo(appHealth, healthConfig);
+app.use(appHealth);
 
 if (config.util.getEnv('NODE_ENV') !== 'test') {
   app.use(logger('dev'));

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@hmcts/nodejs-healthcheck@^1.4.3":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-healthcheck/-/nodejs-healthcheck-1.4.6.tgz#3eb43ca7b1ba1b1306df0821bdb5d8c88257e863"
-  integrity sha512-PXaS6EL+CCks0NukTbOEUlmFZcOQlyW0A8P1T+oSb9OTlPJCqib3sarcgj2mxsCkePbcFU2WBWQM5ZZiUx42Dw==
+"@hmcts/nodejs-healthcheck@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-healthcheck/-/nodejs-healthcheck-1.5.1.tgz#4d99f9e3041e11fcfacf0bec82eb8a2463fcea01"
+  integrity sha512-DFaBhc42UU5X8uaaCmlHBk2Mrw12hNVWhWvd3zH3pN6ucCb/IgqxLMBOVXPClDzWwpKMlbKATN3EPz6rru47wg==
   dependencies:
     fs-extra "^4.0.1"
     js-yaml "^3.8.4"
@@ -2715,7 +2715,7 @@ superagent@^3.5.1:
     qs "^6.5.1"
     readable-stream "^2.0.5"
 
-superagent@^3.7.0:
+superagent@^3.7.0, superagent@^3.8.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.3.tgz#460ea0dbdb7d5b11bc4f78deba565f86a178e128"
   integrity sha512-GLQtLMCoEIK4eDv6OGtkOoSMt3D+oq0y3dsxMuYuDvaNUvuT8eFBuLmfR0iYYzHC1e8hpzC6ZsxbuP6DIalMFA==
@@ -2730,6 +2730,14 @@ superagent@^3.7.0:
     mime "^1.4.1"
     qs "^6.5.1"
     readable-stream "^2.3.5"
+
+supertest@^3.0.0:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/supertest/-/supertest-3.4.2.tgz#bad7de2e43d60d27c8caeb8ab34a67c8a5f71aad"
+  integrity sha512-WZWbwceHUo2P36RoEIdXvmqfs47idNNZjCuJOqDz6rvtkk8ym56aU5oglORCpPeXGxT7l9rkJ41+O1lffQXYSA==
+  dependencies:
+    methods "^1.1.2"
+    superagent "^3.8.3"
 
 supports-color@3.1.2:
   version "3.1.2"
