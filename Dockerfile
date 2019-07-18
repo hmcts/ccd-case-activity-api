@@ -1,5 +1,7 @@
 # ---- Base Image ----
-FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8 as base
+ARG base=hmctspublic.azurecr.io/base/node/stretch-slim-lts-8:8-stretch-slim
+
+FROM ${base} as base
 COPY package.json yarn.lock ./
 RUN export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH" \
     && yarn install --production \
@@ -11,6 +13,6 @@ COPY . .
 RUN yarn install
 
 # ---- Runtime Image ----
-FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8 as runtime
+FROM ${base} as runtime
 COPY --from=build $WORKDIR .
 EXPOSE 3460
