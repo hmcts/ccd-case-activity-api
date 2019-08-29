@@ -8,8 +8,7 @@ redis:
   password: fake-password
 
 nodejs:
-  ingressHost: ${SERVICE_FQDN}
-  image: ${IMAGE_NAME}
+  image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
   applicationPort: 3460
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
