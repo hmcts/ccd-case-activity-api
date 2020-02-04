@@ -1,0 +1,70 @@
+
+plugins {
+    id 'application'
+    id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.14'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// tag::repositories[]
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+        url 'https://dl.bintray.com/hmcts/hmcts-maven'
+    }
+}
+// end::repositories[]
+
+// tag::dependencies[]
+dependencies {
+    testCompile group: 'uk.gov.hmcts', name: 'ccd-api-test-automation-fw', version: '1.0.20'
+}
+// end::dependencies[]
+
+sourceSets {
+    aat {
+        java {
+            srcDir('src/aat/java')
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+        resources {
+            srcDir('src/aat/resources')
+        }
+    }
+}
+
+configurations {
+    aatCompile.extendsFrom(testCompile)
+    cucumberRuntime.extendsFrom(functionalRuntime)
+}
+
+task functional(type: Test) {
+    systemProperty "http.proxyHost", System.getProperty('http.proxyHost')
+    systemProperty "http.proxyPort", System.getProperty('http.proxyPort')
+    systemProperty "https.proxyHost", System.getProperty('https.proxyHost')
+    systemProperty "https.proxyPort", System.getProperty('https.proxyPort')
+
+    group = 'Delivery pipeline'
+    description = 'Executes functional tests against an AAT CCD Case Activity API instance'
+    setTestClassesDirs(sourceSets.aat.output.classesDirs)
+
+    doFirst {
+        generateCucumberReports.enabled = true
+        javaexec {
+            main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
+            classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
+                    'uk.gov.hmcts.befta.player', 'src/aat/resources/features']
+        }
+    }
+    outputs.upToDateWhen { false }
+}
+
+cucumberReports {
+    outputDir = file("${rootDir}/target/cucumber")
+    reports = files("${rootDir}/target/cucumber.json")
+}
