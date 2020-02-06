@@ -36,6 +36,7 @@ module "ccd-case-activity-api" {
   appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
 
   app_settings = {
+    WEBSITE_NODE_DEFAULT_VERSION = "~12"
     CORS_ORIGIN_METHODS = "GET,POST,OPTIONS"
     /* TODO Need to change the below to the external hostnames once set up */
     CORS_ORIGIN_WHITELIST = "https://ccd-case-management-web-${local.env_ase_url},${var.cors_origin}"
