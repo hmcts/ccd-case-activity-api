@@ -10,6 +10,8 @@ def type = "nodejs"
 def product = "ccd"
 def component = "case-activity-api"
 
+env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+
 withPipeline(type, product, component) {
     onMaster {
         enableSlackNotifications('#ccd-master-builds')
