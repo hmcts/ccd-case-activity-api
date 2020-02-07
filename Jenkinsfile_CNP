@@ -21,7 +21,6 @@ withPipeline(type, product, component) {
         enableSlackNotifications('#ccd-pr-builds')
     }
 
-    enableDockerBuild()
     installCharts()
 
     afterCheckout {
