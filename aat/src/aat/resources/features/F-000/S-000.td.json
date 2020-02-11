@@ -27,8 +27,9 @@
 		"responseMessage" : "OK",
 		"headers" : {
 		  "Content-Length" : "[[ANY]]",
-		  "Content-Type" : "application/vnd.spring-boot.actuator.v2+json;charset=UTF-8",
+		  "Content-Type" : "application/json; charset=utf-8",
 		  "Date" : "[[ANY]]",
+		  "Request-Context" : "appId=cid-v1:",
 		  "Vary" : "Accept-Encoding"
 		},
 		"body" : {
