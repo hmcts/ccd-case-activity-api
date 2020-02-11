@@ -29,6 +29,7 @@
 		  "Content-Length" : "[[ANYTHING_PRESENT]]",
 		  "Content-Type" : "application/json; charset=utf-8",
 		  "Date" : "[[ANYTHING_PRESENT]]",
+		  "Etag" : "[[ANYTHING_PRESENT]]",
 		  "Request-Context" : "appId=cid-v1:",
 		  "Vary" : "Accept-Encoding"
 		},
