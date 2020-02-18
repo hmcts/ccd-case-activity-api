@@ -12,7 +12,7 @@
     "test": "mocha --recursive test/spec app/user",
     "test:end2end": "mocha test/e2e --timeout 15000",
     "test:smoke": "echo 'TODO - SMOKE TEST'",
-    "test:functional": "echo 'TODO - FUNCTIONAL TEST'",
+    "test:functional": "./aat/gradlew -p aat functional",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --recursive test/spec",
     "test:coverage-e2e": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 --recursive test/e2e",
     "test:nsp": "nsp check",
