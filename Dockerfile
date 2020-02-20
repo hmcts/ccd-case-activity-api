@@ -1,5 +1,5 @@
 # ---- Base Image ----
-ARG base=hmctspublic.azurecr.io/base/node:12-stretch-slim
+ARG base=hmctspublic.azurecr.io/base/node:12-alpine
 
 FROM ${base} as base
 COPY package.json yarn.lock ./
