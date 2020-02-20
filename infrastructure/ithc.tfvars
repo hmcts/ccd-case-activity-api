@@ -1,4 +1,4 @@
-idam_api_url = "https://idam-api.ithc.platform.hmcts.net"
+idam_api_url = "http://idam-api-ithc.service.core-compute-ithc.internal"
 
 
 capacity = "2"
