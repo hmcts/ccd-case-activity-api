@@ -15,7 +15,6 @@
     "test:functional": "echo 'TODO - FUNCTIONAL TEST'",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --recursive test/spec",
     "test:coverage-e2e": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 --recursive test/e2e",
-    "test:nsp": "nsp check",
     "test:a11y": "echo 'TODO: Accessibility tests'",
     "sonar-scan": "NODE_PATH=. sonar-scanner -X",
     "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
@@ -51,7 +50,6 @@
     "jasmine-node": "^1.14.5",
     "mocha": "^3.4.2",
     "node-mocks-http": "^1.7.0",
-    "nsp": "^3.2.1",
     "sonar-scanner": "^3.0.3",
     "supertest": "^3.0.0"
   }
