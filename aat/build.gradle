@@ -20,7 +20,7 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'uk.gov.hmcts', name: 'ccd-api-test-automation-fw', version: '1.0.24'
+    testCompile group: 'uk.gov.hmcts', name: 'ccd-api-test-automation-fw', version: '1.1.1'
 }
 // end::dependencies[]
 
