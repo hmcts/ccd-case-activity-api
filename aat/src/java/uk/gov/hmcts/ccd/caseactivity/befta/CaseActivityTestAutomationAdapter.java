@@ -1,4 +1,4 @@
-package uk.gov.hmcts.ccd.printservice.befta;
+package uk.gov.hmcts.ccd.caseactivity.befta;
 
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
 import uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore;
