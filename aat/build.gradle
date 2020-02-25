@@ -20,19 +20,19 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'uk.gov.hmcts', name: 'ccd-api-test-automation-fw', version: '1.0.24'
+    testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '1.1.1'
 }
 // end::dependencies[]
 
 sourceSets {
     aat {
         java {
-            srcDir('src/aat/java')
+            srcDir('src/java')
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
         }
         resources {
-            srcDir('src/aat/resources')
+            srcDir('src/resources')
         }
     }
 }
@@ -58,7 +58,7 @@ task functional(type: Test) {
             main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
             classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
-                    'uk.gov.hmcts.befta.player', 'src/aat/resources/features']
+                    'uk.gov.hmcts.befta.player', 'src/resources/features']
         }
     }
     outputs.upToDateWhen { false }
