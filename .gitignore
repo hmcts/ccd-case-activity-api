@@ -40,4 +40,4 @@ jspm_packages
 # IntelliJ IDEA files
 .idea/
 *.iml
-coverage-report/
+coverage/

@@ -25,7 +25,7 @@
       "lcov",
       "text-summary"
     ],
-    "report-dir": "coverage-report",
+    "report-dir": "coverage",
     "all": true
   },
   "dependencies": {
