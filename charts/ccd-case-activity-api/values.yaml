@@ -1,4 +1,5 @@
 redis:
+  enabled: false
   nameOverride: redis
   master:
     persistence:
@@ -12,16 +13,20 @@ nodejs:
   applicationPort: 3460
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
-    CORS_ORIGIN_WHITELIST: https://ccd-case-management-web-aat.service.core-compute-aat.internal,https://www-ccd.nonprod.platform.hmcts.net
+    CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
-    IDAM_BASE_URL: https://idam-api.aat.platform.hmcts.net
-    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     REDIS_PORT: 6379
-    REDIS_PASSWORD: fake-password
-    REDIS_SSL_ENABLED: false
+    REDIS_SSL_ENABLED: true
     REDIS_KEY_PREFIX: 'activity:'
     REDIS_ACTIVITY_TTL: 5
     REDIS_USER_DETAILS_TTL: 6000
     APP_REQUEST_TIMEOUT: 5
     APP_STORE_CLEANUP_CRONTAB: '* * * * *'
+
+  keyVaults:
+    ccd:
+      secrets:
+        - activity-redis-password
+        - AppInsightsInstrumentationKey

@@ -1,4 +1,10 @@
 nodejs:
   ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
-  
+  environment:
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_PASSWORD: fake-password
+    REDIS_SSL_ENABLED: false
+
+redis:
+  enabled: true
