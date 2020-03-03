@@ -20,6 +20,14 @@
     "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
     "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
   },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "report-dir": "coverage-report",
+    "all": true
+  },
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "^1.5.1",
     "applicationinsights": "^1.0.5",
