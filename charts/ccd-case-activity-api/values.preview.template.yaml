@@ -5,6 +5,8 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: false
+  keyVaults:
+    ccd: []
 
 redis:
   enabled: true
