@@ -7,7 +7,7 @@ module.exports = (activityService, config) => {
   const addActivity = require('./add-activity')(activityService); // eslint-disable-line global-require
   const getActivities = require('./get-activities')(activityService); // eslint-disable-line global-require
 
-  const toMillis = timeSec => timeSec * 1000;
+  const toMillis = (timeSec) => timeSec * 1000;
 
   router.use(timeout(toMillis(config.get('app.requestTimeoutSec'))));
 
