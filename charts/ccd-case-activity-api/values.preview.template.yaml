@@ -6,7 +6,7 @@ nodejs:
     REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: false
   keyVaults:
-    ccd: []
 
 redis:
   enabled: true
+

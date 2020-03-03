@@ -11,6 +11,7 @@ redis:
 nodejs:
   image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
   applicationPort: 3460
+  aadIdentityName: ccd
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
     CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
