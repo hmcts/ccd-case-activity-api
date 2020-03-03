@@ -2,7 +2,7 @@ const config = require('config');
 const appInsights = require('applicationinsights');
 
 const enableAppInsights = () => {
-  const appInsightsKey = config.get('appInsights.instrumentationKey');
+  const appInsightsKey = config.get('secrets.ccd.AppInsightsInstrumentationKey');
   const appInsightsRoleName = config.get('appInsights.roleName');
   appInsights.setup(appInsightsKey)
     .setAutoDependencyCorrelation(true)
