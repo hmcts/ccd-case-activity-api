@@ -28,12 +28,12 @@ const scanExistingCasesKeys = (f) => {
   });
 };
 
-const getCasesWithActivities = f => scanExistingCasesKeys(f);
+const getCasesWithActivities = (f) => scanExistingCasesKeys(f);
 
-const cleanupActivitiesCommand = key => ['zremrangebyscore', key, '-inf', now()];
+const cleanupActivitiesCommand = (key) => ['zremrangebyscore', key, '-inf', now()];
 
 const pipeline = (cases) => {
-  const commands = cases.map(caseKey => cleanupActivitiesCommand(caseKey));
+  const commands = cases.map((caseKey) => cleanupActivitiesCommand(caseKey));
   debug(`created cleanup pipeline: ${commands}`);
   return redis.pipeline(commands);
 };
@@ -42,11 +42,11 @@ const storeCleanup = () => {
   debug('store cleanup starting...');
   getCasesWithActivities((cases) => {
     // scan returns the prefixed keys. Remove them since the redis client will add it back
-    const casesWithoutPrefix = cases.map(k => k.replace(REDIS_ACTIVITY_KEY_PREFIX, ''));
+    const casesWithoutPrefix = cases.map((k) => k.replace(REDIS_ACTIVITY_KEY_PREFIX, ''));
 
     debug(`about to cleanup the following cases: ${casesWithoutPrefix}`);
     return pipeline(casesWithoutPrefix).exec()
-      .then(pipelineOutcome => logPipelineFailures(pipelineOutcome, 'error in store cleanup job'))
+      .then((pipelineOutcome) => logPipelineFailures(pipelineOutcome, 'error in store cleanup job'))
       .catch((err) => {
         debug('Error in getCasesWithActivities', err.message);
       });
