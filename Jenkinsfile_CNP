@@ -22,6 +22,8 @@ withPipeline(type, product, component) {
     }
 
     installCharts()
+    enableAksStagingDeployment()
+    disableLegacyDeploymentOnAAT()
 
     afterCheckout {
         sh "yarn cache clean"
@@ -30,5 +32,6 @@ withPipeline(type, product, component) {
     after('build') {
         sh "yarn check"
     }
+    
 
 }
