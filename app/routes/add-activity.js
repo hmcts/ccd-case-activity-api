@@ -10,7 +10,7 @@ const addActivity = activityService => (req, res, next) => {
   const { user } = req.authentication;
   const { activity } = req.body;
 
-  debug(`ADD_ACTIVITY request - caseId: ${caseId}, userId:${user.id}, activity:${activity}`);
+  debug(`ADD_ACTIVITY request - caseId: ${caseId}, userId:${user.uid}, activity:${activity}`);
 
   if (!Activity.includes(activity)) {
     const err = new Error(`unknown activity: ${activity}`);
@@ -21,7 +21,7 @@ const addActivity = activityService => (req, res, next) => {
     activityService.addActivity(caseId, user, activity)
       .then(result => ifNotTimedOut(req, () => {
         debug(`ADD_ACTIVITY response is ==> ${JSON.stringify(result)}`);
-        res.status(201).json({ case: caseId, user: user.id.toString(), activity });
+        res.status(201).json({ case: caseId, user: user.uid.toString(), activity });
       }))
       .catch(err => ifNotTimedOut(req, () => {
         next(err.message);

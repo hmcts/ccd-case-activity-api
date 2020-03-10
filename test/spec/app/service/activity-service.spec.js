@@ -32,7 +32,7 @@ describe("activity service", () => {
     sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
 
-    const result = activityService.addActivity(CASE_ID, { id: USER_ID }, 'edit');
+    const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'edit');
 
     expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:editors`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
     expect(config.get).to.have.been.calledWith('redis.userDetailsTtlSec');
@@ -47,7 +47,7 @@ describe("activity service", () => {
 
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
 
-    const result = activityService.addActivity(CASE_ID, { id: USER_ID }, 'view')
+    const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'view')
     expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:viewers`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
     expect(config.get).to.have.been.calledWith('redis.userDetailsTtlSec');
     expect(result).to.equal("result")
@@ -67,7 +67,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: '900' });
+    const result = activityService.getActivities(['767', '888'], { uid: '900' });
 
     result.then((content) => {
       expect(redis.pipeline).to.have.been.calledWith([['zrangebyscore', 'case:767:viewers', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:viewers', TIMESTAMP, '+inf']]);
@@ -104,7 +104,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: '111' });
+    const result = activityService.getActivities(['767', '888'], { uid: '111' });
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -138,7 +138,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: '242' });
+    const result = activityService.getActivities(['767', '888'], { uid: '242' });
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -174,7 +174,7 @@ describe("activity service", () => {
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { id: '242' });
+    const result = activityService.getActivities(['767', '888'], { uid: '242' });
 
     result.then((content) => {
       // don't expect unknown users since the unknown user is the requester
