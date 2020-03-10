@@ -46,7 +46,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
           activityAssert.allCaseViewersEquals(55, '242'),
           activityAssert.userDetailsEquals('242', '{"forename":"nayab","surname":"gul"}')])
           .then(() => done())
-          .catch(error => done(error));
+          .catch((error) => done(error));
       });
   });
 

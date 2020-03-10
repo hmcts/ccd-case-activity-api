@@ -8,7 +8,6 @@ idam:
 redis:
   host: localhost
   port: 6379
-  password: "testPassword"
   ssl: false
   keyPrefix: "activity:"
   activityTtlSec: 5
@@ -17,5 +16,9 @@ app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"
 appInsights:
-  instrumentationKey: "some-key"
   roleName: "ccd-case-activity-api"
+
+secrets:
+  ccd:
+    activity-redis-password: testPassword
+    AppInsightsInstrumentationKey: "some-key"

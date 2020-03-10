@@ -34,7 +34,7 @@ describe('Activity Service store cleanup', () => {
     Promise.all([a1, a2, a3]).then(() => Promise.all([
       activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
       activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
-      .catch(error => done(error));
+      .catch((error) => done(error));
 
     // these activities happen just before the cleanup job runs. They won't have expired yet
     const BeforeCleanup = 5 * 1000;
@@ -55,7 +55,7 @@ describe('Activity Service store cleanup', () => {
         activityAssert.allCaseViewersEquals(CASE_ID, ['88', '98']),
         activityAssert.allCaseEditorsEquals(CASE_ID, ['198'])])
         .then(() => done())
-        .catch(error => done(error));
+        .catch((error) => done(error));
     });
   });
 
@@ -70,7 +70,7 @@ describe('Activity Service store cleanup', () => {
       activityAssert.allCaseEditorsEquals(CASE_ID, ['10']),
       // This should no effect since none of the items are expired
       server.forceStoreCleanup()]))
-      .catch(error => done(error));
+      .catch((error) => done(error));
 
     delayed(7 * 1000, () => { // Do regular cleanup and clean items
       server.forceStoreCleanup();
@@ -83,7 +83,7 @@ describe('Activity Service store cleanup', () => {
         activityAssert.allCaseViewersEquals(CASE_ID, []),
         activityAssert.allCaseEditorsEquals(CASE_ID, [])])
         .then(() => done())
-        .catch(error => done(error));
+        .catch((error) => done(error));
     });
   });
 
@@ -95,7 +95,7 @@ describe('Activity Service store cleanup', () => {
     Promise.all([a1, a2, a3]).then(() => Promise.all([
       activityAssert.allCaseViewersEquals(CASE_ID, ['1242', '10']),
       activityAssert.allCaseEditorsEquals(CASE_ID, ['10'])]))
-      .catch(error => done(error));
+      .catch((error) => done(error));
 
     const AfterUserDetailsTTL = 4 * 1000;
     delayed(AfterUserDetailsTTL, () => {
@@ -103,7 +103,7 @@ describe('Activity Service store cleanup', () => {
         activityAssert.userDetailsEquals('1242', undefined),
         activityAssert.userDetailsEquals('10', undefined)])
         .then(() => done())
-        .catch(error => done(error));
+        .catch((error) => done(error));
     });
   });
 });

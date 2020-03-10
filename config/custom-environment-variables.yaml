@@ -18,3 +18,8 @@ app:
   storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB
 appInsights:
   instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
+
+secrets:
+  ccd:
+    activity-redis-password: REDIS_PASSWORD
+    AppInsightsInstrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY

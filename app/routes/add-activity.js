@@ -5,7 +5,7 @@ const Activity = ['view', 'edit'];
 const UNPROCESSABLE_ENTITY = 422;
 const { ifNotTimedOut } = utils;
 
-const addActivity = activityService => (req, res, next) => {
+const addActivity = (activityService) => (req, res, next) => {
   const caseId = req.params.caseid;
   const { user } = req.authentication;
   const { activity } = req.body;
@@ -19,11 +19,11 @@ const addActivity = activityService => (req, res, next) => {
     next(err);
   } else {
     activityService.addActivity(caseId, user, activity)
-      .then(result => ifNotTimedOut(req, () => {
+      .then((result) => ifNotTimedOut(req, () => {
         debug(`ADD_ACTIVITY response is ==> ${JSON.stringify(result)}`);
         res.status(201).json({ case: caseId, user: user.uid.toString(), activity });
       }))
-      .catch(err => ifNotTimedOut(req, () => {
+      .catch((err) => ifNotTimedOut(req, () => {
         next(err.message);
       }));
   }

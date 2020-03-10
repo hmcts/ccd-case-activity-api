@@ -60,7 +60,7 @@ describe('Activity Service - GetActivities', () => {
             done();
           });
       })
-      .catch(error => done(error));
+      .catch((error) => done(error));
   });
 
   it('should retrieve all activities for a list of cases', (done) => {
@@ -92,7 +92,7 @@ describe('Activity Service - GetActivities', () => {
             done();
           });
       })
-      .catch(error => done(error));
+      .catch((error) => done(error));
   });
 
   it('should get only the non expired activities', (done) => {
@@ -104,7 +104,7 @@ describe('Activity Service - GetActivities', () => {
       .then(() => Promise.all([
         activityAssert.allCaseViewersEquals(111, ['1242', '10']),
         activityAssert.allCaseEditorsEquals(121, ['10'])]))
-      .catch(error => done(error));
+      .catch((error) => done(error));
 
 
     const AfterActivitiesExpired = 7 * 1000;
@@ -138,7 +138,7 @@ describe('Activity Service - GetActivities', () => {
               done();
             });
         })
-        .catch(error => done(error));
+        .catch((error) => done(error));
     });
   });
 
@@ -150,7 +150,7 @@ describe('Activity Service - GetActivities', () => {
       .then(() => Promise.all([
         activityAssert.allCaseViewersEquals(111, ['11']),
         activityAssert.allCaseEditorsEquals(121, ['12'])]))
-      .catch(error => done(error));
+      .catch((error) => done(error));
 
     const USER_EXPIRED_TIME = 3 * 1000;
     delayed(USER_EXPIRED_TIME, () => {
@@ -182,7 +182,7 @@ describe('Activity Service - GetActivities', () => {
               done();
             });
         })
-        .catch(error => done(error));
+        .catch((error) => done(error));
     });
   });
 });
