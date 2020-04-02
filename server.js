@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+require('@hmcts/properties-volume').addTo(require('config'));
 var app = require('./app');
 
 var debug = require('debug')('ccd-case-activity-api:server');
