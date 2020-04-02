@@ -63,25 +63,9 @@ The tests can be run using:
 $ yarn test:end2end
 ```
 
-## Functional tests
-
-The functional tests are located in `aat` folder. These are the tests run against an environment. For example if you would 
-like to test your local environment you'll need to export the following variables on your `.bash_profile` script.
-
-```bash
-#Functional Tests
-export TEST_URL=http://localhost:3460
-export S2S_URL=http://localhost:4502
-export IDAM_URL=http://localhost:5000
-export BEFTA_S2S_CLIENT_ID=ccd_gw
-export BEFTA_S2S_CLIENT_SECRET=AAAAAAAAAAAAAAAC
-export CCD_CASEWORKER_AUTOTEST_EMAIL=someemail@blob.com
-export CCD_CASEWORKER_AUTOTEST_PASSWORD=XYZT
-export CCD_IMPORT_AUTOTEST_EMAIL=someemail@blob.com
-export CCD_IMPORT_AUTOTEST_PASSWORD=XYZT
-```
-
-> Note: For details of the emails and passwords to use in a local environment see the [Create users and roles](https://github.com/hmcts/ccd-docker#3-create-users-and-roles) steps in [ccd-docker](https://github.com/hmcts/ccd-docker) project.
+## Functional Tests
+The functional tests are located in `aat` folder. The tests are written using 
+befta-fw library. To find out more about BEFTA Framework, see the repository and its README [here](https://github.com/hmcts/befta-fw).
 
 The tests can be run using:
 
