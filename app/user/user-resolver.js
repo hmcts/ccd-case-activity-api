@@ -9,7 +9,7 @@ const getTokenDetails = (jwt) => {
       Authorization: bearerJwt,
     },
   })
-    .then(res => res.json());
+    .then((res) => res.json());
 };
 
 exports.getTokenDetails = getTokenDetails;

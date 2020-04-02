@@ -3,8 +3,8 @@ const debug = require('debug')('ccd-case-activity-api:activity-service');
 
 module.exports = (config, redis, ttlScoreGenerator) => {
   const redisActivityKeys = {
-    view: caseId => `case:${caseId}:viewers`,
-    edit: caseId => `case:${caseId}:editors`,
+    view: (caseId) => `case:${caseId}:viewers`,
+    edit: (caseId) => `case:${caseId}:editors`,
   };
 
   const addActivity = (caseId, user, activity) => {
@@ -32,7 +32,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     let caseViewers = [];
     let caseEditors = [];
     const now = moment.now();
-    const getUserDetails = () => redis.pipeline(uniqueUserIds.map(userId => ['get', `user:${userId}`])).exec();
+    const getUserDetails = () => redis.pipeline(uniqueUserIds.map((userId) => ['get', `user:${userId}`])).exec();
     const extractUniqueUserIds = (result) => {
       result.forEach((item) => {
         item[1].forEach((userId) => {
@@ -43,7 +43,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       });
     };
     const caseViewersPromise = redis
-      .pipeline(caseIds.map(caseId => ['zrangebyscore', `case:${caseId}:viewers`, now, '+inf']))
+      .pipeline(caseIds.map((caseId) => ['zrangebyscore', `case:${caseId}:viewers`, now, '+inf']))
       .exec()
       .then((result) => {
         redis.logPipelineFailures(result, 'caseViewersPromise');
@@ -51,7 +51,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
         extractUniqueUserIds(result);
       });
     const caseEditorsPromise = redis
-      .pipeline(caseIds.map(caseId => ['zrangebyscore', `case:${caseId}:editors`, now, '+inf']))
+      .pipeline(caseIds.map((caseId) => ['zrangebyscore', `case:${caseId}:editors`, now, '+inf']))
       .exec()
       .then((result) => {
         redis.logPipelineFailures(result, 'caseEditorsPromise');
@@ -60,25 +60,25 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       });
     return Promise.all([caseViewersPromise, caseEditorsPromise])
       .then(() => getUserDetails())
-      .then(userDetails => caseIds.map((elem, index) => {
+      .then((userDetails) => caseIds.map((elem, index) => {
         redis.logPipelineFailures(userDetails, 'userDetails');
         const caseStatus = {};
         caseStatus.caseId = elem;
         caseStatus.viewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter(element => element !== user.id.toString())
-          .map(item => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .filter(item => item) : [];
+          .filter((element) => element !== user.id.toString())
+          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+          .filter((item) => item) : [];
         caseStatus.unknownViewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter(element => element !== user.id.toString())
-          .map(item => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+          .filter((element) => element !== user.id.toString())
+          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
         caseStatus.editors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter(element => element !== user.id.toString())
-          .map(item => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .filter(item => item) : [];
+          .filter((element) => element !== user.id.toString())
+          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+          .filter((item) => item) : [];
         caseStatus.unknownEditors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter(element => element !== user.id.toString())
-          .map(item => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+          .filter((element) => element !== user.id.toString())
+          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
         return caseStatus;
       }));
