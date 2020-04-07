@@ -19,7 +19,8 @@ nodejs:
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-    REDIS_PORT: 6379
+    REDIS_HOST: ccd-activity-service-{{ .Values.global.environment }}.redis.cache.windows.net
+    REDIS_PORT: 6380
     REDIS_SSL_ENABLED: true
     REDIS_KEY_PREFIX: 'activity:'
     REDIS_ACTIVITY_TTL: 5
