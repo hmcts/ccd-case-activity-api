@@ -77,3 +77,4 @@ $ yarn start
   ccd-case-activity-api:server Listening on port 3000 +19ms
   ccd-case-activity-api:redis-client connected to Redis +7ms
 ```
+
