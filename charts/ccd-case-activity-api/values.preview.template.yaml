@@ -5,8 +5,7 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     REDIS_PASSWORD: fake-password
-    REDIS_SSL_ENABLED: false
-  keyVaults:
+    REDIS_SSL_ENABLED: false  
 
 redis:
   enabled: true
