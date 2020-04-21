@@ -27,7 +27,7 @@ describe("add activity route", () => {
     let req = {
       params: { caseid: 55 },
       body: { activity: 'edit' },
-      authentication: { user: { id: 900 } },
+      authentication: { user: { uid: 900 } },
       timedout: false
     }
     let next = () => { };

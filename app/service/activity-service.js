@@ -11,12 +11,12 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     const storeUserActivity = () => {
       const key = redisActivityKeys[activity](caseId);
       debug(`about to store user activity with key: ${key}`);
-      return ['zadd', key, ttlScoreGenerator.getScore(), user.id];
+      return ['zadd', key, ttlScoreGenerator.getScore(), user.uid];
     };
 
     const storeUserDetails = () => {
-      const userDetails = JSON.stringify({ forename: user.forename, surname: user.surname });
-      const key = `user:${user.id}`;
+      const userDetails = JSON.stringify({ forename: user.given_name, surname: user.family_name });
+      const key = `user:${user.uid}`;
       debug(`about to store user details with key ${key}: ${userDetails}`);
       return ['set', key, userDetails, 'EX', config.get('redis.userDetailsTtlSec')];
     };
@@ -65,19 +65,19 @@ module.exports = (config, redis, ttlScoreGenerator) => {
         const caseStatus = {};
         caseStatus.caseId = elem;
         caseStatus.viewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter((element) => element !== user.id.toString())
+          .filter((element) => element !== user.uid.toString())
           .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .filter((item) => item) : [];
         caseStatus.unknownViewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter((element) => element !== user.id.toString())
+          .filter((element) => element !== user.uid.toString())
           .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
         caseStatus.editors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter((element) => element !== user.id.toString())
+          .filter((element) => element !== user.uid.toString())
           .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .filter((item) => item) : [];
         caseStatus.unknownEditors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter((element) => element !== user.id.toString())
+          .filter((element) => element !== user.uid.toString())
           .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
           .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
         return caseStatus;
