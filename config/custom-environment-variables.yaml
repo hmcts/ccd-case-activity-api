@@ -13,6 +13,9 @@ redis:
   keyPrefix: REDIS_KEY_PREFIX
   activityTtlSec: REDIS_ACTIVITY_TTL
   userDetailsTtlSec: REDIS_USER_DETAILS_TTL
+cache:
+  user_info_ttl: CACHE_USER_INFO_TTL
+  user_info_check_period: CACHE_USER_INFO_CHECK_PERIOD
 app:
   requestTimeoutSec: APP_REQUEST_TIMEOUT
   storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
-    "start": "cross-env NODE_PATH=. node server.js",
+    "start": "cross-env NODE_PATH=. node $NODE_DEBUG_OPTION server.js",
     "test": "mocha --exit --recursive test/spec app/user",
     "test:end2end": "mocha --exit test/e2e --timeout 15000",
     "test:smoke": "echo 'TODO - SMOKE TEST'",
@@ -42,7 +42,10 @@
     "moment": "^2.19.3",
     "morgan": "^1.9.1",
     "node-cron": "^1.2.1",
-    "node-fetch": "^1.7.0"
+    "node-fetch": "^1.7.0",
+    "node-cache": "^5.1.0",
+    "nocache": "^2.1.0",
+    "jwt-decode": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
