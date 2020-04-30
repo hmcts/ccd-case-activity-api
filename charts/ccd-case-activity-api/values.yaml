@@ -16,6 +16,8 @@ nodejs:
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
     CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
+    CACHE_USER_INFO_TTL: 1800
+    CACHE_USER_INFO_CHECK_PERIOD: 120
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net

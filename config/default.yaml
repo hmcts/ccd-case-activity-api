@@ -12,6 +12,9 @@ redis:
   keyPrefix: "activity:"
   activityTtlSec: 5
   userDetailsTtlSec: 2
+cache:
+  user_info_ttl: 1800
+  user_info_check_period: 120
 app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"

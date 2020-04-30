@@ -1,4 +1,4 @@
-const userResolver = require('./user-resolver');
+const userResolver = require('./cached-user-resolver');
 const rolesBasedAuthorizer = require('./roles-based-authorizer');
 
 const AUTHORIZATION = 'Authorization';
@@ -35,7 +35,7 @@ const authorise = (request) => {
   }
 
   return userResolver
-    .getTokenDetails(bearerToken)
+    .getCachedUserDetails(bearerToken)
     .then((tokenDetails) => {
       user = tokenDetails;
     })
