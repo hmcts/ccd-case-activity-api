@@ -20,7 +20,7 @@ const SURNAME = 'smith';
 const should = chai.should(); // eslint-disable-line no-unused-vars
 
 
-const Token = JSON.stringify({ id: '242', forename: 'nayab', surname: 'gul' });
+const Token = JSON.stringify({ uid: '242', given_name: 'nayab', family_name: 'gul' });
 
 chai.use(chaiHttp);
 
