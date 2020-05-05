@@ -1,5 +1,6 @@
-const userResolver = require('./cached-user-resolver');
+const config = require('config');
 const rolesBasedAuthorizer = require('./roles-based-authorizer');
+const userResolver = config.get('cache.user_info_enabled') ? require('./cached-user-resolver') : require('./user-resolver');
 
 const AUTHORIZATION = 'Authorization';
 const ERROR_TOKEN_MISSING = {
