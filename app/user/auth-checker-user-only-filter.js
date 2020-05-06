@@ -10,9 +10,18 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
       req.authentication.user = user;
     })
     .then(() => next())
-    .catch((error) => {
-      debug(`Unsuccessful user authentication: ${error}`);
-      error.status = error.status || 401; // eslint-disable-line no-param-reassign
+    .catch(error => {
+      if (error.name === 'FetchError') {
+        logger.error(error);
+        next({
+          status: 500,
+          error: 'Internal Server Error',
+          message: error.message
+        });
+      } else {
+        logger.warn('Unsuccessful user authentication', error);
+        error.status = error.status || 401;
+      }
       next(error);
     });
 };
