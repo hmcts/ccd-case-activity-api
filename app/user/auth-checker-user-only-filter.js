@@ -23,8 +23,8 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
       } else {
         logger.warn('Unsuccessful user authentication', error);
         error.status = error.status || 401; // eslint-disable-line no-param-reassign
+        next(error);
       }
-      next(error);
     });
 };
 
