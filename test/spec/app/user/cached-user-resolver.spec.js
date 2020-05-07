@@ -45,7 +45,7 @@ describe('getCachedUserDetails', () => {
 
   it('should get user details with no cache', async () => {
     initNock(TOKEN, USER_DETAILS);
-    const result = await cachedUserResolver.getCachedUserDetails(TOKEN);
+    const result = await cachedUserResolver.getUserDetails(TOKEN);
 
     expect(JSON.stringify(result)).to.equal(JSON.stringify(USER_DETAILS));
     assert.calledWith(userInfoCacheSpy, TOKEN, sinon.match.func);
@@ -55,8 +55,8 @@ describe('getCachedUserDetails', () => {
 
   it('should get cached user details', async () => {
     initNock(TOKEN, USER_DETAILS);
-    const firstResult = await cachedUserResolver.getCachedUserDetails(TOKEN);
-    const cachedResult = await cachedUserResolver.getCachedUserDetails(TOKEN);
+    const firstResult = await cachedUserResolver.getUserDetails(TOKEN);
+    const cachedResult = await cachedUserResolver.getUserDetails(TOKEN);
 
     expect(JSON.stringify(firstResult)).to.equal(JSON.stringify(cachedResult));
     expect(JSON.stringify(cachedResult)).to.equal(JSON.stringify(USER_DETAILS));
@@ -67,8 +67,8 @@ describe('getCachedUserDetails', () => {
 
   it('should get cached user details with token including Bearer', async () => {
     initNock(TOKEN, USER_DETAILS);
-    const firstResult = await cachedUserResolver.getCachedUserDetails(TOKEN);
-    const cachedResult = await cachedUserResolver.getCachedUserDetails(`Bearer ${TOKEN}`);
+    const firstResult = await cachedUserResolver.getUserDetails(TOKEN);
+    const cachedResult = await cachedUserResolver.getUserDetails(`Bearer ${TOKEN}`);
 
     expect(JSON.stringify(firstResult)).to.equal(JSON.stringify(cachedResult));
     expect(JSON.stringify(cachedResult)).to.equal(JSON.stringify(USER_DETAILS));
@@ -83,8 +83,8 @@ describe('getCachedUserDetails', () => {
     initNock(TOKEN, USER_DETAILS);
     initNock(OTHER_TOKEN, OTHER_DETAILS);
 
-    const originalResult = await cachedUserResolver.getCachedUserDetails(TOKEN);
-    const otherResult = await cachedUserResolver.getCachedUserDetails(OTHER_TOKEN);
+    const originalResult = await cachedUserResolver.getUserDetails(TOKEN);
+    const otherResult = await cachedUserResolver.getUserDetails(OTHER_TOKEN);
 
     expect(JSON.stringify(originalResult)).to.equal(JSON.stringify(USER_DETAILS));
     expect(JSON.stringify(otherResult)).to.equal(JSON.stringify(OTHER_DETAILS));
@@ -96,11 +96,11 @@ describe('getCachedUserDetails', () => {
 
   it('should get new user details after ttl expiry', async () => {
     initNock(TOKEN, USER_DETAILS);
-    await cachedUserResolver.getCachedUserDetails(TOKEN);
+    await cachedUserResolver.getUserDetails(TOKEN);
     clock.tick(CACHE_TTL_SECONDS * 1000 + 1);
     initNock(TOKEN, USER_DETAILS);
   
-    const result = await cachedUserResolver.getCachedUserDetails(TOKEN);
+    const result = await cachedUserResolver.getUserDetails(TOKEN);
 
     expect(JSON.stringify(result)).to.equal(JSON.stringify(USER_DETAILS));
     assert.calledWith(userInfoCacheSpy, TOKEN, sinon.match.func);
@@ -113,7 +113,7 @@ describe('getCachedUserDetails', () => {
 
     let result;
     try {
-      result = await cachedUserResolver.getCachedUserDetails(TOKEN);
+      result = await cachedUserResolver.getUserDetails(TOKEN);
     } catch(error) {
       expect(result).to.equal(undefined);
       assert.calledOnce(userInfoCacheSpy);
@@ -121,7 +121,7 @@ describe('getCachedUserDetails', () => {
       return;
     }
 
-    chai.assert.fail('getCachedUserDetails did not throw error');
+    chai.assert.fail('getUserDetails did not throw error');
   });
 
   const initNock = (token, details) => {

@@ -32,7 +32,7 @@ class Cache {
       this.set(key, result);
       return result;
     }).catch((error) => {
-      logger.warn(`Error in store function for cache '${this.name}'`);
+      logger.warn(`Error computing value to be cached for cache '${this.name}'`);
       throw error;
     });
   }
