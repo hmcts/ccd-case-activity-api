@@ -1,5 +1,5 @@
 const chai = require('chai');
-const authorizer = require('./white-black-list-roles-authorizer');
+const authorizer = require('../../../../app/user/white-black-list-roles-authorizer');
 
 chai.should();
 const { expect } = chai;
