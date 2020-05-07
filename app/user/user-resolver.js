@@ -2,7 +2,7 @@ const config = require('config');
 const fetch = require('../util/fetch');
 const jwtUtil = require('../util/jwt');
 
-const getTokenDetails = (jwt) => fetch(`${config.get('idam.base_url')}/o/userinfo`, {
+const getUserDetails = (jwt) => fetch(`${config.get('idam.base_url')}/o/userinfo`, {
   headers: {
     Authorization: jwtUtil.addBearer(jwt),
   },
@@ -10,4 +10,4 @@ const getTokenDetails = (jwt) => fetch(`${config.get('idam.base_url')}/o/userinf
   .then((res) => res.json());
 
 
-exports.getTokenDetails = getTokenDetails;
+exports.getUserDetails = getUserDetails;

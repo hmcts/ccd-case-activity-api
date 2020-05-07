@@ -36,9 +36,9 @@ const authorise = (request) => {
   }
 
   return userResolver
-    .getCachedUserDetails(bearerToken)
-    .then((tokenDetails) => {
-      user = tokenDetails;
+    .getUserDetails(bearerToken)
+    .then((userDetails) => {
+      user = userDetails;
     })
     .then(() => authorizeRoles(request, user))
     .then(() => user);
