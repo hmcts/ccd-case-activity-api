@@ -10,7 +10,7 @@ mock('../../app/user/auth-checker-user-only-filter', './stubs/idam-stub');
 
 const server = require('../../app');
 const redis = require('../../app/redis/redis-client');
-const delayed = require('../../app/util/delayed');
+const delayed = require('./utils/delayed');
 const activityAssert = require('./utils/activity-store-asserts');
 const testUtils = require('./utils/test-utils')(chai, server);
 
