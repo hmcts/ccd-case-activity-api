@@ -27,6 +27,7 @@ nodejs:
     REDIS_USER_DETAILS_TTL: 6000
     APP_REQUEST_TIMEOUT: 5
     APP_STORE_CLEANUP_CRONTAB: '* * * * *'
+    UV_THREADPOOL_SIZE: 64
 
   keyVaults:
     ccd:
