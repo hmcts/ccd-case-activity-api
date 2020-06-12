@@ -1,5 +1,7 @@
-const debug = require('debug')('ccd-case-activity-api:auth-checker-filter');
+const { Logger } = require('@hmcts/nodejs-logging');
 const userRequestAuthorizer = require('./user-request-authorizer');
+
+const logger = Logger.getLogger('authCheckerUserOnlyFilter');
 
 const authCheckerUserOnlyFilter = (req, res, next) => {
   req.authentication = {};
@@ -11,9 +13,18 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
     })
     .then(() => next())
     .catch((error) => {
-      debug(`Unsuccessful user authentication: ${error}`);
-      error.status = error.status || 401; // eslint-disable-line no-param-reassign
-      next(error);
+      if (error.name === 'FetchError') {
+        logger.error(error);
+        next({
+          status: 500,
+          error: 'Internal Server Error',
+          message: error.message,
+        });
+      } else {
+        logger.warn('Unsuccessful user authentication', error);
+        error.status = error.status || 401; // eslint-disable-line no-param-reassign
+        next(error);
+      }
     });
 };
 
