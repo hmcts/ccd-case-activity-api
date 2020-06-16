@@ -42,6 +42,22 @@ configurations {
     cucumberRuntime.extendsFrom(functionalRuntime)
 }
 
+task smoke(type: Test) {
+    setTestClassesDirs(sourceSets.aat.output.classesDirs)
+    useJUnitPlatform {
+        includeTags 'smoke'
+    }
+    doLast {
+        generateCucumberReports.enabled = true
+        javaexec {
+            main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
+            classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', '@Smoke', '--glue',
+                    'uk.gov.hmcts.befta.player', 'src/resources/features']
+        }
+    }
+}
+
 task functional(type: Test) {
     systemProperty "http.proxyHost", System.getProperty('http.proxyHost')
     systemProperty "http.proxyPort", System.getProperty('http.proxyPort')
