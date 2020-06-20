@@ -20,10 +20,6 @@ const activity = require('./app/routes/activity-route')(activityService, config)
 const app = express();
 const appHealth = express();
 
-const poweredByHeader = 'x-powered-by';
-app.disable(poweredByHeader);
-appHealth.disable(poweredByHeader);
-
 const healthConfig = {
   checks: {},
 };
