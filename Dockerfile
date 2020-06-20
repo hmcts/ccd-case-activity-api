@@ -1,5 +1,4 @@
 # ---- Base Image ----
-
 ARG base=hmctspublic.azurecr.io/base/node:12-alpine
 
 FROM ${base} as base
