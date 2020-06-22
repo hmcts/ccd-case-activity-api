@@ -21,7 +21,6 @@ repositories {
 // tag::dependencies[]
 dependencies {
     testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '3.0.1'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
 }
 // end::dependencies[]
 
