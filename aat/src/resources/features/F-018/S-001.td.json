@@ -1,0 +1,31 @@
+{
+  "title": "should invoke activity service And return response on successful requests",
+  "_guid_": "S-001",
+  "_extends_": "F-018_Test_Data_Base",
+  "specs": [
+    "an active profile in CCD",
+    "is to add an activity for the case created above",
+    "contains a case Id that has just been created as in Standard_Full_Case_Creation_Data"
+  ],
+
+
+    "expectedResponse": {
+      "responseCode": 201,
+      "responseMessage": "OK",
+      "headers": {
+        "Content-Length": "[[ANYTHING_PRESENT]]",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "[[ANYTHING_PRESENT]]",
+        "Etag": "[[ANYTHING_PRESENT]]",
+        "Request-Context": "appId=cid-v1:",
+        "Vary": "Accept-Encoding"
+      },
+      "body": {
+        "case": "[[ANYTHING_PRESENT]]",
+        "user": "[[ANYTHING_PRESENT]]",
+        "activity": "edit"
+      }
+    }
+  }
+
+
