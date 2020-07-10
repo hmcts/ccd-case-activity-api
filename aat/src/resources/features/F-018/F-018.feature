@@ -40,10 +40,9 @@ Feature: F-018: CCD Case Activity Api :: Add Activity
     And the response has all the details as expected
 
 
-  @S-004  #RDM-8963 Not failing when we pass malformed case Id
+  @S-004  @Ignore #RDM-8963 Not failing when we pass malformed case Id
   Scenario: Should return a negative response for a malformed caseID
     Given a user with [an active profile in CCD]
-    And a case that has just been created as in [Standard_Full_Case_Creation_Data]
     When a request is prepared with appropriate values
     And the request [is to add an activity for the case created above]
     And the request [contains a malformed caseID]
@@ -54,7 +53,6 @@ Feature: F-018: CCD Case Activity Api :: Add Activity
   @S-005
   Scenario: Should return a negative response for a missing caseID
     Given a user with [an active profile in CCD]
-    And a case that has just been created as in [Standard_Full_Case_Creation_Data]
     When a request is prepared with appropriate values
     And the request [is to add an activity for the case created above]
     And the request [contains a missing caseID]
