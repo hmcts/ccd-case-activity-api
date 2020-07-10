@@ -45,5 +45,4 @@ jspm_packages
 *.iml
 /.classpath
 /.project
-/bin/
 coverage/
