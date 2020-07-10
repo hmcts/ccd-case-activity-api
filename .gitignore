@@ -43,4 +43,7 @@ jspm_packages
 # IntelliJ IDEA files
 .idea/
 *.iml
+/.classpath
+/.project
+/bin/
 coverage/

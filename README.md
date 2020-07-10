@@ -63,6 +63,23 @@ The tests can be run using:
 $ yarn test:end2end
 ```
 
+## Functional Tests
+The functional tests are located in `aat` folder. The tests are written using 
+befta-fw library. To find out more about BEFTA Framework, see the repository and its README [here](https://github.com/hmcts/befta-fw).
+
+The tests can be run using:
+
+```
+$ yarn test:functional
+```
+
+or to run using gradle directly:
+
+```
+$ cd ./aat/
+$ ./gradlew functional
+```
+
 ## Some notes on development and test config
 You need to set the NODE_ENV to make use of environment configuration and DEBUG to see the logs when you run the server
 ```
