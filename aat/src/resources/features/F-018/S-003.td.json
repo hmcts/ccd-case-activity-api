@@ -1,0 +1,33 @@
+{
+  "title": "should return a negative response when activity is unknown",
+  "_guid_": "S-003",
+  "_extends_": "F-018_Test_Data_Base",
+  "specs": [
+    "an active profile in CCD",
+    "is to add an activity for the case created above",
+    "contains an unknown activity"
+  ],
+
+  "request": {
+
+    "body": {
+      "activity": "open"
+    }
+  },
+    "expectedResponse": {
+      "responseCode": 422,
+      "headers": {
+        "Content-Length": "[[ANYTHING_PRESENT]]",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "[[ANYTHING_PRESENT]]",
+        "Etag": "[[ANYTHING_PRESENT]]",
+        "Request-Context": "appId=cid-v1:",
+        "Vary": "Accept-Encoding"
+      },
+      "body": {
+        "message": "unknown activity: open"
+      }
+    }
+  }
+
+

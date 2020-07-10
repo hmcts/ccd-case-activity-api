@@ -1,0 +1,32 @@
+{
+  "title": "Should return a negative response for a malformed caseID",
+  "_guid_": "S-004",
+  "_extends_": "F-018_Test_Data_Base",
+  "specs": [
+    "an active profile in CCD",
+    "is to add an activity for the case created above",
+    "contains a malformed caseID"
+  ],
+
+  "request": {
+    "pathVariables": {
+      "cid": "@£  $%^&*  (@£$%  ^&*("
+    }
+  },
+    "expectedResponse": {
+      "responseCode": 400,
+      "headers": {
+        "Content-Length": "[[ANYTHING_PRESENT]]",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "[[ANYTHING_PRESENT]]",
+        "Etag": "[[ANYTHING_PRESENT]]",
+        "Request-Context": "appId=cid-v1:",
+        "Vary": "Accept-Encoding"
+      },
+      "body": {
+        "message": "[[ANYTHING_PRESENT]]"
+      }
+    }
+  }
+
+
