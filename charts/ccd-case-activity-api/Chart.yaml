@@ -2,7 +2,7 @@ apiVersion: v2
 description: Helm chart for the HMCTS CCD Case Activity
 name: ccd-case-activity-api
 home: https://github.com/hmcts/ccd-case-activity-api
-version: 1.1.8
+version: 1.1.9
 maintainers:
   - name: HMCTS CCD Dev Team
     email: ccd-devops@HMCTS.NET
