@@ -39,7 +39,7 @@ Feature: F-018: Add Activity
     And the response has all the details as expected.
 
   @S-004 @Ignore #RDM-8963 Not failing when we pass malformed case Id
-  Scenario: must return a negative response for a malformed caseID
+  Scenario: must return a negative response for a malformed Case ID
     Given a user with [an active profile in CCD],
     When a request is prepared with appropriate values,
     And the request [is to add an activity for the case created above],
@@ -49,7 +49,7 @@ Feature: F-018: Add Activity
     And the response has all the details as expected.
 
   @S-005
-  Scenario: must return a negative response for a missing caseID
+  Scenario: must return a negative response for a missing Case ID
     Given a user with [an active profile in CCD],
     When a request is prepared with appropriate values,
     And the request [is to add an activity for the case created above],

@@ -1,5 +1,5 @@
 {
-  "title": "must return a negative response for a missing caseID",
+  "title": "must return a negative response for a missing Case ID",
   "_guid_": "S-005",
   "_extends_": "F-018_Test_Data_Base",
   "specs": [

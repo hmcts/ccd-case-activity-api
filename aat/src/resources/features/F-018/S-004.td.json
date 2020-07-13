@@ -1,5 +1,5 @@
 {
-  "title": "must return a negative response for a malformed caseID",
+  "title": "must return a negative response for a malformed Case ID",
   "_guid_": "S-004",
   "_extends_": "F-018_Test_Data_Base",
   "specs": [
