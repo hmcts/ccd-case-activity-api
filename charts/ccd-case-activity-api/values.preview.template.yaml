@@ -9,7 +9,7 @@ nodejs:
   keyVaults:
 
 redis:
-  enabled: false
+  enabled: true
   ssl: false
   password: testPassword
   ingressHost: "{{ .Release.Name }}-redis-master"
