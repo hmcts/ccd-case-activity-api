@@ -12,8 +12,8 @@
       "_extends_": "Common_201_Response",
       "responseMessage": "OK",
       "body": {
-        "case": "[[ANYTHING_PRESENT]]",
-        "user": "[[ANYTHING_PRESENT]]",
+        "case": "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}",
+        "user": "${[scenarioContext][theInvokingUser][id]}",
         "activity": "edit"
       }
     }
