@@ -2,7 +2,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
   environment:
-    REDIS_HOST: "{{ .Release.Name }}-redis-master"
+    REDIS_HOST: "ccd-case-activity-api-{{ .Values.global.environment }}-redis-master.service.core-compute-{{ .Values.global.environment }}.internal
     REDIS_PORT: 6379
     REDIS_PASSWORD: testPassword
     REDIS_SSL_ENABLED: false
@@ -12,5 +12,4 @@ redis:
   enabled: true
   ssl: false
   password: testPassword
-  ingressHost: "{{ .Release.Name }}-redis-master"
-
+  ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}-redis-master.service.core-compute-{{ .Values.global.environment }}.internal
