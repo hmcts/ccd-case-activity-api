@@ -26,16 +26,7 @@
 
   },
   "expectedResponse": {
-    "responseCode": 200,
-    "responseMessage": "OK",
-    "headers": {
-      "Content-Length": "[[ANYTHING_PRESENT]]",
-      "Content-Type": "application/json; charset=utf-8",
-      "Date": "[[ANYTHING_PRESENT]]",
-      "Etag": "[[ANYTHING_PRESENT]]",
-      "Request-Context": "appId=cid-v1:",
-      "Vary": "Accept-Encoding"
-    },
+    "_extends_": "Common_200_Response",
     "body": {
       "arrayInMap":[
         {

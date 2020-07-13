@@ -17,12 +17,7 @@
     "expectedResponse": {
       "responseCode": 422,
       "headers": {
-        "Content-Length": "[[ANYTHING_PRESENT]]",
-        "Content-Type": "application/json; charset=utf-8",
-        "Date": "[[ANYTHING_PRESENT]]",
-        "Etag": "[[ANYTHING_PRESENT]]",
-        "Request-Context": "appId=cid-v1:",
-        "Vary": "Accept-Encoding"
+        "_extends_": "Common_422_Response_Headers"
       },
       "body": {
         "message": "unknown activity: "

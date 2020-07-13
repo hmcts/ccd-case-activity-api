@@ -8,9 +8,9 @@ Feature: F-018: CCD Case Activity Api :: Add Activity
   @S-001
   Scenario: should invoke activity service And return response on successful requests
     Given a user with [an active profile in CCD]
+    And a case that has just been created as in [Standard_Full_Case_Creation_Data]
     When a request is prepared with appropriate values
     And the request [is to add an activity for the case created above]
-    And the request [contains a case Id that has just been created as in Standard_Full_Case_Creation_Data]
     And it is submitted to call the [ADD Activity] operation of [CCD Case Activity API]
     Then a positive response is received
     And the response has all the details as expected
@@ -21,6 +21,7 @@ Feature: F-018: CCD Case Activity Api :: Add Activity
   @S-002
   Scenario: should return a negative response when activity is missing
     Given a user with [an active profile in CCD]
+    And a case that has just been created as in [Standard_Full_Case_Creation_Data]
     When a request is prepared with appropriate values
     And the request [is to add an activity for the case created above]
     And the request [will miss activity information]
