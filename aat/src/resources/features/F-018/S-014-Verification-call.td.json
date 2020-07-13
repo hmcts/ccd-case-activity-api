@@ -4,7 +4,7 @@
   "productName": "Case Activity API",
   "operationName": "GET Activity",
   "method": "GET",
-  "uri": "/activity/cases/{cid}/activity",
+  "uri": "/cases/{cid}/activity",
   "specs": [
     "to observe the new activity just added on the case above"
   ],

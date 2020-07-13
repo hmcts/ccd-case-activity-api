@@ -3,7 +3,7 @@
   "productName": "CCD Case Activity API",
   "operationName": "Add Activity",
   "method": "POST",
-  "uri": "/activity/cases/{cid}/activity",
+  "uri": "/cases/{cid}/activity",
   "users": {
     "invokingUser": {
       "username": "[[$CCD_CASEWORKER_AUTOTEST_EMAIL]]",
