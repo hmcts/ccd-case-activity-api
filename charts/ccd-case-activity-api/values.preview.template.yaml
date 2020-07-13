@@ -9,7 +9,7 @@ nodejs:
   keyVaults:
 
 redis:
-  enabled: true
+  enabled: false
   password: testPassword
   ingressHost: ${SERVICE_FQDN}-redis-master
 
