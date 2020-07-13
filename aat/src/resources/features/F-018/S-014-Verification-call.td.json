@@ -30,7 +30,7 @@
     "body": {
       "arrayInMap":[
         {
-          "caseId":"${[scenarioContext][parentContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}",
+          "caseId":"${[scenarioContext][testData][request][pathVariables][cid]}",
           "viewers":[],
           "unknownViewers":0,
           "editors":[],
