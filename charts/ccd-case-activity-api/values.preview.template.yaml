@@ -3,7 +3,7 @@ nodejs:
   image: ${IMAGE_NAME}
   environment:
     REDIS_HOST: "{{ .Release.Name }}-redis-master"
-    REDIS_PORT: 6380
+    REDIS_PORT: 6379
     REDIS_PASSWORD: testPassword
     REDIS_SSL_ENABLED: false
   keyVaults:
