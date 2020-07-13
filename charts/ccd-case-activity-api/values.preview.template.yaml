@@ -12,5 +12,5 @@ redis:
   enabled: false
   ssl: false
   password: testPassword
-  ingressHost: ${SERVICE_FQDN}-redis-master
+  ingressHost: "{{ .Release.Name }}-redis-master"
 
