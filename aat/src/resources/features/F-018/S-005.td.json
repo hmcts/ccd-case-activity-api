@@ -1,5 +1,5 @@
 {
-  "title": "Should return a negative response for a missing caseID",
+  "title": "must return a negative response for a missing caseID",
   "_guid_": "S-005",
   "_extends_": "F-018_Test_Data_Base",
   "specs": [
@@ -20,7 +20,7 @@
         "_extends_": "Common_404_Response_Headers"
       },
       "body": {
-        "message": "[[ANYTHING_PRESENT]]"
+        "message": "Not Found"
       }
     }
   }

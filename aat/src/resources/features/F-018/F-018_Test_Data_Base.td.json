@@ -1,7 +1,7 @@
 {
   "_guid_": "F-018_Test_Data_Base",
   "productName": "CCD Case Activity API",
-  "operationName": "ADD Activity",
+  "operationName": "Add Activity",
   "method": "POST",
   "uri": "/activity/cases/{cid}/activity",
   "users": {

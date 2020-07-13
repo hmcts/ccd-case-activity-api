@@ -1,5 +1,5 @@
 {
-  "title": "Should return a negative response for a malformed caseID",
+  "title": "must return a negative response for a malformed caseID",
   "_guid_": "S-004",
   "_extends_": "F-018_Test_Data_Base",
   "specs": [
@@ -14,13 +14,7 @@
     }
   },
     "expectedResponse": {
-      "responseCode": 400,
-      "headers": {
-        "_extends_": "Common_400_Response_Headers"
-      },
-      "body": {
-        "message": "[[ANYTHING_PRESENT]]"
-      }
+      "_extends_": "Common_400_Response"
     }
   }
 

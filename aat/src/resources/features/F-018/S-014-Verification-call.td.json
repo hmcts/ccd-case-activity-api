@@ -6,7 +6,7 @@
   "method": "GET",
   "uri": "/activity/cases/{cid}/activity",
   "specs": [
-    "to get the activity on the case above"
+    "to observe the new activity just added on the case above"
   ],
   "users": {
     "invokingUser": {
@@ -30,7 +30,7 @@
     "body": {
       "arrayInMap":[
         {
-          "caseId":"[[ANYTHING_PRESENT]]",
+          "caseId":"${[scenarioContext][parentContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}",
           "viewers":[],
           "unknownViewers":0,
           "editors":[],
