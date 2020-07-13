@@ -2,14 +2,11 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
   environment:
-    REDIS_HOST: "{{ .Release.Name }}-redis-master.service.core-compute-preview.internal"
+    REDIS_HOST: "{{ .Release.Name }}-redis-master"
     REDIS_PORT: 6379
-    REDIS_PASSWORD: testPassword
+    REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: false
   keyVaults:
 
 redis:
   enabled: true
-  ssl: false
-  password: testPassword
-  ingressHost: "{{ .Release.Name }}-redis-master.service.core-compute-preview.internal"
