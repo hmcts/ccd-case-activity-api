@@ -11,4 +11,5 @@ nodejs:
 redis:
   enabled: true
   password: testPassword
+  ingressHost: ${SERVICE_FQDN}-redis-master
 
