@@ -11,7 +11,7 @@
     "expectedResponse": {
       "_extends_": "Common_201_Response",
       "body": {
-        "case": "${[scenarioContext][testData][request][pathVariables][cid]}",
+        "case": "${}${[scenarioContext][testData][request][pathVariables][cid]}",
         "user": "${[scenarioContext][theInvokingUser][id]}",
         "activity": "edit"
       }
