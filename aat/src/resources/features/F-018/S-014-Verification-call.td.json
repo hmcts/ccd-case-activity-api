@@ -1,0 +1,42 @@
+{
+  "title": "Get Activity by case Id",
+  "_guid_": "S-014-Verification-call",
+  "productName": "Case Activity API",
+  "operationName": "GET Activity",
+  "method": "GET",
+  "uri": "/cases/{cid}/activity",
+  "specs": [
+    "to observe the new activity just added on the case above"
+  ],
+  "users": {
+    "invokingUser": {
+      "username": "[[$CCD_CASEWORKER_AUTOTEST_EMAIL]]",
+      "password": "[[$CCD_CASEWORKER_AUTOTEST_PASSWORD]]"
+    }
+  },
+  "request": {
+    "headers": {
+      "_extends_": "Common_Request_Headers",
+      "Content-Type": "application/json"
+    },
+    "pathVariables": {
+      "cid": "${[scenarioContext][parentContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}"
+    }
+
+
+  },
+  "expectedResponse": {
+    "_extends_": "Common_200_Response",
+    "body": {
+      "arrayInMap":[
+        {
+          "caseId":"${}${[scenarioContext][testData][request][pathVariables][cid]}",
+          "viewers":[],
+          "unknownViewers":0,
+          "editors":[],
+          "unknownEditors":0
+        }
+      ]
+    }
+  }
+}
