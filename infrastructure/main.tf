@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "1.22.1"
+  version = "1.24.0"
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
