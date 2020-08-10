@@ -1,0 +1,31 @@
+{
+  "_guid_": "F-018_Test_Data_Base",
+  "productName": "CCD Case Activity API",
+  "operationName": "Add Activity",
+  "method": "POST",
+  "uri": "/cases/{cid}/activity",
+  "users": {
+    "invokingUser": {
+      "username": "[[$CCD_CASEWORKER_AUTOTEST_EMAIL]]",
+      "password": "[[$CCD_CASEWORKER_AUTOTEST_PASSWORD]]"
+    }
+  },
+  "request": {
+    "headers": {
+      "_extends_": "Common_Request_Headers",
+      "Content-Type": "application/json"
+    },
+    "pathVariables": {
+      "cid": "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}"
+    },
+    "body": {
+      "activity": "edit"
+    }
+  },
+  "expectedResponse": {
+    "headers": {
+      "Content-Length": "[[ANYTHING_PRESENT]]",
+      "Content-Encoding" : "gzip"
+    }
+  }
+}
