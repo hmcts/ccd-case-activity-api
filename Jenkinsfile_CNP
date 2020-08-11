@@ -54,7 +54,7 @@ env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.int
 env.BEFTA_S2S_CLIENT_ID = "ccd_gw"
 env.OAUTH2_CLIENT_ID = "ccd_gateway"
 env.OAUTH2_REDIRECT_URI = "https://www-ccd.aat.platform.hmcts.net/oauth2redirect"
-env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-aat.service.core-compute-aat.internal"
+env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-pr-575.service.core-compute-preview.internal"
 env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-pr-601.service.core-compute-preview.internal"
 
 // Temporary workaround for platform changes: turn BEFTA header checks to warning mode
@@ -64,11 +64,12 @@ withPipeline(type, product, component) {
     onMaster {
         enableSlackNotifications('#ccd-master-builds')
     }
-    if (env.BRANCH_NAME == 'develop') {
+    if (env.BRANCH_NAME == 'PR-212') {
         enableSlackNotifications('#ccd-develop-builds')
     }
-    if (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'demo' && env.BRANCH_NAME != 'perftest' && env.BRANCH_NAME != 'ithc') {
-        env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-pr-575.service.core-compute-preview.internal"
+    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'demo' || env.BRANCH_NAME == 'perftest' || env.BRANCH_NAME == 'ithc') {
+       env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-" + env.BRANCH_NAME + ".service.core-compute-" + env.BRANCH_NAME + ".internal"
+       env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-" + env.BRANCH_NAME + ".service.core-compute-" + env.BRANCH_NAME + ".internal"
     }
     onDemo {
         enableSlackNotifications('#ccd-demo-builds')
