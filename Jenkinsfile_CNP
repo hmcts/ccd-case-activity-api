@@ -59,7 +59,7 @@ env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-pr-601.service.core
 
 // Temporary workaround for platform changes: turn BEFTA header checks to warning mode
 env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN"
-env.PRs_TO_USE_AAT = "PR-212"
+env.PRs_TO_USE_AAT = "PR-215"
 
 withPipeline(type, product, component) {
     onMaster {
