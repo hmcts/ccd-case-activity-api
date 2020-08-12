@@ -58,7 +58,8 @@ env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-pr-575.service.core
 env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-pr-601.service.core-compute-preview.internal"
 
 // Temporary workaround for platform changes: turn BEFTA header checks to warning mode
-env.BEFTA_RESPONSE_HEADER_CHECK_POLICY="JUST_WARN"
+env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN"
+env.PRs_TO_USE_AAT = "PR-215"
 
 withPipeline(type, product, component) {
     onMaster {
@@ -67,16 +68,23 @@ withPipeline(type, product, component) {
     if (env.BRANCH_NAME == 'PR-211') {
         enableSlackNotifications('#ccd-develop-builds')
     }
-    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'demo' || env.BRANCH_NAME == 'perftest' || env.BRANCH_NAME == 'ithc') {
-       env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-" + env.BRANCH_NAME + ".service.core-compute-" + env.BRANCH_NAME + ".internal"
-       env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-" + env.BRANCH_NAME + ".service.core-compute-" + env.BRANCH_NAME + ".internal"
-    }
     onDemo {
         enableSlackNotifications('#ccd-demo-builds')
     }
     onPR {
         enableSlackNotifications('#ccd-pr-builds')
     }
+
+    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'demo' || env.BRANCH_NAME == 'perftest' || env.BRANCH_NAME == 'ithc' || env.PRs_TO_USE_AAT.contains(env.BRANCH_NAME)) {
+       environmentOfDependencies = env.BRANCH_NAME
+       if (env.BRANCH_NAME.startsWith("PR") || env.BRANCH_NAME == 'master') {
+          environmentOfDependencies = "aat"
+       }
+       env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-${environmentOfDependencies}.service.core-compute-${environmentOfDependencies}.internal"
+       env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-${environmentOfDependencies}.service.core-compute-${environmentOfDependencies}.internal"
+    }
+    echo "FTA will use Definition Store: ${env.DEFINITION_STORE_HOST}"
+    echo "FTA will use Data Store: ${env.CCD_DATA_STORE_API_BASE_URL}"
 
     overrideVaultEnvironments(vaultOverrides)
     loadVaultSecrets(secrets)
