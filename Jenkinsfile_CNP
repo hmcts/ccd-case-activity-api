@@ -77,7 +77,7 @@ withPipeline(type, product, component) {
 
     if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'demo' || env.BRANCH_NAME == 'perftest' || env.BRANCH_NAME == 'ithc' || env.PRs_TO_USE_AAT.contains(env.BRANCH_NAME)) {
        environmentOfDependencies = env.BRANCH_NAME
-       if (env.BRANCH_NAME.startsWith("PR")) {
+       if (env.BRANCH_NAME.startsWith("PR") || env.BRANCH_NAME == 'master') {
           environmentOfDependencies = "aat"
        }
        env.DEFINITION_STORE_HOST = "http://ccd-definition-store-api-${environmentOfDependencies}.service.core-compute-${environmentOfDependencies}.internal"
