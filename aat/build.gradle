@@ -20,7 +20,7 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '3.6.0'
+    testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '4.0.1'
 }
 // end::dependencies[]
 
