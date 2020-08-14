@@ -10,6 +10,7 @@ public class CaseActivityTestAutomationAdapter extends DefaultTestAutomationAdap
     @Override
     public void doLoadTestData() {
         loader.addCcdRoles();
+        loader.importDefinitions();
     }
 
 }
