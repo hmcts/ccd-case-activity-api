@@ -1,21 +1,19 @@
 {
-  "_guid_": "S-001",
-  "_extends_": "F-018_Test_Data_Base",
-  "title": "must successfully add an activity with a correct and complete invocation",
+	"_guid_": "S-001",
+	"_extends_": "F-018_Test_Data_Base",
+	"title": "must successfully add an activity with a correct and complete invocation",
 
-  "specs": [
-    "an active profile in CCD",
-    "is to add an activity for the case created above"
-  ],
+	"specs": [
+		"an active profile in CCD",
+		"is to add an activity for the case created above"
+	],
 
-  "expectedResponse": {
-      "_extends_": "Common_201_Response",
-      "body": {
-        "case": "${}${[scenarioContext][testData][request][pathVariables][cid]}",
-        "user": "${[scenarioContext][theInvokingUser][id]}",
-        "activity": "edit"
-      }
-  }
+	"expectedResponse": {
+		"_extends_": "Common_201_Response",
+		"body": {
+			"case": "${}${[scenarioContext][testData][request][pathVariables][cid]}",
+			"user": "${[scenarioContext][theInvokingUser][id]}",
+			"activity": "edit"
+		}
+	}
 }
-
-

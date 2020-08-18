@@ -1,23 +1,23 @@
 {
-  "_guid_": "S-004",
-  "_extends_": "F-018_Test_Data_Base",
-  "title": "must return a negative response for a malformed Case ID",
+	"_guid_": "S-004",
+	"_extends_": "F-018_Test_Data_Base",
+	"title": "must return a negative response for a malformed Case ID",
 
-  "specs": [
-    "an active profile in CCD",
-    "is to add an activity for the case created above",
-    "contains a malformed caseID"
-  ],
+	"specs": [
+		"an active profile in CCD",
+		"is to add an activity for the case created above",
+		"contains a malformed caseID"
+	],
 
-  "request": {
-    "pathVariables": {
-      "cid": "@£  $%^&*  (@£$%  ^&*("
-    }
-  },
+	"request": {
+		"pathVariables": {
+			"cid": "@£  $%^&*  (@£$%  ^&*("
+		}
+	},
 
-  "expectedResponse": {
-    "_extends_": "Common_400_Response"
-  }
+	"expectedResponse": {
+		"_extends_": "Common_400_Response"
+	}
 }
 
 
