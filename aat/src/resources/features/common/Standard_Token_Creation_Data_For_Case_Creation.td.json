@@ -3,6 +3,7 @@
 
   "productName": "CCD Data Store",
   "operationName": "Start event creation as Case worker",
+
   "method": "GET",
   "uri": "{{CCD_DATA_STORE_API_BASE_URL}}/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/event-triggers/{etid}/token",
 
@@ -18,7 +19,7 @@
   },
 
   "request": {
-    "headers":{
+    "headers": {
       "_extends_": "Common_Request_Headers"
     },
     "pathVariables": {
@@ -31,7 +32,6 @@
 
   "expectedResponse": {
     "responseCode": 200,
-
     "headers": {
       "Content-Encoding": "gzip",
       "Content-Length": "[[ANY_INTEGER_NOT_NULLABLE]]"
@@ -101,5 +101,4 @@
       "event_id": "createCase"
     }
   }
-
 }

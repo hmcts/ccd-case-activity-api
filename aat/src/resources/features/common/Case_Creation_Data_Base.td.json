@@ -1,14 +1,15 @@
 {
-	"_guid_": "Case_Creation_Data_Base",
+  "_guid_": "Case_Creation_Data_Base",
 
-	"productName": "CCD Data Store",
-	"operationName": "Submit case creation as Case worker",
-	"method": "POST",
-	"uri": "{{CCD_DATA_STORE_API_BASE_URL}}/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases",
+  "productName": "CCD Data Store",
+  "operationName": "Submit case creation as Case worker",
 
-	"specs": [
-		"to create a full case"
-	],
+  "method": "POST",
+  "uri": "{{CCD_DATA_STORE_API_BASE_URL}}/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases",
+
+  "specs": [
+    "to create a full case"
+  ],
 
   "request": {
     "headers": {
