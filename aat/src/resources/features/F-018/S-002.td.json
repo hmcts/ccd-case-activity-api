@@ -1,7 +1,8 @@
 {
-  "title": "must return a negative response when activity is missing",
   "_guid_": "S-002",
   "_extends_": "F-018_Test_Data_Base",
+  "title": "must return a negative response when activity is missing",
+
   "specs": [
     "an active profile in CCD",
     "is to add an activity for the case created above",
@@ -9,20 +10,20 @@
   ],
 
   "request": {
-
     "body": {
       "activity": ""
     }
   },
-    "expectedResponse": {
-      "responseCode": 422,
-      "headers": {
-        "_extends_": "Common_422_Response_Headers"
-      },
-      "body": {
-        "message": "unknown activity: "
-      }
+
+  "expectedResponse": {
+    "responseCode": 422,
+    "headers": {
+      "_extends_": "Common_422_Response_Headers"
+    },
+    "body": {
+      "message": "unknown activity: "
     }
   }
+}
 
 

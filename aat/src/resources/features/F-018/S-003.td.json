@@ -1,7 +1,8 @@
 {
-  "title": "must return a negative response when activity is unknown",
   "_guid_": "S-003",
   "_extends_": "F-018_Test_Data_Base",
+  "title": "must return a negative response when activity is unknown",
+
   "specs": [
     "an active profile in CCD",
     "is to add an activity for the case created above",
@@ -9,20 +10,20 @@
   ],
 
   "request": {
-
     "body": {
       "activity": "open"
     }
   },
-    "expectedResponse": {
-      "responseCode": 422,
-      "headers": {
-        "_extends_": "Common_422_Response_Headers"
-      },
-      "body": {
-        "message": "unknown activity: open"
-      }
+
+  "expectedResponse": {
+    "responseCode": 422,
+    "headers": {
+      "_extends_": "Common_422_Response_Headers"
+    },
+    "body": {
+      "message": "unknown activity: open"
     }
   }
+}
 
 

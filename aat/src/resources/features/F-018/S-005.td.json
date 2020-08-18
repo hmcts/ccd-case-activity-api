@@ -1,7 +1,8 @@
 {
-  "title": "must return a negative response for a missing Case ID",
   "_guid_": "S-005",
   "_extends_": "F-018_Test_Data_Base",
+  "title": "must return a negative response for a missing Case ID",
+
   "specs": [
     "an active profile in CCD",
     "is to add an activity for the case created above",
@@ -12,17 +13,17 @@
     "pathVariables": {
       "cid": ""
     }
-
   },
-    "expectedResponse": {
-      "responseCode": 404,
-      "headers": {
-        "_extends_": "Common_404_Response_Headers"
-      },
-      "body": {
-        "message": "Not Found"
-      }
+
+  "expectedResponse": {
+    "responseCode": 404,
+    "headers": {
+      "_extends_": "Common_404_Response_Headers"
+    },
+    "body": {
+      "message": "Not Found"
     }
   }
+}
 
 

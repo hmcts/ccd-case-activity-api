@@ -1,6 +1,6 @@
 {
-	"_guid_": "Standard_Full_Case_Creation_Data",
-	"_extends_": "Case_Creation_Data_Base",
+  "_guid_": "Standard_Full_Case_Creation_Data",
+  "_extends_": "Case_Creation_Data_Base",
 
   "users": {
     "invokingUser": {
@@ -70,7 +70,6 @@
           }
         }
       },
-
       "security_classifications": {
         "AddressUKField": {
           "classification": "PUBLIC",
@@ -83,7 +82,8 @@
             "PostCode": "PUBLIC",
             "Country": "PUBLIC"
           }
-        },"OrganisationPolicyField2": {
+        },
+        "OrganisationPolicyField2": {
           "classification": "PUBLIC",
           "value": {
             "OrgPolicyCaseAssignedRole": "PUBLIC",
