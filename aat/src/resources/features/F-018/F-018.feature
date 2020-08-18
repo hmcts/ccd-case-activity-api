@@ -7,6 +7,7 @@ Feature: F-018: Add Activity
     Given an appropriate test context as detailed in the test data source
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# RDM-6501 / AC-1
 @S-001
 Scenario: must successfully add an activity with a correct and complete invocation
 
@@ -22,6 +23,7 @@ Scenario: must successfully add an activity with a correct and complete invocati
       And another call [to observe the new activity just added on the case above] will get the expected response as in [S-014-Verification-call].
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# RDM-6501 / AC-2
 @S-002 #RDM-8986 should return 400 Bad Request but returning 422
 Scenario: must return a negative response when activity is missing
 
@@ -37,6 +39,7 @@ Scenario: must return a negative response when activity is missing
       And the response has all the details as expected.
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# RDM-6501 / AC-3
 @S-003 #RDM-8986 should return 400 Bad Request but returning 422
 Scenario: must return a negative response when activity is unknown
 
@@ -52,6 +55,7 @@ Scenario: must return a negative response when activity is unknown
       And the response has all the details as expected.
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# RDM-6501 / AC-4
 @S-004 @Ignore #RDM-8963 Not failing when we pass malformed case Id
 Scenario: must return a negative response for a malformed Case ID
 
@@ -66,6 +70,7 @@ Scenario: must return a negative response for a malformed Case ID
       And the response has all the details as expected.
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# RDM-6501 / AC-5
 @S-005
 Scenario: must return a negative response for a missing Case ID
 
