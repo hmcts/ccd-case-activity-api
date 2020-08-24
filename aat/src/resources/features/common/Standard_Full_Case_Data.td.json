@@ -1,29 +1,29 @@
 {
-  "_guid_": "Standard_Full_Case_Data",
+	"_guid_": "Standard_Full_Case_Data",
 
-  "AddressUKField": {
-    "AddressLine1": "102 Petty France",
-    "AddressLine2": "CCD",
-    "AddressLine3": "c/o HMCTS Reform",
-    "PostTown": "Westminster",
-    "County": "Greater London",
-    "PostCode": "SW1H 9AJ",
-    "Country": "UK"
-  },
-  "OrganisationPolicyField1": {
-    "OrgPolicyCaseAssignedRole": "[Claimant]",
-    "OrgPolicyReference": "ref",
-    "Organisation": {
-      "OrganisationID": "orgID1",
-      "OrganisationName": "orgName1"
-    }
-  },
-  "OrganisationPolicyField2": {
-    "OrgPolicyCaseAssignedRole": "[Defendant]",
-    "OrgPolicyReference": "ref",
-    "Organisation": {
-      "OrganisationID": "orgID2",
-      "OrganisationName": "orgName2"
-    }
-  }
+	"AddressUKField": {
+		"AddressLine1": "102 Petty France",
+		"AddressLine2": "CCD",
+		"AddressLine3": "c/o HMCTS Reform",
+		"PostTown": "Westminster",
+		"County": "Greater London",
+		"PostCode": "SW1H 9AJ",
+		"Country": "UK"
+	},
+	"OrganisationPolicyField1": {
+		"OrgPolicyCaseAssignedRole": "[Claimant]",
+		"OrgPolicyReference": "ref",
+		"Organisation": {
+			"OrganisationID": "orgID1",
+			"OrganisationName": "orgName1"
+		}
+	},
+	"OrganisationPolicyField2": {
+		"OrgPolicyCaseAssignedRole": "[Defendant]",
+		"OrgPolicyReference": "ref",
+		"Organisation": {
+			"OrganisationID": "orgID2",
+			"OrganisationName": "orgName2"
+		}
+	}
 }

@@ -3,7 +3,7 @@
 Feature: F-018: Add Activity
 #===========================
 
-  Background: Load test data for the scenario
+Background: Load test data for the scenario
     Given an appropriate test context as detailed in the test data source
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
