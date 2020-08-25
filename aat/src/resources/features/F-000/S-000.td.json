@@ -3,7 +3,7 @@
 	"title": "must return a successful response when hitting Case Activity Healthcheck Operation",
 
 	"productName": "CCD Case Activity API",
-	"operationName": "Healthcheck Operation",
+	"operationName": "Healthcheck",
 
 	"method": "GET",
 	"uri": "/health/liveness",
