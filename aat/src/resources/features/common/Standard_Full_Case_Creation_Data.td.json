@@ -1,117 +1,117 @@
 {
-  "_guid_": "Standard_Full_Case_Creation_Data",
-  "_extends_": "Case_Creation_Data_Base",
+	"_guid_": "Standard_Full_Case_Creation_Data",
+	"_extends_": "Case_Creation_Data_Base",
 
-  "users": {
-    "invokingUser": {
-      "username": "master.caseworker@gmail.com",
-      "password": "[[$CCD_BEFTA_MASTER_CASEWORKER_PWD]]"
-    }
-  },
+	"users": {
+		"invokingUser": {
+			"username": "master.caseworker@gmail.com",
+			"password": "[[$CCD_BEFTA_MASTER_CASEWORKER_PWD]]"
+		}
+	},
 
-  "request": {
-    "pathVariables": {
-      "jid": "BEFTA_MASTER",
-      "ctid": "FT_MasterCaseType"
-    },
-    "body": {
-      "data": {
-        "_extends_": "Standard_Full_Case_Data"
-      }
-    }
-  },
+	"request": {
+		"pathVariables": {
+			"jid": "BEFTA_MASTER",
+			"ctid": "FT_MasterCaseType"
+		},
+		"body": {
+			"data": {
+				"_extends_": "Standard_Full_Case_Data"
+			}
+		}
+	},
 
-  "expectedResponse": {
-    "body": {
-      "jurisdiction": "BEFTA_MASTER",
-      "case_type_id": "FT_MasterCaseType",
-      "case_data": {
-        "_extends_": "Standard_Full_Case_Data"
-      },
-      "data_classification": {
-        "AddressUKField": {
-          "classification": "PUBLIC",
-          "value": {
-            "AddressLine1": "PUBLIC",
-            "AddressLine2": "PUBLIC",
-            "AddressLine3": "PUBLIC",
-            "PostTown": "PUBLIC",
-            "County": "PUBLIC",
-            "PostCode": "PUBLIC",
-            "Country": "PUBLIC"
-          }
-        },
-        "OrganisationPolicyField2": {
-          "classification": "PUBLIC",
-          "value": {
-            "OrgPolicyCaseAssignedRole": "PUBLIC",
-            "OrgPolicyReference": "PUBLIC",
-            "Organisation": {
-              "classification": "PUBLIC",
-              "value": {
-                "OrganisationID": "PUBLIC",
-                "OrganisationName": "PUBLIC"
-              }
-            }
-          }
-        },
-        "OrganisationPolicyField1": {
-          "classification": "PUBLIC",
-          "value": {
-            "OrgPolicyCaseAssignedRole": "PUBLIC",
-            "OrgPolicyReference": "PUBLIC",
-            "Organisation": {
-              "classification": "PUBLIC",
-              "value": {
-                "OrganisationID": "PUBLIC",
-                "OrganisationName": "PUBLIC"
-              }
-            }
-          }
-        }
-      },
-      "security_classifications": {
-        "AddressUKField": {
-          "classification": "PUBLIC",
-          "value": {
-            "AddressLine1": "PUBLIC",
-            "AddressLine2": "PUBLIC",
-            "AddressLine3": "PUBLIC",
-            "PostTown": "PUBLIC",
-            "County": "PUBLIC",
-            "PostCode": "PUBLIC",
-            "Country": "PUBLIC"
-          }
-        },
-        "OrganisationPolicyField2": {
-          "classification": "PUBLIC",
-          "value": {
-            "OrgPolicyCaseAssignedRole": "PUBLIC",
-            "OrgPolicyReference": "PUBLIC",
-            "Organisation": {
-              "classification": "PUBLIC",
-              "value": {
-                "OrganisationID": "PUBLIC",
-                "OrganisationName": "PUBLIC"
-              }
-            }
-          }
-        },
-        "OrganisationPolicyField1": {
-          "classification": "PUBLIC",
-          "value": {
-            "OrgPolicyCaseAssignedRole": "PUBLIC",
-            "OrgPolicyReference": "PUBLIC",
-            "Organisation": {
-              "classification": "PUBLIC",
-              "value": {
-                "OrganisationID": "PUBLIC",
-                "OrganisationName": "PUBLIC"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+	"expectedResponse": {
+		"body": {
+			"jurisdiction": "BEFTA_MASTER",
+			"case_type_id": "FT_MasterCaseType",
+			"case_data": {
+				"_extends_": "Standard_Full_Case_Data"
+			},
+			"data_classification": {
+				"AddressUKField": {
+					"classification": "PUBLIC",
+					"value": {
+						"AddressLine1": "PUBLIC",
+						"AddressLine2": "PUBLIC",
+						"AddressLine3": "PUBLIC",
+						"PostTown": "PUBLIC",
+						"County": "PUBLIC",
+						"PostCode": "PUBLIC",
+						"Country": "PUBLIC"
+					}
+				},
+				"OrganisationPolicyField2": {
+					"classification": "PUBLIC",
+					"value": {
+						"OrgPolicyCaseAssignedRole": "PUBLIC",
+						"OrgPolicyReference": "PUBLIC",
+						"Organisation": {
+							"classification": "PUBLIC",
+							"value": {
+								"OrganisationID": "PUBLIC",
+								"OrganisationName": "PUBLIC"
+							}
+						}
+					}
+				},
+				"OrganisationPolicyField1": {
+					"classification": "PUBLIC",
+					"value": {
+						"OrgPolicyCaseAssignedRole": "PUBLIC",
+						"OrgPolicyReference": "PUBLIC",
+						"Organisation": {
+							"classification": "PUBLIC",
+							"value": {
+								"OrganisationID": "PUBLIC",
+								"OrganisationName": "PUBLIC"
+							}
+						}
+					}
+				}
+			},
+			"security_classifications": {
+				"AddressUKField": {
+					"classification": "PUBLIC",
+					"value": {
+						"AddressLine1": "PUBLIC",
+						"AddressLine2": "PUBLIC",
+						"AddressLine3": "PUBLIC",
+						"PostTown": "PUBLIC",
+						"County": "PUBLIC",
+						"PostCode": "PUBLIC",
+						"Country": "PUBLIC"
+					}
+				},
+				"OrganisationPolicyField2": {
+					"classification": "PUBLIC",
+					"value": {
+						"OrgPolicyCaseAssignedRole": "PUBLIC",
+						"OrgPolicyReference": "PUBLIC",
+						"Organisation": {
+							"classification": "PUBLIC",
+							"value": {
+								"OrganisationID": "PUBLIC",
+								"OrganisationName": "PUBLIC"
+							}
+						}
+					}
+				},
+				"OrganisationPolicyField1": {
+					"classification": "PUBLIC",
+					"value": {
+						"OrgPolicyCaseAssignedRole": "PUBLIC",
+						"OrgPolicyReference": "PUBLIC",
+						"Organisation": {
+							"classification": "PUBLIC",
+							"value": {
+								"OrganisationID": "PUBLIC",
+								"OrganisationName": "PUBLIC"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
