@@ -55,6 +55,16 @@ task smoke(type: Test) {
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
   }
+
+  finalizedBy {
+    generateCucumberReports {
+      doLast{
+            new File("${rootDir}/BEFTA Report for Smoke Tests").mkdirs()
+            file("${rootDir}/target/cucumber/cucumber-html-reports").renameTo(file("${rootDir}/BEFTA Report for Smoke Tests"))
+      }
+    }
+  }
+
   outputs.upToDateWhen { false }
 }
 
@@ -71,6 +81,16 @@ task functional(type: Test) {
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
   }
+
+  finalizedBy {
+    generateCucumberReports {
+      doLast{
+        new File("${rootDir}/BEFTA Report for Functional Tests").mkdirs()
+        file("${rootDir}/target/cucumber/cucumber-html-reports").renameTo(file("${rootDir}/BEFTA Report for Functional Tests"))
+      }
+    }
+  }
+
   outputs.upToDateWhen { false }
 }
 
