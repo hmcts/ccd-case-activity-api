@@ -6,7 +6,7 @@
 	"operationName": "Healthcheck",
 
 	"method": "GET",
-	"uri": "/health/liveness",
+	"uri": "/health/livenesss",
 
 	"specs": [
 		"an active profile in CCD",
