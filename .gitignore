@@ -46,3 +46,5 @@ jspm_packages
 /.classpath
 /.project
 coverage/
+/BEFTA Report for Smoke Tests/
+/BEFTA Report for Functional Tests/
