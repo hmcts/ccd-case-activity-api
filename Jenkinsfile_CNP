@@ -14,7 +14,7 @@ def component = "case-activity-api"
 def dataStoreDevelopPr       = "PR-601" // This doesn't change frequently, but when it does, only change this value.
 def definitionStoreDevelopPr = "PR-575" // This doesn't change frequently, but when it does, only change this value.
 def activityApiDevelopPr     = "PR-211" // This doesn't change frequently, but when it does, only change this value.
-def prsToUseAaat             = "PR-217" // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
+def prsToUseAaat             = "PR-217, PR-225" // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
 
 def secrets = [
     'ccd-${env}': [
