@@ -38,7 +38,7 @@ Feature: F-018: Add Activity
     Then a negative response is received,
     And the response has all the details as expected.
 
-  @S-004 @Ignore #RDM-8963 Not failing when we pass malformed case Id
+  @S-004
   Scenario: must return a negative response for a malformed Case ID
     Given a user with [an active profile in CCD],
     When a request is prepared with appropriate values,
