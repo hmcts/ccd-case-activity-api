@@ -42,7 +42,6 @@ Feature: F-018: Add Activity
   Scenario: must return a negative response for a malformed Case ID
     Given a user with [an active profile in CCD],
     When a request is prepared with appropriate values,
-    And the request [is to add an activity for the case created above],
     And the request [contains a malformed caseID],
     And it is submitted to call the [Add Activity] operation of [CCD Case Activity API],
     Then a negative response is received,
