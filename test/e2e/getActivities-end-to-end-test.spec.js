@@ -185,4 +185,16 @@ describe('Activity Service - GetActivities', () => {
         .catch((error) => done(error));
     });
   });
+
+  it('should return 400 BadRequest if the case Id is malformed', (done) => {
+    chai.request(server)
+      .get('/cases/111,121%202/activity')
+      .set('Authorization', Token)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.body.error.should.equal('"Malformed caseId" must be a number');
+        done();
+      });
+  });
 });
