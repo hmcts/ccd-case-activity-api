@@ -7,8 +7,7 @@ Background: Load test data for the scenario
       Given an appropriate test context as detailed in the test data source
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@Smoke
-@S-001
+@S-001 @Smoke
 Scenario: must successfully add an activity with a correct and complete invocation
 
     Given a user with [an active profile in CCD],
