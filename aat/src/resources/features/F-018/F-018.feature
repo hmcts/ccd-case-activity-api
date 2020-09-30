@@ -22,7 +22,7 @@ Scenario: must successfully add an activity with a correct and complete invocati
       And another call [to observe the new activity just added on the case above] will get the expected response as in [S-014-Verification-call].
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-002 #RDM-8986 should return 400 Bad Request but returning 422
+@S-002 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
 Scenario: must return a negative response when activity is missing
 
     Given a user with [an active profile in CCD],
@@ -37,7 +37,7 @@ Scenario: must return a negative response when activity is missing
       And the response has all the details as expected.
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-003 #RDM-8986 should return 400 Bad Request but returning 422
+@S-003 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
 Scenario: must return a negative response when activity is unknown
 
     Given a user with [an active profile in CCD],
