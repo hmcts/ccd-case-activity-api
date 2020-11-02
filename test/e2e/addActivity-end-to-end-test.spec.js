@@ -82,6 +82,22 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       });
   });
 
+  it('should return 400 BadRequest if the case Id is malformed', (done) => {
+    const body = {
+      activity: 'view',
+    };
+    chai.request(server)
+      .post('/cases/55%234/activity')
+      .set('Authorization', Token)
+      .send(body)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.body.error.should.equal('"Malformed caseId" must be a number');
+        done();
+      });
+  });
+
   it('should not POST a user activity if authentication is not provided', (done) => {
     const body = {
 

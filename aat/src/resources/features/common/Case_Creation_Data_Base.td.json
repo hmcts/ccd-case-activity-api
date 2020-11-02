@@ -3,6 +3,7 @@
 
 	"productName": "CCD Data Store",
 	"operationName": "Submit case creation as Case worker",
+
 	"method": "POST",
 	"uri": "{{CCD_DATA_STORE_API_BASE_URL}}/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases",
 
@@ -15,11 +16,13 @@
 			"_extends_": "Common_Request_Headers"
 		},
 		"pathVariables": {
-			"uid": "[[DEFAULT_AUTO_VALUE]]"
+			"uid": "[[DEFAULT_AUTO_VALUE]]",
+			"jid": "BEFTA_MASTER",
+			"ctid": "FT_MasterCaseType"
 		},
 		"body": {
 			"event": {
-				"id": "CREATE",
+				"id": "createCase",
 				"summary": "",
 				"description": ""
 			},
@@ -38,12 +41,13 @@
 		},
 		"body": {
 			"id": "[[ANYTHING_PRESENT]]",
-			"state": "TODO",
+			"state": "[[ANYTHING_PRESENT]]",
 			"version": 0,
 			"last_state_modified_date": "[[ANYTHING_PRESENT]]",
 			"created_date": "[[ANYTHING_PRESENT]]",
 			"last_modified": "[[ANYTHING_PRESENT]]",
 			"security_classification": "PUBLIC",
+			"supplementary_data" : null,
 			"after_submit_callback_response": null,
 			"callback_response_status_code": null,
 			"callback_response_status": null,
