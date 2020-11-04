@@ -7,7 +7,7 @@ Background: Load test data for the scenario
       Given an appropriate test context as detailed in the test data source
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-001 @Ignore
+@S-001 @Smoke
 Scenario: must successfully add an activity with a correct and complete invocation
 
     Given a user with [an active profile in CCD],
@@ -27,12 +27,12 @@ Scenario: must return a negative response when activity is missing
 
     Given a user with [an active profile in CCD],
       And a case that has just been created as in [Standard_Full_Case_Creation_Data],
-    
+
      When a request is prepared with appropriate values,
       And the request [is to add an activity for the case created above],
       And the request [will miss activity information],
       And it is submitted to call the [Add Activity] operation of [CCD Case Activity API],
-    
+
      Then a negative response is received,
       And the response has all the details as expected.
 
@@ -60,7 +60,7 @@ Scenario: must return a negative response for a malformed Case ID
      When a request is prepared with appropriate values,
       And the request [contains a malformed caseID],
       And it is submitted to call the [Add Activity] operation of [CCD Case Activity API],
-    
+
      Then a negative response is received,
       And the response has all the details as expected.
 
