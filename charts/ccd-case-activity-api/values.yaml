@@ -13,6 +13,9 @@ nodejs:
   applicationPort: 3460
   aadIdentityName: ccd
   ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  autoscaling:
+    enabled: true 
+    maxReplicas: 12
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
     CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
