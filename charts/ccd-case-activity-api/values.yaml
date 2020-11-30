@@ -15,7 +15,8 @@ nodejs:
   ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
     enabled: true 
-    maxReplicas: 12
+    minReplicas: 8
+    maxReplicas: 16
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
     CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
