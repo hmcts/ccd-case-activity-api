@@ -37,7 +37,7 @@
     "@hmcts/nodejs-healthcheck": "1.7.0",
     "@hmcts/nodejs-logging": "^3.0.1",
     "@hmcts/properties-volume": "^0.0.9",
-    "applicationinsights": "^1.0.5",
+    "applicationinsights": "^1.8.8",
     "body-parser": "^1.18.2",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
