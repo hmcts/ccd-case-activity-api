@@ -1,7 +1,7 @@
 
 plugins {
     id 'application'
-    id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.14'
+    id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
 }
 
 sourceCompatibility = 1.8
@@ -13,14 +13,14 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-        url 'https://dl.bintray.com/hmcts/hmcts-maven'
+        url 'https://jitpack.io'
     }
 }
 // end::repositories[]
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'uk.gov.hmcts', name: 'befta-fw', version: '6.13.0'
+    testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '6.14.2'
 }
 // end::dependencies[]
 
