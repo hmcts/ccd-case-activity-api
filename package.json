@@ -75,9 +75,10 @@
     "supertest": "^3.0.0"
   },
   "resolutions": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.3",
-    "y18n": "^4.0.1"
+    "y18n": "^4.0.1",
+    "hosted-git-info": "^3.0.8"
   }
 }
