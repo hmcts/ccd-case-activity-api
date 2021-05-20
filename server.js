@@ -138,8 +138,8 @@ function getCaseStatuses(caseIds) {
     const cs = caseStatuses[caseId];
     if (cs) {
       obj[caseId] = {
-        viewers: [ ...cs.viewers.map(w => w.id) ],
-        editors: [ ...cs.editors.map(e => e.id) ]
+        viewers: [ ...cs.viewers.map(w => w.name) ],
+        editors: [ ...cs.editors.map(e => e.name) ]
       };
     }
     return obj;
