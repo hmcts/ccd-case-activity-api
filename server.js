@@ -33,36 +33,69 @@ const io = require('socket.io')(server, {
 const IORouter = new require('socket.io-router-middleware');
 const iorouter = new IORouter();
 
-// const socketsWatchingCases = {};
+// TODO: Track this stuff in redis.
 const caseStatuses = {};
+const socketUsers = {};
 
-// Add router paths
-iorouter.on('/socket', (socket, ctx, next) => {
-  const payload = ctx.request.payload;
-  if (payload) {
-    if (payload.edit) {
-      handleEdit(socket, payload);
-    } else if (payload.view) {
-      handleView(socket, payload);
-    } else if (payload.watch) {
-      handleWatch(socket, payload.watch);
+// Pretty way of logging.
+function doLog(socket, payload, group) {
+  let text = `${new Date().toISOString()} | ${socket.id} | ${group}`;
+  if (typeof payload === 'string') {
+    if (payload) {
+      text = `${text} => ${payload}`;
     }
+    console.log(text);
+  } else {
+    console.group(text);
+    console.log(payload);
+    console.groupEnd();
   }
-  // ctx.response = { hello: 'from server' };
-  // socket.emit('response', ctx);
-  // Don't forget to call next() at the end to enable passing to other middlewares
+}
+
+// Set up routes for each type of message.
+iorouter.on('init', (socket, ctx, next) => {
+  // Do nothing in here.
+  doLog(socket, '', 'init');
   next();
 });
+
+iorouter.on('register', (socket, ctx, next) => {
+  doLog(socket, ctx.request.user, 'register');
+  socketUsers[socket.id] = ctx.request.user;
+  next();
+});
+
+iorouter.on('view', (socket, ctx, next) => {
+  const user = socketUsers[socket.id];
+  doLog(socket, `${ctx.request.caseId} (${user.name})`, 'view');
+  handleView(socket, ctx.request.caseId, user);
+  next();
+});
+
+iorouter.on('edit', (socket, ctx, next) => {
+  const user = socketUsers[socket.id];
+  doLog(socket, `${ctx.request.caseId} (${user.name})`, 'edit');
+  handleEdit(socket, ctx.request.caseId, user);
+  next();
+});
+
+iorouter.on('watch', (socket, ctx, next) => {
+  const user = socketUsers[socket.id];
+  doLog(socket, `${ctx.request.caseIds} (${user.name})`, 'watch');
+  handleWatch(socket, ctx.request.caseIds);
+  next();
+});
+
 // On client connection attach the router
 io.on('connection', function (socket) {
+  // console.log('io.on.connection', socket.handshake);
   socket.use((packet, next) => {
     // Call router.attach() with the client socket as the first parameter
     iorouter.attach(socket, packet, next);
   });
 });
 
-function handleEdit(socket, payload) {
-  const caseId = payload.edit;
+function handleEdit(socket, caseId, user) {
   const stoppedViewing = stopViewingCases(socket.id);
   if (stoppedViewing.length > 0) {
     stoppedViewing.filter(c => c !== caseId).forEach(c => stopWatchingCase(socket, c));
@@ -74,10 +107,10 @@ function handleEdit(socket, payload) {
   watchCase(socket, caseId);
   const caseStatus = caseStatuses[caseId] || { viewers: [], editors: [] };
   caseStatuses[caseId] = caseStatus;
-  const matchingEditor = caseStatus.editors.find(e => e.id === payload.user.id);
+  const matchingEditor = caseStatus.editors.find(e => e.id === user.id);
   const notify = stoppedViewing.concat(stoppedEditing);
   if (!matchingEditor) {
-    caseStatus.editors.push({ ...payload.user, socketId: socket.id });
+    caseStatus.editors.push({ ...user, socketId: socket.id });
     notify.push(caseId);
   }
   if (notify.length > 0) {
@@ -86,8 +119,7 @@ function handleEdit(socket, payload) {
   socket.emit('response', getCaseStatuses([caseId]));
 }
 
-function handleView(socket, payload) {
-  const caseId = payload.view;
+function handleView(socket, caseId, user) {
   const stoppedViewing = stopViewingCases(socket.id, caseId);
   if (stoppedViewing.length > 0) {
     stoppedViewing.filter(c => c !== caseId).forEach(c => stopWatchingCase(socket, c));
@@ -99,10 +131,10 @@ function handleView(socket, payload) {
   watchCase(socket, caseId);
   const caseStatus = caseStatuses[caseId] || { viewers: [], editors: [] };
   caseStatuses[caseId] = caseStatus;
-  const matchingViewer = caseStatus.viewers.find(v => v.id === payload.user.id);
+  const matchingViewer = caseStatus.viewers.find(v => v.id === user.id);
   const notify = stoppedViewing.concat(stoppedEditing);
   if (!matchingViewer) {
-    caseStatus.viewers.push({ ...payload.user, socketId: socket.id });
+    caseStatus.viewers.push({ ...user, socketId: socket.id });
     notify.push(caseId);
   }
   if (notify.length > 0) {
@@ -129,6 +161,8 @@ function stopWatchingCase(socket, caseId) {
 }
 function notifyWatchers(socket, caseIds) {
   caseIds.sort().forEach(caseId => {
+    const cs = getCaseStatuses([caseId]);
+    doLog(socket, cs, `notify room 'case:${caseId}'`);
     socket.to(`case:${caseId}`).emit('cases', getCaseStatuses([caseId]));
   });
 }
@@ -138,12 +172,15 @@ function getCaseStatuses(caseIds) {
     const cs = caseStatuses[caseId];
     if (cs) {
       obj[caseId] = {
-        viewers: [ ...cs.viewers.map(w => w.name) ],
-        editors: [ ...cs.editors.map(e => e.name) ]
+        viewers: [ ...cs.viewers.map(w => toUser(w)) ],
+        editors: [ ...cs.editors.map(e => toUser(e)) ]
       };
     }
     return obj;
   }, {});
+}
+function toUser(obj) {
+  return { id: obj.id, name: obj.name };
 }
 
 function stopViewingOrEditing(socketId, exceptCaseId) {
@@ -179,11 +216,16 @@ function stopEditingCases(socketId, exceptCaseId) {
 const connections = [];
 io.sockets.on("connection", (socket) => {
   connections.push(socket);
-  console.log(" %s sockets is connected", connections.length);
+  if (connections.length === 1) {
+    console.log("1 socket connected");
+  } else {
+    console.log("%s sockets connected", connections.length);
+  }
   // console.log('connections[0]', connections[0]);
   socket.on("disconnect", () => {
     console.log(socket.id, 'has disconnected');
     stopViewingOrEditing(socket.id);
+    delete socketUsers[socket.id];
     connections.splice(connections.indexOf(socket), 1);
   });
   socket.on("sending message", (message) => {
