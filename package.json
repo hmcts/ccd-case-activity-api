@@ -2,10 +2,6 @@
   "name": "ccd-case-activity-api",
   "version": "0.0.2",
   "private": true,
-  "engines": {
-    "node": "^12.14.1",
-    "yarn": "^1.12.3"
-  },
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
     "start": "cross-env NODE_PATH=. node server.js",
@@ -40,7 +36,6 @@
     "@hmcts/nodejs-logging": "^3.0.1",
     "@hmcts/properties-volume": "^0.0.9",
     "applicationinsights": "^1.0.5",
-    "body-parser": "^1.18.2",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.2.0",
@@ -54,7 +49,9 @@
     "nocache": "^2.1.0",
     "node-cache": "^5.1.0",
     "node-cron": "^1.2.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "socket.io": "^4.1.2",
+    "socket.io-router-middleware": "^1.1.2"
   },
   "devDependencies": {
     "chai": "^4.1.2",

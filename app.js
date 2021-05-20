@@ -1,7 +1,6 @@
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const express = require('express');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-api:app');
 const enableAppInsights = require('./app/app-insights/app-insights');
@@ -43,9 +42,9 @@ if (config.util.getEnv('NODE_ENV') === 'test') {
 debug(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
 
 app.use(corsHandler);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.text());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.text());
 app.use(authCheckerUserOnlyFilter);
 
 app.use('/', activity);

@@ -61,3 +61,5 @@ out/
 bin/
 build/
 
+config/local-development.yaml
+.env
