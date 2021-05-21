@@ -1,7 +1,8 @@
 const config = require('config');
 
 const createWhitelistValidator = (val) => {
-  const whitelist = config.get('security.cors_origin_whitelist').split(',');
+  const configValue = config.get('security.cors_origin_whitelist') || '';
+  const whitelist = configValue.split(',');
   for (let i = 0; i < whitelist.length; i += 1) {
     if (val === whitelist[i]) {
       return true;
