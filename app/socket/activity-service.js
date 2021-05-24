@@ -82,9 +82,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     const now = Date.now();
     const getUserDetails = () => {
       if (uniqueUserIds.length > 0) {
-        return redis.mget(uniqueUserIds.map((userId) => redisActivityKeys.user(userId)), (err, res) => {
-          return res;
-        });
+        return redis.mget(uniqueUserIds.map((userId) => redisActivityKeys.user(userId)));
       }
       return [];
     };
@@ -140,6 +138,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       };
     });
   };
+
   return {
     addActivity, getActivityForCases, getSocketActivity, removeSocketActivity
   };
