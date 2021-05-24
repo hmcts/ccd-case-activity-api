@@ -1,3 +1,10 @@
+const config = require('config');
+const ttlScoreGenerator = require('../service/ttl-score-generator');
+const redisWatcher = require('./redis-watcher');
+
+const IORouter = new require('socket.io-router-middleware');
+const iorouter = new IORouter();
+
 /**
  * Sets up a series of routes for a "socket" endpoint, that
  * leverages socket.io and will more than likely use long polling
@@ -9,13 +16,40 @@
  * TODO:
  *   1. Use redis rather than holding the details in memory.
  *   2. Some sort of auth / get the credentials when the user connects.
+ * 
+ * Add view activity looks like this:
+ *  addActivity 1588201414700270 {
+      sub: 'leeds_et@mailinator.com',
+      uid: '85269805-3a70-419d-acab-193faeb89ad3',
+      roles: [
+        'caseworker-employment',
+        'caseworker-employment-leeds',
+        'caseworker'
+      ],
+      name: 'Ethos Leeds',
+      given_name: 'Ethos',
+      family_name: 'Leeds'
+    } view
+ *
  */
-module.exports = (server) => {
+module.exports = (server, redis) => {
+  const activityService = require('./activity-service')(config, redis, ttlScoreGenerator);
   const io = require('socket.io')(server, {
     allowEIO3: true
   });
-  const IORouter = new require('socket.io-router-middleware');
-  const iorouter = new IORouter();
+
+  async function whenActivityForCases(caseIds) {
+    const caseActivty = await activityService.getActivityForCases(caseIds);
+    console.log('activity for cases', caseIds, caseActivty);
+    return caseActivty;
+  }
+  async function notifyWatchers(caseIds) {
+    caseIds = Array.isArray(caseIds) ? caseIds : [caseIds];
+    caseIds.sort().forEach(async (caseId) => {
+      const cs = await whenActivityForCases([caseId]);
+      io.to(`case:${caseId}`).emit('cases', cs);
+    });
+  }
 
   // TODO: Track this stuff in redis.
   const caseStatuses = {};
@@ -36,6 +70,28 @@ module.exports = (server) => {
     }
   }
 
+  redisWatcher.on('message', room => {
+    const caseId = room.replace('case:', '');
+    console.log('redisWatcher.on.message', room, caseId);
+    notifyWatchers([caseId]);
+    // io.to(room).emit(message);
+  });
+  
+
+  // When a new room is created, we want to watch for changes to that case.
+  io.of('/').adapter.on('create-room', (room) => {
+    console.log(`room ${room} was created`);
+    if (room.indexOf('case:') === 0) {
+      redisWatcher.subscribe(`${room}`);
+    }
+  });
+
+  io.of('/').adapter.on('delete-room', (room) => {
+    if (room.indexOf('case:') === 0) {
+      redisWatcher.unsubscribe(`${room}`);
+    }
+  });
+
   // Set up routes for each type of message.
   iorouter.on('init', (socket, ctx, next) => {
     // Do nothing in here.
@@ -53,6 +109,9 @@ module.exports = (server) => {
     const user = socketUsers[socket.id];
     doLog(socket, `${ctx.request.caseId} (${user.name})`, 'view');
     handleView(socket, ctx.request.caseId, user);
+
+    // Try sticking it in redis.
+    activityService.addActivity(ctx.request.caseId, toUser(user), 'view');
     next();
   });
 
@@ -60,6 +119,9 @@ module.exports = (server) => {
     const user = socketUsers[socket.id];
     doLog(socket, `${ctx.request.caseId} (${user.name})`, 'edit');
     handleEdit(socket, ctx.request.caseId, user);
+
+    // Try sticking it in redis.
+    activityService.addActivity(ctx.request.caseId, toUser(user), 'edit');
     next();
   });
 
@@ -72,7 +134,6 @@ module.exports = (server) => {
 
   // On client connection attach the router
   io.on('connection', function (socket) {
-    // console.log('io.on.connection', socket.handshake);
     socket.use((packet, next) => {
       // Call router.attach() with the client socket as the first parameter
       iorouter.attach(socket, packet, next);
@@ -98,9 +159,8 @@ module.exports = (server) => {
       notify.push(caseId);
     }
     if (notify.length > 0) {
-      notifyWatchers(socket, [ ...new Set(notify) ]);
+      notifyWatchers([ ...new Set(notify) ]);
     }
-    socket.emit('response', getCaseStatuses([caseId]));
   }
 
   function handleView(socket, caseId, user) {
@@ -122,14 +182,14 @@ module.exports = (server) => {
       notify.push(caseId);
     }
     if (notify.length > 0) {
-      notifyWatchers(socket, [ ...new Set(notify) ]);
+      notifyWatchers([ ...new Set(notify) ]);
     }
-    socket.emit('response', getCaseStatuses([caseId]));
   }
 
-  function handleWatch(socket, caseIds) {
+  async function handleWatch(socket, caseIds) {
     watchCases(socket, caseIds);
-    socket.emit('cases', getCaseStatuses(caseIds));
+    const cs = await whenActivityForCases(caseIds);
+    socket.emit('cases', cs);
   }
 
   function watchCases(socket, caseIds) {
@@ -143,28 +203,19 @@ module.exports = (server) => {
   function stopWatchingCase(socket, caseId) {
     socket.leave(`case:${caseId}`);
   }
-  function notifyWatchers(socket, caseIds) {
-    caseIds.sort().forEach(caseId => {
-      const cs = getCaseStatuses([caseId]);
-      doLog(socket, cs, `notify room 'case:${caseId}'`);
-      socket.to(`case:${caseId}`).emit('cases', getCaseStatuses([caseId]));
-    });
-  }
-
-  function getCaseStatuses(caseIds) {
-    return caseIds.reduce((obj, caseId) => {
-      const cs = caseStatuses[caseId];
-      if (cs) {
-        obj[caseId] = {
-          viewers: [ ...cs.viewers.map(w => toUser(w)) ],
-          editors: [ ...cs.editors.map(e => toUser(e)) ]
-        };
-      }
-      return obj;
-    }, {});
-  }
   function toUser(obj) {
-    return { id: obj.id, name: obj.name };
+    return {
+      sub: `${obj.name.replace(' ', '.')}@mailinator.com`,
+      uid: obj.id,
+      roles: [
+        'caseworker-employment',
+        'caseworker-employment-leeds',
+        'caseworker'
+      ],
+      name: obj.name,
+      given_name: obj.name.split(' ')[0],
+      family_name: obj.name.split(' ')[1]
+    };
   }
 
   function stopViewingOrEditing(socketId, exceptCaseId) {
