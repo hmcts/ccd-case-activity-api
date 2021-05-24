@@ -25,6 +25,7 @@ module.exports = (debug) => {
       failures.forEach((f) => debug(`${message}: ${f}`));
     } else {
       debug(`${plOutcome} is not an Array...`);
+      debug(`${JSON.stringify(plOutcome)}`);
     }
     return plOutcome;
   };
@@ -38,10 +39,10 @@ module.exports = (debug) => {
   redis
     .on('error', (err) => {
       // eslint-disable-next-line no-console
-      console.log(`Redis error: ${err.message}`);
+      debug(`Redis error: ${err.message}`);
     }).on('connect', () => {
     // eslint-disable-next-line no-console
-      console.log('connected to Redis');
+      debug('connected to Redis');
     });
 
   return redis;
