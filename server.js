@@ -16,14 +16,18 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3460');
 console.log('Starting on port ' + port);
-app.set('port', port);
+app.app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-var io = require('./app/socket')(server);
+var server = http.createServer(app.app);
+
+/**
+ * Create the socket server.
+ */
+require('./app/socket')(server, app.redis);
 
 /**
  * Listen on provided port, on all network interfaces.
