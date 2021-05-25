@@ -65,14 +65,14 @@ const utils = {
       return ['del', redisActivityKeys.socket(socketId)];
     }
   }
-}
+};
 
 module.exports = (config, redis, ttlScoreGenerator) => {
   const userDetailsTtlSec = config.get('redis.userDetailsTtlSec');
 
   const notifyChange = (caseId) => {
     redis.publish(redisActivityKeys.baseCase(caseId), Date.now().toString());
-  }
+  };
 
   const getSocketActivity = async (socketId) => {
     const key = redisActivityKeys.socket(socketId);
@@ -96,21 +96,6 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     return [];
   };
 
-  const addActivity = async (caseId, user, socketId, activity) => {
-    // First, clear out any existing activity on this socket.
-    await removeSocketActivity(socketId, caseId);
-
-    // Now store this activity.
-    const activityKey = redisActivityKeys[activity](caseId);
-    return redis.pipeline([
-      utils.store.userActivity(activityKey, user.uid, ttlScoreGenerator.getScore()),
-      utils.store.socketActivity(socketId, activityKey, caseId, user.uid, userDetailsTtlSec),
-      utils.store.userDetails(user, userDetailsTtlSec)
-    ]).exec().then(() => {
-      notifyChange(caseId);
-    });
-  };
-
   const removeSocketActivity = async (socketId, skipNotifyForCaseId) => {
     // First make sure we actually have some activity to remove.
     const activity = await getSocketActivity(socketId);
@@ -127,6 +112,21 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     return null;
   };
 
+  const addActivity = async (caseId, user, socketId, activity) => {
+    // First, clear out any existing activity on this socket.
+    await removeSocketActivity(socketId, caseId);
+
+    // Now store this activity.
+    const activityKey = redisActivityKeys[activity](caseId);
+    return redis.pipeline([
+      utils.store.userActivity(activityKey, user.uid, ttlScoreGenerator.getScore()),
+      utils.store.socketActivity(socketId, activityKey, caseId, user.uid, userDetailsTtlSec),
+      utils.store.userDetails(user, userDetailsTtlSec)
+    ]).exec().then(() => {
+      notifyChange(caseId);
+    });
+  };
+
   const getActivityForCases = async (caseIds) => {
     const uniqueUserIds = [];
     let caseViewers = [];
@@ -139,7 +139,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
         redis.logPipelineFailures(result, failureMessage);
         cb(result);
         utils.extractUniqueUserIds(result, uniqueUserIds);
-      }); 
+      });
     };
 
     // Set up the promises fore view and edit.
