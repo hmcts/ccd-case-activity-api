@@ -1,71 +1,5 @@
-const debug = require('debug')('ccd-case-activity-api:activity-service');
-
-const redisActivityKeys = {
-  view: (caseId) => `case:${caseId}:viewers`,
-  edit: (caseId) => `case:${caseId}:editors`,
-  baseCase: (caseId) => `case:${caseId}`,
-  user: (userId) => `user:${userId}`,
-  socket: (socketId) => `socket:${socketId}`
-};
-const utils = {
-  toUserString: (user) => {
-    return JSON.stringify({
-      id: user.uid,
-      forename: user.given_name,
-      surname: user.family_name
-    });
-  },
-  extractUniqueUserIds: (result, uniqueUserIds) => {
-    if (result) {
-      result.forEach((item) => {
-        if (item && item[1]) {
-          const users = item[1];
-          users.forEach((userId) => {
-            if (!uniqueUserIds.includes(userId)) {
-              uniqueUserIds.push(userId);
-            }
-          });
-        }
-      });
-    }
-  },
-  get: {
-    caseActivities: (caseIds, activity, now) => {
-      return caseIds.map((id) => ['zrangebyscore', redisActivityKeys[activity](id), now, '+inf']);
-    },
-    users: (userIds) => {
-      return userIds.map((id) => ['get', redisActivityKeys.user(id)]);
-    }
-  },
-  store: {
-    userActivity: (activityKey, userId, score) => {
-      debug(`about to store activity "${activityKey}" for user "${userId}"`);
-      return ['zadd', activityKey, score, userId];
-    },
-    userDetails: (user, ttl) => {
-      const key = redisActivityKeys.user(user.uid);
-      const store = utils.toUserString(user);
-      debug(`about to store details "${key}" for user "${user.uid}": ${store}`);
-      return ['set', key, store, 'EX', ttl];
-    },
-    socketActivity: (socketId, activityKey, caseId, userId, ttl) => {
-      const key = redisActivityKeys.socket(socketId);
-      const store = JSON.stringify({ activityKey, caseId, userId });
-      debug(`about to store activity "${key}" for socket "${socketId}": ${store}`);
-      return ['set', key, store, 'EX', ttl];
-    }
-  },
-  remove: {
-    userActivity: (activity) => {
-      debug(`about to remove activity "${activity.activityKey}" for user "${activity.userId}"`);
-      return ['zrem', activity.activityKey, activity.userId];
-    },
-    socketEntry: (socketId) => {
-      debug(`about to remove activity for socket "${socketId}"`);
-      return ['del', redisActivityKeys.socket(socketId)];
-    }
-  }
-};
+const redisActivityKeys = require('./redis-keys');
+const utils = require('./utils');
 
 module.exports = (config, redis, ttlScoreGenerator) => {
   const userDetailsTtlSec = config.get('redis.userDetailsTtlSec');
@@ -128,7 +62,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
   };
 
   const getActivityForCases = async (caseIds) => {
-    const uniqueUserIds = [];
+    let uniqueUserIds = [];
     let caseViewers = [];
     let caseEditors = [];
     const now = Date.now();
@@ -138,7 +72,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       ).exec().then((result) => {
         redis.logPipelineFailures(result, failureMessage);
         cb(result);
-        utils.extractUniqueUserIds(result, uniqueUserIds);
+        uniqueUserIds = utils.extractUniqueUserIds(result, uniqueUserIds);
       });
     };
 
@@ -173,6 +107,9 @@ module.exports = (config, redis, ttlScoreGenerator) => {
   };
 
   return {
-    addActivity, getActivityForCases, getSocketActivity, removeSocketActivity
+    addActivity,
+    getActivityForCases,
+    getSocketActivity,
+    removeSocketActivity
   };
 };
