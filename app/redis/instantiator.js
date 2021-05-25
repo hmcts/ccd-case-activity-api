@@ -23,9 +23,6 @@ module.exports = (debug) => {
       const operationsFailureOutcome = plOutcome.map((operationOutcome) => operationOutcome[ERROR]);
       const failures = operationsFailureOutcome.filter((element) => element !== null);
       failures.forEach((f) => debug(`${message}: ${f}`));
-    } else {
-      debug(`${plOutcome} is not an Array...`);
-      debug(`${JSON.stringify(plOutcome)}`);
     }
     return plOutcome;
   };
