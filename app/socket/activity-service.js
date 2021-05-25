@@ -82,7 +82,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     const now = Date.now();
     const getUserDetails = () => {
       if (uniqueUserIds.length > 0) {
-        return redis.mget(uniqueUserIds.map((userId) => redisActivityKeys.user(userId)));
+        return redis.pipeline(uniqueUserIds.map((userId) => ['get', redisActivityKeys.user(userId)])).exec();
       }
       return [];
     };
@@ -118,7 +118,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     await Promise.all([caseViewersPromise, caseEditorsPromise]);
 
     const userDetails = await getUserDetails().reduce((obj, item) => {
-      const user = JSON.parse(item);
+      const user = JSON.parse(item[1]);
       obj[user.id] = { forename: user.forename, surname: user.surname };
       return obj;
     }, {});
