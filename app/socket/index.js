@@ -38,7 +38,11 @@ const iorouter = new IORouter();
 module.exports = (server, redis) => {
   const activityService = ActivityService(config, redis, ttlScoreGenerator);
   const io = SocketIO(server, {
-    allowEIO3: true
+    allowEIO3: true,
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST']
+    }
   });
   function toUser(obj) {
     return {
