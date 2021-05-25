@@ -81,17 +81,14 @@ module.exports = (server, redis) => {
     });
   }
   async function handleViewOrEdit(socket, caseId, user, activity) {
-    // Leave all the case rooms.
+    // Leave all the existing case rooms.
     stopWatchingCases(socket);
 
-    // Remove the activity for this socket.
-    activityService.removeSocketActivity(socket.id);
-
-    // Now watch this case again.
+    // Now watch this case specifically.
     watchCase(socket, caseId);
 
-    // Finally, add this new activity to redis.
-    activityService.addActivity(caseId, toUser(user), socket.id, activity);
+    // Finally, add this new activity to redis, which will also clear out the old activity.
+    await activityService.addActivity(caseId, toUser(user), socket.id, activity);
   }
   function handleEdit(socket, caseId, user) {
     handleViewOrEdit(socket, caseId, user, 'edit');
@@ -104,7 +101,7 @@ module.exports = (server, redis) => {
     stopWatchingCases(socket);
 
     // Remove the activity for this socket.
-    activityService.removeSocketActivity(socket.id);
+    await activityService.removeSocketActivity(socket.id);
 
     // Now watch the specified cases.
     watchCases(socket, caseIds);
