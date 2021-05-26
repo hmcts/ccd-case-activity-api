@@ -1,8 +1,11 @@
 const redisActivityKeys = require('./redis-keys');
 const utils = require('./utils');
 
-module.exports = (config, redis, ttlScoreGenerator) => {
-  const userDetailsTtlSec = config.get('redis.userDetailsTtlSec');
+module.exports = (config, redis) => {
+  const ttl = {
+    user: config.get('redis.userDetailsTtlSec'),
+    activity: config.get('redis.activityTtlSec')
+  };
 
   const notifyChange = (caseId) => {
     redis.publish(redisActivityKeys.baseCase(caseId), Date.now().toString());
@@ -53,9 +56,9 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     // Now store this activity.
     const activityKey = redisActivityKeys[activity](caseId);
     return redis.pipeline([
-      utils.store.userActivity(activityKey, user.uid, ttlScoreGenerator.getScore()),
-      utils.store.socketActivity(socketId, activityKey, caseId, user.uid, userDetailsTtlSec),
-      utils.store.userDetails(user, userDetailsTtlSec)
+      utils.store.userActivity(activityKey, user.uid, utils.score(ttl.activity)),
+      utils.store.socketActivity(socketId, activityKey, caseId, user.uid, ttl.user),
+      utils.store.userDetails(user, ttl.user)
     ]).exec().then(() => {
       notifyChange(caseId);
     });
