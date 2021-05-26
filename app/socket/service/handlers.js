@@ -1,3 +1,4 @@
+const keys = require('../redis/keys');
 const utils = require('../utils');
 
 module.exports = (activityService, socketServer) => {
@@ -18,21 +19,20 @@ module.exports = (activityService, socketServer) => {
 
   /**
    * Notify all users in a case room about any change to activity on a case.
-   * @param {*} caseId 
+   * @param {*} caseId The id of the case that has activity and that people should be notified about.
    */
   async function notify(caseId) {
     const cs = await activityService.getActivityForCases([caseId]);
-    socketServer.to(`case:${caseId}`).emit('activity', cs);
+    socketServer.to(keys.baseCase(caseId)).emit('activity', cs);
   }
 
   /**
    * Remove any activity associated with a socket. This can be called when the
    * socket disconnects.
-   * @param {*} socketId 
-   * @returns 
+   * @param {*} socketId The id of the socket to remove activity for.
    */
   async function removeSocketActivity(socketId) {
-    return activityService.removeSocketActivity(socketId);
+    await activityService.removeSocketActivity(socketId);
   }
 
   /**

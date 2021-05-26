@@ -1,7 +1,9 @@
+const keys = require('../redis/keys');
+
 const watch = {
   case: (socket, caseId) => {
     if (socket && caseId) {
-      socket.join(`case:${caseId}`);
+      socket.join(keys.baseCase(caseId));
     }
   },
   cases: (socket, caseIds) => {
@@ -14,7 +16,7 @@ const watch = {
   stop: (socket) => {
     if (socket) {
       [...socket.rooms]
-        .filter((r) => r.indexOf('case:') === 0) // Only case rooms.
+        .filter((r) => r.indexOf(`${keys.prefixes.case}:`) === 0) // Only case rooms.
         .forEach((r) => socket.leave(r));
     }
   },
