@@ -1,5 +1,6 @@
-const expect = require('chai').expect;
+const keys = require('../../../../../app/socket/redis/keys');
 const watch = require('../../../../../app/socket/utils/watch');
+const expect = require('chai').expect;
 
 describe('socket.utils', () => {
 
@@ -32,7 +33,7 @@ describe('socket.utils', () => {
         watch.case(MOCK_SOCKET, CASE_ID);
         expect(MOCK_SOCKET.rooms).to.have.lengthOf(2)
           .and.to.include(MOCK_SOCKET.id)
-          .and.to.include(`case:${CASE_ID}`);
+          .and.to.include(keys.baseCase(CASE_ID));
       });
       it('should handle a null room', () => {
         const CASE_ID = null;
@@ -55,7 +56,7 @@ describe('socket.utils', () => {
         expect(MOCK_SOCKET.rooms).to.have.lengthOf(CASE_IDS.length + 1)
           .and.to.include(MOCK_SOCKET.id);
         CASE_IDS.forEach((id) => {
-          expect(MOCK_SOCKET.rooms).to.include(`case:${id}`);
+          expect(MOCK_SOCKET.rooms).to.include(keys.baseCase(id));
         });
       });
       it('should handle a null room', () => {
@@ -65,7 +66,7 @@ describe('socket.utils', () => {
           .and.to.include(MOCK_SOCKET.id);
         CASE_IDS.forEach((id) => {
           if (id) {
-            expect(MOCK_SOCKET.rooms).to.include(`case:${id}`);
+            expect(MOCK_SOCKET.rooms).to.include(keys.baseCase(id));
           }
         });
       });
@@ -127,10 +128,10 @@ describe('socket.utils', () => {
         expect(MOCK_SOCKET.rooms).to.have.lengthOf(REPLACEMENT_CASE_IDS.length + 1)
           .and.to.include(MOCK_SOCKET.id);
         REPLACEMENT_CASE_IDS.forEach((id) => {
-          expect(MOCK_SOCKET.rooms).to.include(`case:${id}`);
+          expect(MOCK_SOCKET.rooms).to.include(keys.baseCase(id));
         });
         CASE_IDS.forEach((id) => {
-          expect(MOCK_SOCKET.rooms).not.to.include(`case:${id}`);
+          expect(MOCK_SOCKET.rooms).not.to.include(keys.baseCase(id));
         });
       });
     });
