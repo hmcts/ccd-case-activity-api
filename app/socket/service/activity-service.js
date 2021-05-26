@@ -1,5 +1,5 @@
-const redisActivityKeys = require('./redis-keys');
-const utils = require('./utils');
+const keys = require('../redis/keys');
+const utils = require('../utils');
 
 module.exports = (config, redis) => {
   const ttl = {
@@ -8,11 +8,11 @@ module.exports = (config, redis) => {
   };
 
   const notifyChange = (caseId) => {
-    redis.publish(redisActivityKeys.baseCase(caseId), Date.now().toString());
+    redis.publish(keys.baseCase(caseId), Date.now().toString());
   };
 
   const getSocketActivity = async (socketId) => {
-    const key = redisActivityKeys.socket(socketId);
+    const key = keys.socket(socketId);
     return JSON.parse(await redis.get(key));
   };
 
@@ -54,7 +54,7 @@ module.exports = (config, redis) => {
     await removeSocketActivity(socketId, caseId);
 
     // Now store this activity.
-    const activityKey = redisActivityKeys[activity](caseId);
+    const activityKey = keys[activity](caseId);
     return redis.pipeline([
       utils.store.userActivity(activityKey, user.uid, utils.score(ttl.activity)),
       utils.store.socketActivity(socketId, activityKey, caseId, user.uid, ttl.user),
@@ -113,6 +113,9 @@ module.exports = (config, redis) => {
     addActivity,
     getActivityForCases,
     getSocketActivity,
+    getUserDetails,
+    notifyChange,
+    redis,
     removeSocketActivity
   };
 };

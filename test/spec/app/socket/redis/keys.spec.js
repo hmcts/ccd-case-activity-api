@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const redisActivityKeys = require('../../../../app/socket/redis-keys');
+const redisActivityKeys = require('../../../../../app/socket/redis/keys');
 
-describe('socket.redis-keys', () => {
+describe('socket.redis.keys', () => {
 
   it('should get the correct key for viewing a case', () => {
     const CASE_ID = '12345678';

@@ -1,4 +1,4 @@
-const redisActivityKeys = require('../redis-keys');
+const redisActivityKeys = require('../redis/keys');
 
 const get = {
   caseActivities: (caseIds, activity, now) => {
