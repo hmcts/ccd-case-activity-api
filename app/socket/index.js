@@ -1,10 +1,10 @@
-const debug = require('debug')('ccd-case-activity-api:socket');
 const config = require('config');
 const IORouter = require('socket.io-router-middleware');
 const SocketIO = require('socket.io');
-const ttlScoreGenerator = require('../service/ttl-score-generator');
-const redisWatcher = require('./redis-watcher');
+
 const ActivityService = require('./activity-service');
+const redisWatcher = require('./redis-watcher');
+const utils = require('./utils');
 
 const iorouter = new IORouter();
 
@@ -36,7 +36,7 @@ const iorouter = new IORouter();
  *
  */
 module.exports = (server, redis) => {
-  const activityService = ActivityService(config, redis, ttlScoreGenerator);
+  const activityService = ActivityService(config, redis);
   const io = SocketIO(server, {
     allowEIO3: true,
     cors: {
@@ -44,134 +44,68 @@ module.exports = (server, redis) => {
       methods: ['GET', 'POST']
     }
   });
-  function toUser(obj) {
-    return {
-      sub: `${obj.name.replace(' ', '.')}@mailinator.com`,
-      uid: obj.id,
-      roles: [
-        'caseworker-employment',
-        'caseworker-employment-leeds',
-        'caseworker'
-      ],
-      name: obj.name,
-      given_name: obj.name.split(' ')[0],
-      family_name: obj.name.split(' ')[1]
-    };
-  }
-  function watchCase(socket, caseId) {
-    socket.join(`case:${caseId}`);
-  }
-  function watchCases(socket, caseIds) {
-    caseIds.forEach((caseId) => {
-      watchCase(socket, caseId);
-    });
-  }
-  function stopWatchingCases(socket) {
-    [...socket.rooms].filter((r) => r.indexOf('case:') === 0).forEach((r) => socket.leave(r));
-  }
+  const socketUsers = {};
 
-  async function whenActivityForCases(caseIds) {
-    return activityService.getActivityForCases(caseIds);
+  async function notifyWatchers(caseId) {
+    const cs = await activityService.getActivityForCases([caseId]);
+    io.to(`case:${caseId}`).emit('activity', cs);
   }
-  async function notifyWatchers(caseIds) {
-    const ids = Array.isArray(caseIds) ? caseIds : [caseIds];
-    ids.sort().forEach(async (caseId) => {
-      const cs = await whenActivityForCases([caseId]);
-      io.to(`case:${caseId}`).emit('activity', cs);
-    });
-  }
-  async function handleViewOrEdit(socket, caseId, user, activity) {
-    // Leave all the existing case rooms.
-    stopWatchingCases(socket);
+  async function handleActivity(socket, caseId, user, activity) {
+    // Update what's being watched.
+    utils.watch.update(socket, [caseId]);
 
-    // Now watch this case specifically.
-    watchCase(socket, caseId);
-
-    // Finally, add this new activity to redis, which will also clear out the old activity.
-    await activityService.addActivity(caseId, toUser(user), socket.id, activity);
-  }
-  function handleEdit(socket, caseId, user) {
-    handleViewOrEdit(socket, caseId, user, 'edit');
-  }
-  function handleView(socket, caseId, user) {
-    handleViewOrEdit(socket, caseId, user, 'view');
+    // Then add this new activity to redis, which will also clear out the old activity.
+    await activityService.addActivity(caseId, utils.toUser(user), socket.id, activity);
   }
   async function handleWatch(socket, caseIds) {
     // Stop watching the current cases.
-    stopWatchingCases(socket);
+    utils.watch.stop(socket);
 
     // Remove the activity for this socket.
     await activityService.removeSocketActivity(socket.id);
 
     // Now watch the specified cases.
-    watchCases(socket, caseIds);
+    utils.watch.cases(socket, caseIds);
 
     // And immediately dispatch a message about the activity on those cases.
-    const cs = await whenActivityForCases(caseIds);
+    const cs = await activityService.getActivityForCases(caseIds);
     socket.emit('activity', cs);
-  }
-
-  // TODO: Track this stuff in redis.
-  const socketUsers = {};
-
-  // Pretty way of logging.
-  function doLog(socket, payload, group) {
-    let text = `${new Date().toISOString()} | ${socket.id} | ${group}`;
-    if (typeof payload === 'string') {
-      if (payload) {
-        text = `${text} => ${payload}`;
-      }
-      debug(text);
-    } else {
-      debug(text);
-      debug(payload);
-    }
   }
 
   redisWatcher.psubscribe('case:*');
   redisWatcher.on('pmessage', (_, room) => {
     const caseId = room.replace('case:', '');
-    notifyWatchers([caseId]);
+    notifyWatchers(caseId);
   });
 
   // Set up routes for each type of message.
-  iorouter.on('init', (socket, ctx, next) => {
-    // Do nothing in here.
-    doLog(socket, '', 'init');
-    next();
-  });
-
   iorouter.on('register', (socket, ctx, next) => {
-    doLog(socket, ctx.request.user, 'register');
+    utils.log(socket, ctx.request.user, 'register');
     socketUsers[socket.id] = ctx.request.user;
     next();
   });
-
   iorouter.on('view', (socket, ctx, next) => {
     const user = socketUsers[socket.id];
-    doLog(socket, `${ctx.request.caseId} (${user.name})`, 'view');
-    handleView(socket, ctx.request.caseId, user);
+    utils.log(socket, `${ctx.request.caseId} (${user.name})`, 'view');
+    handleActivity(socket, ctx.request.caseId, user, 'view');
     next();
   });
-
   iorouter.on('edit', (socket, ctx, next) => {
     const user = socketUsers[socket.id];
-    doLog(socket, `${ctx.request.caseId} (${user.name})`, 'edit');
-    handleEdit(socket, ctx.request.caseId, user);
+    utils.log(socket, `${ctx.request.caseId} (${user.name})`, 'edit');
+    handleActivity(socket, ctx.request.caseId, user, 'edit');
     next();
   });
-
   iorouter.on('watch', (socket, ctx, next) => {
     const user = socketUsers[socket.id];
-    doLog(socket, `${ctx.request.caseIds} (${user.name})`, 'watch');
+    utils.log(socket, `${ctx.request.caseIds} (${user.name})`, 'watch');
     handleWatch(socket, ctx.request.caseIds);
     next();
   });
 
-  // On client connection attach the router
+  // On client connection, attach the router
   io.on('connection', (socket) => {
     socket.use((packet, next) => {
-      // Call router.attach() with the client socket as the first parameter
       iorouter.attach(socket, packet, next);
     });
   });
@@ -179,9 +113,9 @@ module.exports = (server, redis) => {
   const connections = [];
   io.sockets.on('connection', (socket) => {
     connections.push(socket);
-    doLog(socket, '', `connected (${connections.length} total)`);
+    utils.log(socket, '', `connected (${connections.length} total)`);
     socket.on('disconnect', () => {
-      doLog(socket, '', `disconnected (${connections.length - 1} total)`);
+      utils.log(socket, '', `disconnected (${connections.length - 1} total)`);
       activityService.removeSocketActivity(socket.id);
       delete socketUsers[socket.id];
       connections.splice(connections.indexOf(socket), 1);
