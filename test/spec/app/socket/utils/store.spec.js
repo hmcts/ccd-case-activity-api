@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const store = require('../../../../../app/socket/utils/store');
-const redisActivityKeys = require('../../../../../app/socket/redis-keys');
+const redisActivityKeys = require('../../../../../app/socket/redis/keys');
 
 describe('socket.utils', () => {
 
