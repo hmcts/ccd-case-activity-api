@@ -1,8 +1,8 @@
 const keys = {
   prefixes: {
     case: 'c',
-    user: 'u',
-    socket: 's'
+    socket: 's',
+    user: 'u'
   },
   view: (caseId) => keys.compile('case', caseId, 'viewers'),
   edit: (caseId) => keys.compile('case', caseId, 'editors'),
