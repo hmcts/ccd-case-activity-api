@@ -23,7 +23,7 @@ module.exports = (activityService, socketServer) => {
    */
   async function notify(caseId) {
     const cs = await activityService.getActivityForCases([caseId]);
-    socketServer.to(keys.baseCase(caseId)).emit('activity', cs);
+    socketServer.to(keys.case.base(caseId)).emit('activity', cs);
   }
 
   /**

@@ -4,9 +4,11 @@ const keys = {
     socket: 's',
     user: 'u'
   },
-  view: (caseId) => keys.compile('case', caseId, 'viewers'),
-  edit: (caseId) => keys.compile('case', caseId, 'editors'),
-  baseCase: (caseId) => keys.compile('case', caseId),
+  case: {
+    view: (caseId) => keys.compile('case', caseId, 'viewers'),
+    edit: (caseId) => keys.compile('case', caseId, 'editors'),
+    base: (caseId) => keys.compile('case', caseId),
+  },
   user: (userId) => keys.compile('user', userId),
   socket: (socketId) => keys.compile('socket', socketId),
   compile: (prefix, value, suffix) => {

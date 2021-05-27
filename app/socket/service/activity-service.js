@@ -8,7 +8,7 @@ module.exports = (config, redis) => {
   };
 
   const notifyChange = (caseId) => {
-    redis.publish(keys.baseCase(caseId), Date.now().toString());
+    redis.publish(keys.case.base(caseId), Date.now().toString());
   };
 
   const getSocketActivity = async (socketId) => {
@@ -54,7 +54,7 @@ module.exports = (config, redis) => {
     await removeSocketActivity(socketId, caseId);
 
     // Now store this activity.
-    const activityKey = keys[activity](caseId);
+    const activityKey = keys.case[activity](caseId);
     return redis.pipeline([
       utils.store.userActivity(activityKey, user.uid, utils.score(ttl.activity)),
       utils.store.socketActivity(socketId, activityKey, caseId, user.uid, ttl.user),
