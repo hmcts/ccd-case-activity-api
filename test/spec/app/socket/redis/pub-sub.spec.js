@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const keys = require('../../../../../app/socket/redis/keys');
 const pubSub = require('../../../../../app/socket/redis/pub-sub')();
 
 describe('socket.redis.pub-sub', () => {
@@ -47,7 +48,7 @@ describe('socket.redis.pub-sub', () => {
     it('should handle appropriate parameters', () => {
       pubSub.init(MOCK_SUBSCRIBER, MOCK_NOTIFIER.notify);
       expect(MOCK_SUBSCRIBER.patterns).to.have.lengthOf(1)
-        .and.to.include(`${pubSub.ROOM_PREFIX}*`);
+        .and.to.include(`${keys.prefixes.case}:*`);
       expect(MOCK_SUBSCRIBER.events.pmessage).to.be.a('function');
       expect(MOCK_NOTIFIER.messages).to.have.lengthOf(0);
     });
@@ -55,7 +56,7 @@ describe('socket.redis.pub-sub', () => {
       pubSub.init(MOCK_SUBSCRIBER, MOCK_NOTIFIER.notify);
       const CASE_ID = '1234567890';
       expect(MOCK_NOTIFIER.messages).to.have.lengthOf(0);
-      MOCK_SUBSCRIBER.dispatch('pmessage', `${pubSub.ROOM_PREFIX}${CASE_ID}`, new Date().toISOString());
+      MOCK_SUBSCRIBER.dispatch('pmessage', `${keys.prefixes.case}:${CASE_ID}`, new Date().toISOString());
       expect(MOCK_NOTIFIER.messages).to.have.lengthOf(1);
       expect(MOCK_NOTIFIER.messages[0]).to.equal(CASE_ID);
     });
