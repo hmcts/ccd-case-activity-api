@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const remove = require('../../../../../app/socket/utils/remove');
-const redisActivityKeys = require('../../../../../app/socket/redis/keys');
+const keys = require('../../../../../app/socket/redis/keys');
 
 describe('socket.utils', () => {
 
@@ -10,7 +10,7 @@ describe('socket.utils', () => {
       it('should produce an appopriate pipe', () => {
         const CASE_ID = '1234567890';
         const ACTIVITY = {
-          activityKey: redisActivityKeys.view(CASE_ID),
+          activityKey: keys.case.view(CASE_ID),
           userId: 'a'
         };
         const pipe = remove.userActivity(ACTIVITY);
@@ -27,7 +27,7 @@ describe('socket.utils', () => {
         const pipe = remove.socketEntry(SOCKET_ID);
         expect(pipe).to.be.an('array').and.have.lengthOf(2);
         expect(pipe[0]).to.equal('del');
-        expect(pipe[1]).to.equal(redisActivityKeys.socket(SOCKET_ID));
+        expect(pipe[1]).to.equal(keys.socket(SOCKET_ID));
       });
     });
 

@@ -3,7 +3,7 @@ const keys = require('../redis/keys');
 const watch = {
   case: (socket, caseId) => {
     if (socket && caseId) {
-      socket.join(keys.baseCase(caseId));
+      socket.join(keys.case.base(caseId));
     }
   },
   cases: (socket, caseIds) => {

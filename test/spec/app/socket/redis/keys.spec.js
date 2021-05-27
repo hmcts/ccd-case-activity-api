@@ -5,17 +5,17 @@ describe('socket.redis.keys', () => {
 
   it('should get the correct key for viewing a case', () => {
     const CASE_ID = '12345678';
-    expect(keys.view(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}:viewers`);
+    expect(keys.case.view(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}:viewers`);
   });
 
   it('should get the correct key for editing a case', () => {
     const CASE_ID = '12345678';
-    expect(keys.edit(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}:editors`);
+    expect(keys.case.edit(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}:editors`);
   });
 
   it('should get the correct base key for a case', () => {
     const CASE_ID = '12345678';
-    expect(keys.baseCase(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}`);
+    expect(keys.case.base(CASE_ID)).to.equal(`${keys.prefixes.case}:${CASE_ID}`);
   });
 
   it('should get the correct key for a user', () => {

@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const get = require('../../../../../app/socket/utils/get');
-const redisActivityKeys = require('../../../../../app/socket/redis/keys');
+const keys = require('../../../../../app/socket/redis/keys');
 
 describe('socket.utils', () => {
 
@@ -15,7 +15,7 @@ describe('socket.utils', () => {
         expect(pipes).to.be.an('array').and.have.lengthOf(1);
         expect(pipes[0]).to.be.an('array').and.have.lengthOf(4);
         expect(pipes[0][0]).to.equal('zrangebyscore');
-        expect(pipes[0][1]).to.equal(redisActivityKeys.view(CASE_IDS[0]));
+        expect(pipes[0][1]).to.equal(keys.case.view(CASE_IDS[0]));
         expect(pipes[0][2]).to.equal(NOW);
         expect(pipes[0][3]).to.equal('+inf');
       });
@@ -28,7 +28,7 @@ describe('socket.utils', () => {
         CASE_IDS.forEach((id, index) => {
           expect(pipes[index]).to.be.an('array').and.have.lengthOf(4);
           expect(pipes[index][0]).to.equal('zrangebyscore');
-          expect(pipes[index][1]).to.equal(redisActivityKeys.view(id));
+          expect(pipes[index][1]).to.equal(keys.case.view(id));
           expect(pipes[index][2]).to.equal(NOW);
           expect(pipes[index][3]).to.equal('+inf');
         });
@@ -44,7 +44,7 @@ describe('socket.utils', () => {
           if (id !== null) {
             expect(pipes[pipeIndex]).to.be.an('array').and.have.lengthOf(4);
             expect(pipes[pipeIndex][0]).to.equal('zrangebyscore');
-            expect(pipes[pipeIndex][1]).to.equal(redisActivityKeys.view(id));
+            expect(pipes[pipeIndex][1]).to.equal(keys.case.view(id));
             expect(pipes[pipeIndex][2]).to.equal(NOW);
             expect(pipes[pipeIndex][3]).to.equal('+inf');
             pipeIndex++;
@@ -62,7 +62,7 @@ describe('socket.utils', () => {
           if (id !== null) {
             expect(pipes[pipeIndex]).to.be.an('array').and.have.lengthOf(4);
             expect(pipes[pipeIndex][0]).to.equal('zrangebyscore');
-            expect(pipes[pipeIndex][1]).to.equal(redisActivityKeys.edit(id));
+            expect(pipes[pipeIndex][1]).to.equal(keys.case.edit(id));
             expect(pipes[pipeIndex][2]).to.equal(NOW);
             expect(pipes[pipeIndex][3]).to.equal('+inf');
             pipeIndex++;
@@ -92,7 +92,7 @@ describe('socket.utils', () => {
         expect(pipes).to.be.an('array').and.have.lengthOf(1);
         expect(pipes[0]).to.be.an('array').and.have.lengthOf(2);
         expect(pipes[0][0]).to.equal('get');
-        expect(pipes[0][1]).to.equal(redisActivityKeys.user(USER_IDS[0]));
+        expect(pipes[0][1]).to.equal(keys.user(USER_IDS[0]));
       });
       it('should get the correct result for multiple user IDs', () => {
         const USER_IDS = ['1', '8', '2345678', 'x'];
@@ -101,7 +101,7 @@ describe('socket.utils', () => {
         expect(pipes[0]).to.be.an('array').and.have.lengthOf(2);
         USER_IDS.forEach((id, index) => {
           expect(pipes[index][0]).to.equal('get');
-          expect(pipes[index][1]).to.equal(redisActivityKeys.user(id));
+          expect(pipes[index][1]).to.equal(keys.user(id));
         });
       });
       it('should handle a null user ID', () => {
@@ -113,7 +113,7 @@ describe('socket.utils', () => {
         USER_IDS.forEach((id) => {
           if (id) {
             expect(pipes[pipeIndex][0]).to.equal('get');
-            expect(pipes[pipeIndex][1]).to.equal(redisActivityKeys.user(id));
+            expect(pipes[pipeIndex][1]).to.equal(keys.user(id));
             pipeIndex++;
           }
         });

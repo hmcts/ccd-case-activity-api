@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const store = require('../../../../../app/socket/utils/store');
-const redisActivityKeys = require('../../../../../app/socket/redis/keys');
+const keys = require('../../../../../app/socket/redis/keys');
 
 describe('socket.utils', () => {
 
@@ -9,7 +9,7 @@ describe('socket.utils', () => {
     describe('userActivity', () => {
       it('should produce an appopriate pipe', () => {
         const CASE_ID = '1234567890';
-        const ACTIVITY_KEY = redisActivityKeys.view(CASE_ID);
+        const ACTIVITY_KEY = keys.case.view(CASE_ID);
         const USER_ID = 'a';
         const SCORE = 500;
         const pipe = store.userActivity(ACTIVITY_KEY, USER_ID, SCORE);
@@ -28,7 +28,7 @@ describe('socket.utils', () => {
         const pipe = store.userDetails(USER, TTL);
         expect(pipe).to.be.an('array').and.have.lengthOf(5);
         expect(pipe[0]).to.equal('set');
-        expect(pipe[1]).to.equal(redisActivityKeys.user(USER.uid));
+        expect(pipe[1]).to.equal(keys.user(USER.uid));
         expect(pipe[2]).to.equal('{"id":"a","forename":"Bob","surname":"Smith"}');
         expect(pipe[3]).to.equal('EX'); // Expires in...
         expect(pipe[4]).to.equal(TTL);  // ...487 seconds.
@@ -39,13 +39,13 @@ describe('socket.utils', () => {
       it('should produce an appopriate pipe', () => {
         const CASE_ID = '1234567890';
         const SOCKET_ID = 'abcdef123456';
-        const ACTIVITY_KEY = redisActivityKeys.view(CASE_ID);
+        const ACTIVITY_KEY = keys.case.view(CASE_ID);
         const USER_ID = 'a';
         const TTL = 487;
         const pipe = store.socketActivity(SOCKET_ID, ACTIVITY_KEY, CASE_ID, USER_ID, TTL);
         expect(pipe).to.be.an('array').and.have.lengthOf(5);
         expect(pipe[0]).to.equal('set');
-        expect(pipe[1]).to.equal(redisActivityKeys.socket(SOCKET_ID));
+        expect(pipe[1]).to.equal(keys.socket(SOCKET_ID));
         expect(pipe[2]).to.equal(`{"activityKey":"${ACTIVITY_KEY}","caseId":"${CASE_ID}","userId":"${USER_ID}"}`);
         expect(pipe[3]).to.equal('EX'); // Expires in...
         expect(pipe[4]).to.equal(TTL);  // ...487 seconds.
