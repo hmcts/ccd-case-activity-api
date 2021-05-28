@@ -4,7 +4,6 @@ const SocketIO = require('socket.io');
 
 const ActivityService = require('./service/activity-service');
 const Handlers = require('./service/handlers');
-const watcher = require('./redis/watcher');
 const pubSub = require('./redis/pub-sub')();
 const router = require('./router');
 
@@ -29,6 +28,7 @@ module.exports = (server, redis) => {
     }
   });
   const handlers = Handlers(activityService, socketServer);
+  const watcher = redis.duplicate();
   pubSub.init(watcher, handlers.notify);
   router.init(socketServer, new IORouter(), handlers);
 
