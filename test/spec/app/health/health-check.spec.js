@@ -5,7 +5,7 @@ const app = require('../../../../app');
 
 describe('health check', () => {
   it('should return 200 OK for health check', async () => {
-    await request(app.app)
+    await request(app)
       .get('/health')
       .expect(res => {
         expect(res.status).equal(200);
@@ -14,7 +14,7 @@ describe('health check', () => {
   });
 
   it('should return 200 OK for liveness health check', async () => {
-    await request(app.app)
+    await request(app)
     .get('/health/liveness')
     .expect(res => {
       expect(res.status).equal(200);
@@ -23,7 +23,7 @@ describe('health check', () => {
   });
 
   it('should return 200 OK for readiness health check', async () => {
-    await request(app.app)
+    await request(app)
     .get('/health/readiness')
     .expect(res => {
       expect(res.status).equal(200);
