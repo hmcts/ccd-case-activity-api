@@ -5,7 +5,6 @@ const expect = require('chai').expect;
 describe('socket.utils', () => {
 
   describe('watch', () => {
-
     const MOCK_SOCKET = {
       id: 'socket-id',
       rooms: ['socket-id'],
