@@ -54,7 +54,6 @@ describe("activity service", () => {
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
     sandbox.stub(Date, 'now').returns(TIMESTAMP);
-    // sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
