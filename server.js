@@ -23,6 +23,16 @@ const server = http.createServer(app);
 
 /**
  * Create the socket server.
+ *
+ * This runs on the same server, in parallel to the RESTful interface. At the present
+ * time, interoperability is turned off to keep them isolated but, with a couple of
+ * tweaks, it can easily be enabled:
+ *
+ *   * Adjust the prefixes in socket/redis/keys.js to be the same as the RESTful ones.
+ *     * This will immediately allow the RESTful interface to see what people on sockets
+ *       are viewing/editing.
+ *   * Add redis.publish(...) calls in service/activity-service.js.
+ *     * To notify those on sockets when someone is viewing or editing a case.
  */
 const redis = require('./app/redis/redis-client');
 require('./app/socket')(server, redis);
