@@ -36,12 +36,6 @@ const pipeline = (cases) => {
   return redis.pipeline(commands);
 };
 
-const storeCleanup = () => {
-  debug('store cleanup starting...');
-  cleanCasesWithPrefix('case'); // Cases via RESTful interface.
-  cleanCasesWithPrefix('c'); // Cases via socket interface.
-};
-
 const cleanCasesWithPrefix = (prefix) => {
   getCasesWithActivities((cases) => {
     // scan returns the prefixed keys. Remove them since the redis client will add it back
@@ -54,6 +48,12 @@ const cleanCasesWithPrefix = (prefix) => {
         debug('Error in getCasesWithActivities', err.message);
       });
   }, prefix);
+};
+
+const storeCleanup = () => {
+  debug('store cleanup starting...');
+  cleanCasesWithPrefix('case'); // Cases via RESTful interface.
+  cleanCasesWithPrefix('c'); // Cases via socket interface.
 };
 
 exports.start = (crontab) => {
