@@ -3,11 +3,11 @@ package uk.gov.hmcts.ccd.caseactivity.befta;
 import uk.gov.hmcts.befta.BeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultBeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.dse.ccd.TestDataLoaderToDefinitionStore;
+import uk.gov.hmcts.befta.dse.ccd.DataLoaderToDefinitionStore;
 
 public class CaseActivityTestAutomationAdapter extends DefaultTestAutomationAdapter {
 
-    private TestDataLoaderToDefinitionStore loader = new TestDataLoaderToDefinitionStore(this);
+    private DataLoaderToDefinitionStore loader = new DataLoaderToDefinitionStore(this);
 
     @Override
     protected BeftaTestDataLoader buildTestDataLoader() {
@@ -16,7 +16,7 @@ public class CaseActivityTestAutomationAdapter extends DefaultTestAutomationAdap
             public void doLoadTestData() {
                 CaseActivityTestAutomationAdapter.this.loader.addCcdRoles();
                 CaseActivityTestAutomationAdapter.this.loader.importDefinitions();
-            }            
+            }
         };
     }
 

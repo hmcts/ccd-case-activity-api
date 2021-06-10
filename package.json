@@ -17,6 +17,7 @@
     "test:coverage-e2e": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha -- --timeout 15000 --recursive test/e2e",
     "test:a11y": "echo 'TODO: Accessibility tests'",
     "sonar-scan": "NODE_PATH=. sonar-scanner -X",
+    "highLevelDataSetup": "echo './aat/gradlew -p aat highLevelDataSetup --args=$1' > ./temp.sh && sh ./temp.sh",
     "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
     "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
   },
