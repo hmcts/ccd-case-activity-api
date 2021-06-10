@@ -4,7 +4,7 @@ properties(
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
-@Library("Infrastructure")
+@Library("Infrastructure@CCD-1131")
 
 def type = "nodejs"
 def product = "ccd"
@@ -12,18 +12,18 @@ def component = "case-activity-api"
 
 // Variables to switch pipeline logic and wiring per type of build
 def dataStoreDevelopPr       = "PR-1260" // This doesn't change frequently, but when it does, only change this value.
-
-def definitionStoreDevelopPr = "PR-575" // This doesn't change frequently, but when it does, only change this value.
-def activityApiDevelopPr     = "PR-256" // This doesn't change frequently, but when it does, only change this value.
-def prsToUseAat              = "PR-240"       // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
+def activityApiDevelopPr     = "PR-211"  // This doesn't change frequently, but when it does, only change this value.
+def prsToUseAat              = "PR-240,PR-280"  // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
 
 def secrets = [
     'ccd-${env}': [
         secret('ccd-caseworker-autotest-email', 'CCD_CASEWORKER_AUTOTEST_EMAIL'),
         secret('ccd-caseworker-autotest-password', 'CCD_CASEWORKER_AUTOTEST_PASSWORD'),
-        secret('ccd-importer-autotest-email', 'CCD_IMPORT_AUTOTEST_EMAIL'),
-        secret('ccd-importer-autotest-password', 'CCD_IMPORT_AUTOTEST_PASSWORD'),
         secret('ccd-api-gateway-oauth2-client-secret', 'OAUTH2_CLIENT_SECRET'),
+
+        secret('ccd-api-gateway-oauth2-client-secret', 'CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET'),
+        secret('definition-importer-username', 'DEFINITION_IMPORTER_USERNAME'),
+        secret('definition-importer-password', 'DEFINITION_IMPORTER_PASSWORD'),
 
         // Required for FTA tests
         secret('ccd-befta-caseworker-2-solicitor-1-pwd', 'CCD_BEFTA_CASEWORKER_2_SOLICITOR_1_PWD'),
@@ -57,12 +57,12 @@ def vaultOverrides = [
 ]
 
 // Assume a feature build branched off 'develop', with dependencies develop-to-develop.
-env.DEFINITION_STORE_HOST       = "http://ccd-definition-store-api-${definitionStoreDevelopPr}.service.core-compute-preview.internal".toLowerCase()
 env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-${dataStoreDevelopPr}.service.core-compute-preview.internal".toLowerCase()
 
 // Other env variables needed for BEFTA.
-env.IDAM_URL = "https://idam-api.aat.platform.hmcts.net"
-env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+env.CCD_API_GATEWAY_OAUTH2_CLIENT_ID = "ccd_gateway"
+env.IDAM_API_URL_BASE = "https://idam-api.aat.platform.hmcts.net"
+env.S2S_URL_BASE = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 env.BEFTA_S2S_CLIENT_ID = "ccd_gw"
 env.OAUTH2_CLIENT_ID = "ccd_gateway"
 env.OAUTH2_REDIRECT_URI = "https://www-ccd.aat.platform.hmcts.net/oauth2redirect"
@@ -89,10 +89,11 @@ withPipeline(type, product, component) {
        if (env.BRANCH_NAME.startsWith("PR") || env.BRANCH_NAME == 'master') {
           environmentOfDependencies = "aat"
        }
-       env.DEFINITION_STORE_HOST       = "http://ccd-definition-store-api-${environmentOfDependencies}.service.core-compute-${environmentOfDependencies}.internal"
        env.CCD_DATA_STORE_API_BASE_URL = "http://ccd-data-store-api-${environmentOfDependencies}.service.core-compute-${environmentOfDependencies}.internal"
+    } else {
+        env.DEFINITION_STORE_URL_BASE = "http://ccd-definition-store-api-pr-575.service.core-compute-preview.internal"
     }
-    echo "FTA will use Definition Store: ${env.DEFINITION_STORE_HOST}"
+
     echo "FTA will use Data Store: ${env.CCD_DATA_STORE_API_BASE_URL}"
 
     overrideVaultEnvironments(vaultOverrides)
@@ -100,6 +101,7 @@ withPipeline(type, product, component) {
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
+    enableHighLevelDataSetup()
 
     afterCheckout {
         sh "yarn cache clean"
