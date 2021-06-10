@@ -48,3 +48,5 @@ jspm_packages
 coverage/
 /BEFTA Report for Smoke Tests/
 /BEFTA Report for Functional Tests/
+
+temp.sh
