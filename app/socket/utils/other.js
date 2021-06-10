@@ -17,9 +17,10 @@ const other = {
     }
     return userIds;
   },
-  log: (socket, payload, group, logTo) => {
+  log: (socket, payload, group, logTo, ts) => {
     const outputTo = logTo || debug;
-    let text = `${new Date().toISOString()} | ${socket.id} | ${group}`;
+    const now = ts || new Date().toISOString();
+    let text = `${now} | ${socket.id} | ${group}`;
     if (typeof payload === 'string') {
       if (payload) {
         text = `${text} => ${payload}`;
@@ -43,8 +44,10 @@ const other = {
     if (!obj) {
       return {};
     }
-    const nameParts = obj.name.split(' ');
-    const givenName = nameParts.shift();
+    const name = obj.name || `${obj.forename} ${obj.surname}`;
+    const nameParts = name.split(' ');
+    const givenName = obj.forename || nameParts.shift();
+    const familyName = obj.surname || nameParts.join(' ');
     return {
       sub: `${givenName}.${nameParts.join('-')}@mailinator.com`,
       uid: obj.id,
@@ -53,9 +56,9 @@ const other = {
         'caseworker-employment-leeds',
         'caseworker'
       ],
-      name: obj.name,
+      name: name,
       given_name: givenName,
-      family_name: nameParts.join(' ')
+      family_name: familyName
     };
   },
   toUserString: (user) => {
