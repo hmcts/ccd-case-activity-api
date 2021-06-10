@@ -3,8 +3,8 @@ const utils = require('../utils');
 
 module.exports = (config, redis) => {
   const ttl = {
-    user: config.get('redis.userDetailsTtlSec'),
-    activity: config.get('redis.activityTtlSec')
+    user: config.get('redis.socket.userDetailsTtlSec'),
+    activity: config.get('redis.socket.activityTtlSec')
   };
 
   const notifyChange = (caseId) => {

@@ -14,8 +14,8 @@ describe('socket.service.activity-service', () => {
   const MOCK_CONFIG = {
     getCalls: [],
     keys: {
-      'redis.activityTtlSec': TTL_ACTIVITY,
-      'redis.userDetailsTtlSec': TTL_USER
+      'redis.socket.activityTtlSec': TTL_ACTIVITY,
+      'redis.socket.userDetailsTtlSec': TTL_USER
     },
     get: (key) => {
       MOCK_CONFIG.getCalls.push(key);
@@ -105,9 +105,9 @@ describe('socket.service.activity-service', () => {
   });
 
   it('should have appropriately initialised from the config', () => {
-    expect(MOCK_CONFIG.getCalls).to.include('redis.activityTtlSec');
+    expect(MOCK_CONFIG.getCalls).to.include('redis.socket.activityTtlSec');
     expect(activityService.ttl.activity).to.equal(TTL_ACTIVITY);
-    expect(MOCK_CONFIG.getCalls).to.include('redis.userDetailsTtlSec');
+    expect(MOCK_CONFIG.getCalls).to.include('redis.socket.userDetailsTtlSec');
     expect(activityService.ttl.user).to.equal(TTL_USER);
   });
 
