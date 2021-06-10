@@ -25,6 +25,7 @@ const router = {
     return [...connections];
   },
   init: (io, iorouter, handlers) => {
+    const start = Date.now();
     // Set up routes for each type of message.
     iorouter.on('register', (socket, ctx, next) => {
       utils.log(socket, ctx.request.user, 'register');
@@ -53,13 +54,15 @@ const router = {
     // On client connection, attach the router and track the socket.
     io.on('connection', (socket) => {
       router.addConnection(socket);
-      utils.log(socket, '', `connected (${router.getConnections().length} total)`);
+      const ts = (Date.now() - start).toString(10).padStart(10, '0');
+      utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, ts);
       socket.use((packet, next) => {
         iorouter.attach(socket, packet, next);
       });
       // When the socket disconnects, do an appropriate teardown.
       socket.on('disconnect', () => {
-        utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`);
+        const ts = (Date.now() - start).toString(10).padStart(10, '0');
+        utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`, console.log, ts);
         handlers.removeSocketActivity(socket.id);
         router.removeUser(socket.id);
         router.removeConnection(socket);
