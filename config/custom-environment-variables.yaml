@@ -13,6 +13,9 @@ redis:
   keyPrefix: REDIS_KEY_PREFIX
   activityTtlSec: REDIS_ACTIVITY_TTL
   userDetailsTtlSec: REDIS_USER_DETAILS_TTL
+  socket:
+    activityTtlSec: REDIS_SOCKET_ACTIVITY_TTL
+    userDetailsTtlSec: REDIS_SOCKET_USER_DETAILS_TTL
 cache:
   user_info_enabled: CACHE_USER_INFO_ENABLED
   user_info_ttl: CACHE_USER_INFO_TTL
