@@ -24,8 +24,9 @@ module.exports = (server, redis) => {
     allowEIO3: true,
     cors: {
       origin: '*',
-      methods: ['GET', 'POST']
-    }
+      methods: ['GET', 'POST'],
+      credentials: true
+    },
   });
   const handlers = Handlers(activityService, socketServer);
   const watcher = redis.duplicate();

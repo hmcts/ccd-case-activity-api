@@ -47,6 +47,11 @@ describe('socket.router', () => {
   };
   const MOCK_SOCKET = {
     id: 'socket-id',
+    handshake: {
+      query: {
+        user: { id: 'a', name: 'Bob Smith' }
+      }
+    },
     rooms: ['socket-id'],
     events: {},
     messages: [],
@@ -101,7 +106,7 @@ describe('socket.router', () => {
       });
     });
     it('should have set up the appropriate events on the io router', () => {
-      const EXPECTED_EVENTS = ['register', 'view', 'edit', 'watch'];
+      const EXPECTED_EVENTS = ['view', 'edit', 'watch'];
       EXPECTED_EVENTS.forEach((event) => {
         expect(MOCK_IO_ROUTER.events[event]).to.be.a('function');
       });
@@ -109,11 +114,6 @@ describe('socket.router', () => {
   });
 
   describe('iorouter', () => {
-    const MOCK_CONTEXT_REGISTER = {
-      request: {
-        user: { id: 'a', name: 'Bob Smith' }
-      }
-    };
     const MOCK_CONTEXT = {
       request: {
         caseId: '1234567890',
@@ -121,11 +121,11 @@ describe('socket.router', () => {
       }
     };
     beforeEach(() => {
-      // We need to register before each call as it sets up the user.
-      MOCK_IO_ROUTER.dispatch('register', MOCK_SOCKET, MOCK_CONTEXT_REGISTER, () => {});
+      // Dispatch the connection each time.
+      MOCK_SOCKET_SERVER.dispatch('connection', MOCK_SOCKET);
     });
     it('should appropriately handle registering a user', () => {
-      expect(router.getUser(MOCK_SOCKET.id)).to.deep.equal(MOCK_CONTEXT_REGISTER.request.user);
+      expect(router.getUser(MOCK_SOCKET.id)).to.deep.equal(MOCK_SOCKET.handshake.query.user);
     });
     it('should appropriately handle viewing a case', () => {
       const ACTIVITY = 'view';
@@ -138,7 +138,7 @@ describe('socket.router', () => {
         expect(MOCK_HANDLERS.calls[0].params.socket).to.equal(MOCK_SOCKET);
         expect(MOCK_HANDLERS.calls[0].params.caseId).to.equal(MOCK_CONTEXT.request.caseId);
         // Note that the MOCK_CONTEXT doesn't include the user, which means we had to get it from elsewhere.
-        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_CONTEXT_REGISTER.request.user);
+        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_SOCKET.handshake.query.user);
         expect(MOCK_HANDLERS.calls[0].params.activity).to.equal(ACTIVITY);
       });
       expect(nextCalled).to.be.true;
@@ -154,7 +154,7 @@ describe('socket.router', () => {
         expect(MOCK_HANDLERS.calls[0].params.socket).to.equal(MOCK_SOCKET);
         expect(MOCK_HANDLERS.calls[0].params.caseId).to.equal(MOCK_CONTEXT.request.caseId);
         // Note that the MOCK_CONTEXT doesn't include the user, which means we had to get it from elsewhere.
-        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_CONTEXT_REGISTER.request.user);
+        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_SOCKET.handshake.query.user);
         expect(MOCK_HANDLERS.calls[0].params.activity).to.equal(ACTIVITY);
       });
       expect(nextCalled).to.be.true;
@@ -175,15 +175,7 @@ describe('socket.router', () => {
   });
 
   describe('io', () => {
-    const MOCK_CONTEXT_REGISTER = {
-      request: {
-        user: { id: 'a', name: 'Bob Smith' }
-      }
-    };
     beforeEach(() => {
-      // We need to register before each call as it sets up the user.
-      MOCK_IO_ROUTER.dispatch('register', MOCK_SOCKET, MOCK_CONTEXT_REGISTER, () => {});
-
       // Dispatch the connection each time.
       MOCK_SOCKET_SERVER.dispatch('connection', MOCK_SOCKET);
     });
