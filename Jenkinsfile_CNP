@@ -13,7 +13,7 @@ def component = "case-activity-api"
 // Variables to switch pipeline logic and wiring per type of build
 def dataStoreDevelopPr       = "PR-1260" // This doesn't change frequently, but when it does, only change this value.
 def activityApiDevelopPr     = "PR-211"  // This doesn't change frequently, but when it does, only change this value.
-def prsToUseAat              = "PR-282"  // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
+def prsToUseAat              = "PR-284"  // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
 
 def secrets = [
     'ccd-${env}': [
