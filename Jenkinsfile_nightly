@@ -5,13 +5,39 @@ properties([
     pipelineTriggers([cron('H 05 * * *')])
 ])
 
-@Library("Infrastructure")
+@Library("Infrastructure@ccd-1131-nightly-patch")
 
 def type = "nodejs"
 def product = "ccd"
 def component = "case-activity-api"
 
+def secrets = [
+    'ccd-${env}': [
+        secret('ccd-api-gateway-oauth2-client-secret', 'CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET'),
+        secret('definition-importer-username', 'DEFINITION_IMPORTER_USERNAME'),
+        secret('definition-importer-password', 'DEFINITION_IMPORTER_PASSWORD')
+    ],
+    's2s-${env}': [
+        secret('microservicekey-ccd-gw', 'BEFTA_S2S_CLIENT_SECRET')
+    ]
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+    [$class     : 'AzureKeyVaultSecret',
+     secretType : 'Secret',
+     name       : secretName,
+     version    : '',
+     envVariable: envVar
+    ]
+}
+
+def vaultOverrides = [
+    'preview' : 'aat',
+    'spreview': 'saat'
+]
+
 withNightlyPipeline(type, product, component) {
+    loadVaultSecrets(secrets)
     enableSlackNotifications('#ccd-nightly-builds')
 
     afterCheckout {
