@@ -39,6 +39,7 @@ def vaultOverrides = [
 withNightlyPipeline(type, product, component) {
     loadVaultSecrets(secrets)
     enableSlackNotifications('#ccd-nightly-builds')
+    enableHighLevelDataSetup()
 
     afterCheckout {
         sh "yarn cache clean"
