@@ -40,6 +40,10 @@ withNightlyPipeline(type, product, component) {
     loadVaultSecrets(secrets)
     enableSlackNotifications('#ccd-nightly-builds')
     //enableHighLevelDataSetup()
+    enableFortifyScan()
+    after('fortify-scan') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+    }
 
     afterCheckout {
         sh "yarn cache clean"
