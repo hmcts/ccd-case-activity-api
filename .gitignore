@@ -50,3 +50,5 @@ coverage/
 /BEFTA Report for Functional Tests/
 
 temp.sh
+config/local-development.yaml
+.env
