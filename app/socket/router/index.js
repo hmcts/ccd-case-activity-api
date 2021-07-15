@@ -48,7 +48,7 @@ const router = {
     // On client connection, attach the router and track the socket.
     io.on('connection', (socket) => {
       router.addConnection(socket);
-      router.addUser(socket.id, socket.handshake.query.user);
+      router.addUser(socket.id, JSON.parse(socket.handshake.query.user));
       utils.log(socket, '', `connected (${router.getConnections().length} total)`);
       utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, Date.now());
       socket.use((packet, next) => {
