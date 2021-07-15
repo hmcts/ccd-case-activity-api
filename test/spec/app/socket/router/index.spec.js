@@ -49,7 +49,7 @@ describe('socket.router', () => {
     id: 'socket-id',
     handshake: {
       query: {
-        user: { id: 'a', name: 'Bob Smith' }
+        user: JSON.stringify({ id: 'a', name: 'Bob Smith' })
       }
     },
     rooms: ['socket-id'],
@@ -120,12 +120,13 @@ describe('socket.router', () => {
         caseIds: ['2345678901', '3456789012', '4567890123']
       }
     };
+    const MOCK_JSON_USER = JSON.parse(MOCK_SOCKET.handshake.query.user);
     beforeEach(() => {
       // Dispatch the connection each time.
       MOCK_SOCKET_SERVER.dispatch('connection', MOCK_SOCKET);
     });
     it('should appropriately handle registering a user', () => {
-      expect(router.getUser(MOCK_SOCKET.id)).to.deep.equal(MOCK_SOCKET.handshake.query.user);
+      expect(router.getUser(MOCK_SOCKET.id)).to.deep.equal(MOCK_JSON_USER);
     });
     it('should appropriately handle viewing a case', () => {
       const ACTIVITY = 'view';
@@ -138,7 +139,7 @@ describe('socket.router', () => {
         expect(MOCK_HANDLERS.calls[0].params.socket).to.equal(MOCK_SOCKET);
         expect(MOCK_HANDLERS.calls[0].params.caseId).to.equal(MOCK_CONTEXT.request.caseId);
         // Note that the MOCK_CONTEXT doesn't include the user, which means we had to get it from elsewhere.
-        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_SOCKET.handshake.query.user);
+        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_JSON_USER);
         expect(MOCK_HANDLERS.calls[0].params.activity).to.equal(ACTIVITY);
       });
       expect(nextCalled).to.be.true;
@@ -154,7 +155,7 @@ describe('socket.router', () => {
         expect(MOCK_HANDLERS.calls[0].params.socket).to.equal(MOCK_SOCKET);
         expect(MOCK_HANDLERS.calls[0].params.caseId).to.equal(MOCK_CONTEXT.request.caseId);
         // Note that the MOCK_CONTEXT doesn't include the user, which means we had to get it from elsewhere.
-        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_SOCKET.handshake.query.user);
+        expect(MOCK_HANDLERS.calls[0].params.user).to.deep.equal(MOCK_JSON_USER);
         expect(MOCK_HANDLERS.calls[0].params.activity).to.equal(ACTIVITY);
       });
       expect(nextCalled).to.be.true;
