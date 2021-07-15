@@ -30,7 +30,7 @@ module.exports = (config, redis) => {
       return details.reduce((obj, item) => {
         if (item[1]) {
           const user = JSON.parse(item[1]);
-          obj[user.id] = { forename: user.forename, surname: user.surname };
+          obj[user.id] = { id: user.id, forename: user.forename, surname: user.surname };
         }
         return obj;
       }, {});
