@@ -43,10 +43,21 @@ jspm_packages
 # IntelliJ IDEA files
 .idea/
 *.iml
+*.iws
+*.ipr
 /.classpath
 /.project
+.settings/
+target/
 coverage/
 /BEFTA Report for Smoke Tests/
 /BEFTA Report for Functional Tests/
 
 temp.sh
+
+# Gradle
+.gradle/
+out/
+bin/
+build/
+
