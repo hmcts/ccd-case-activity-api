@@ -1,6 +1,6 @@
 {
   "name": "ccd-case-activity-api",
-  "version": "0.0.2",
+  "version": "0.1.0-socket-alpha",
   "private": true,
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
