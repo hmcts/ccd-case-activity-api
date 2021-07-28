@@ -4,6 +4,9 @@ const users = {};
 const connections = [];
 const router = {
   addUser: (socketId, user) => {
+    if (user && !user.name) {
+      user.name = `${user.forename} ${user.surname}`;
+    }
     users[socketId] = user;
   },
   removeUser: (socketId) => {
