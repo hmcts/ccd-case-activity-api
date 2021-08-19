@@ -1,12 +1,12 @@
-const regHeaders = (data) => {
-  const reg = new RegExp('([a-zA-Z|-|,|s]*)');
-  return reg.exec(data);
+const validateAccessControlRequestHeaders = (data) => {
+  const reg = new RegExp(/^([a-zA-Z-, ]*)$/);
+  return reg.test(data);
 };
 
-const regOrigin = (data) => {
-  const reg = new RegExp('[a-zA-Z|d|:|/|,|.|-|*]*');
-  return reg.exec(data);
+const validateOrigin = (data) => {
+  const reg = new RegExp(/^([a-zA-Z\d\-:/,. *]*)$/);
+  return reg.test(data);
 };
 
-module.exports = regHeaders;
-module.exports = regOrigin;
+exports.validateAccessControlRequestHeaders = validateAccessControlRequestHeaders;
+exports.validateOrigin = validateOrigin;
