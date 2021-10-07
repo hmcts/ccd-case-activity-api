@@ -20,8 +20,8 @@ const corsOptions = {
 const handleCors = (req, res, next) => {
   if (corsOptions.allowOrigin) {
     const origin = req.get('origin');
-    if (corsOptions.allowOrigin(origin) && sanitize.validateOrigin(origin)) {
-      res.set('Access-Control-Allow-Origin', origin);
+    if (corsOptions.allowOrigin(origin)) {
+      res.set('Access-Control-Allow-Origin', sanitize.sanitizeData(origin));
     }
   } else {
     res.set('Access-Control-Allow-Origin', '*');
@@ -32,10 +32,7 @@ const handleCors = (req, res, next) => {
   if (corsOptions.allowMethods) {
     res.set('Access-Control-Allow-Methods', corsOptions.allowMethods);
   }
-  const headers = req.get('Access-Control-Request-Headers');
-  if (sanitize.validateAccessControlRequestHeaders(headers)) {
-    res.set('Access-Control-Allow-Headers', headers);
-  }
+  res.set('Access-Control-Allow-Headers', sanitize.sanitizeData(req.get('Access-Control-Request-Headers')));
 
   if (req.method === 'OPTIONS') {
     res
