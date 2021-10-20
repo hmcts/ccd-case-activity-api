@@ -101,6 +101,7 @@ withPipeline(type, product, component) {
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
+    enableHighLevelDataSetup()
 
     afterCheckout {
         sh "yarn cache clean"
