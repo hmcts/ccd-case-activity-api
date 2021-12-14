@@ -21,7 +21,7 @@
 			"_extends_": "Common_422_Response_Headers"
 		},
 		"body": {
-			"message": "unknown activity: "
+			"error": "unknown activity: "
 		}
 	}
 }

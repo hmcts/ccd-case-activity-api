@@ -12,7 +12,7 @@ const addActivity = (activityService) => (req, res, next) => {
 
   debug(`ADD_ACTIVITY request - caseId: ${caseId}, userId:${user.uid}, activity:${activity}`);
 
-  if (!Activity.includes(activity)) {
+  if ((!Activity.includes(activity)) || (activity.length === 0)) {
     const err = new Error(`unknown activity: ${activity}`);
     err.status = UNPROCESSABLE_ENTITY;
     res.status(UNPROCESSABLE_ENTITY).json({ message: `unknown activity: ${activity}` });
