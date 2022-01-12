@@ -1,4 +1,5 @@
 const config = require('config');
+const sanitize = require('../util/sanitize');
 
 const createWhitelistValidator = (val) => {
   const configValue = config.get('security.cors_origin_whitelist') || '';
@@ -21,7 +22,7 @@ const handleCors = (req, res, next) => {
   if (corsOptions.allowOrigin) {
     const origin = req.get('origin');
     if (corsOptions.allowOrigin(origin)) {
-      res.set('Access-Control-Allow-Origin', origin);
+      res.set('Access-Control-Allow-Origin', sanitize.sanitizeData(origin));
     }
   } else {
     res.set('Access-Control-Allow-Origin', '*');
@@ -32,7 +33,8 @@ const handleCors = (req, res, next) => {
   if (corsOptions.allowMethods) {
     res.set('Access-Control-Allow-Methods', corsOptions.allowMethods);
   }
-  res.set('Access-Control-Allow-Headers', req.get('Access-Control-Request-Headers'));
+  res.set('Access-Control-Allow-Headers', sanitize.sanitizeData(req.get('Access-Control-Request-Headers')));
+
   if (req.method === 'OPTIONS') {
     res
       .status(200)

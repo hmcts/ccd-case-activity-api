@@ -2,13 +2,17 @@
   "name": "ccd-case-activity-api",
   "version": "0.1.0-socket-alpha",
   "private": true,
+  "engines": {
+    "node": "^14.18.1",
+    "yarn": "^1.12.3"
+  },
   "scripts": {
     "setup": "cross-env NODE_PATH=. node --version",
     "start": "cross-env NODE_PATH=. node server.js",
     "start:debug": "DEBUG=ccd-case-activity-api:* yarn start",
     "test": "NODE_ENV=test mocha --exit --recursive test/spec app/user",
     "test:end2end": "NODE_ENV=test mocha --exit test/e2e --timeout 15000",
-    "test:smoke": "./aat/gradlew -p aat smoke",
+    "test:smoke": "echo 'TODO - Ignore SMOKE tests'",
     "test:functional": "./aat/gradlew -p aat functional",
     "fortifyScan": "./aat/gradlew -p aat fortifyScan",
     "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --cache false yarn run test",
@@ -16,7 +20,7 @@
     "test:a11y": "echo 'TODO: Accessibility tests'",
     "sonar-scan": "NODE_PATH=. sonar-scanner -X",
     "highLevelDataSetup": "echo './aat/gradlew -p aat highLevelDataSetup --args=$1' > ./temp.sh && sh ./temp.sh",
-    "lint": "cross-env NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
+    "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
     "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
   },
   "nyc": {
@@ -37,6 +41,7 @@
     "@hmcts/nodejs-logging": "^3.0.1",
     "@hmcts/properties-volume": "^0.0.9",
     "applicationinsights": "^1.0.5",
+    "body-parser": "^1.18.2",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.2.0",
@@ -45,6 +50,7 @@
     "ioredis": "^3.1.4",
     "joi": "^17.2.1",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.19.3",
     "morgan": "^1.9.1",
     "nocache": "^2.1.0",
     "node-cache": "^5.1.0",
@@ -79,7 +85,10 @@
     "minimist": "^1.2.3",
     "y18n": "^4.0.1",
     "hosted-git-info": "^3.0.8",
-    "underscore": "^1.12.1",
+    "underscore": "^1.13.1",
+    "ansi-regex": "^5.0.1",
+    "path-parse": "^1.0.7",
+    "glob-parent": "^5.1.2",
     "ws": "^7.4.6"
   }
 }
