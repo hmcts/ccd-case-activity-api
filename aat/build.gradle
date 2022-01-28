@@ -11,7 +11,6 @@ targetCompatibility = 1.8
 repositories {
     mavenLocal()
     mavenCentral()
-    jcenter()
     maven {
         url 'https://jitpack.io'
     }
@@ -20,8 +19,8 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.0.0'
-    testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '8.2.0'
+    testCompile group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.9.1'
+    testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '8.7.1'
     testCompile 'com.github.hmcts:fortify-client:1.2.0:all'
 }
 // end::dependencies[]
