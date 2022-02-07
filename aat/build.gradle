@@ -19,7 +19,7 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.9.1'
+    testCompile group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.0.0'
     testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '8.7.1'
     testCompile 'com.github.hmcts:fortify-client:1.2.0:all'
 }
@@ -47,8 +47,8 @@ task fortifyScan(type: JavaExec)  {
     main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
     classpath += sourceSets.test.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
-    // Uncomment the line below to prevent the build from failing if the Fortify scan detects issues
-    //ignoreExitValue = true
+    // The line below prevents the build from failing if the Fortify scan detects issues
+    ignoreExitValue = true
 }
 
 task highLevelDataSetup(type: JavaExec) {
