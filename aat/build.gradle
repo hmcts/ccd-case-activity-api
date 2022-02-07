@@ -48,7 +48,7 @@ task fortifyScan(type: JavaExec)  {
     classpath += sourceSets.test.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
     // Uncomment the line below to prevent the build from failing if the Fortify scan detects issues
-    //ignoreExitValue = true
+    ignoreExitValue = true
 }
 
 task highLevelDataSetup(type: JavaExec) {
