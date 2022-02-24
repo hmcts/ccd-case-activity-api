@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "private": true,
   "engines": {
-    "node": "^12.14.1",
+    "node": "^14.18.1",
     "yarn": "^1.12.3"
   },
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "cross-env NODE_PATH=. node server.js",
     "test": "NODE_ENV=test mocha --exit --recursive test/spec app/user",
     "test:end2end": "NODE_ENV=test mocha --exit test/e2e --timeout 15000",
-    "test:smoke": "./aat/gradlew -p aat smoke",
+    "test:smoke": "echo 'TODO - Ignore SMOKE tests'",
     "test:functional": "./aat/gradlew -p aat functional",
     "fortifyScan": "./aat/gradlew -p aat fortifyScan",
     "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --cache false yarn run test",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "1.7.0",
     "@hmcts/nodejs-logging": "^3.0.1",
-    "@hmcts/properties-volume": "^0.0.9",
+    "@hmcts/properties-volume": "^0.0.13",
     "applicationinsights": "^1.0.5",
     "body-parser": "^1.18.2",
     "config": "^1.26.1",
@@ -54,7 +54,7 @@
     "nocache": "^2.1.0",
     "node-cache": "^5.1.0",
     "node-cron": "^1.2.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "chai": "^4.1.2",
