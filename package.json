@@ -79,7 +79,7 @@
   "resolutions": {
     "lodash": "^4.17.21",
     "yargs-parser": "^18.1.2",
-    "minimist": "^1.2.3",
+    "minimist": "^1.2.6",
     "y18n": "^4.0.1",
     "hosted-git-info": "^3.0.8",
     "underscore": "^1.13.1",
