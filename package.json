@@ -85,6 +85,7 @@
     "underscore": "^1.13.1",
     "ansi-regex": "^5.0.1",
     "path-parse": "^1.0.7",
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^5.1.2",
+    "ajv": "6.12.3"
   }
 }
