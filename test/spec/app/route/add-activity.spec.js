@@ -43,7 +43,7 @@ describe("add activity route", () => {
     expect(activityService.addActivity).to.have.been.calledWith(req.params.caseid, req.authentication.user, req.body.activity)
   });
 
-  it("should return status code 422 when activity is missing", () => {
+  it("should return status code 400 when activity is missing", () => {
     let req = {
       params: { caseid: 55 },
       body: {},
@@ -54,12 +54,12 @@ describe("add activity route", () => {
     let res = buildResponse();
     sandbox.spy(activityService, 'addActivity');
     addActivityRoute(req, res, function (error) {
-      expect(error.status).to.equal(422)
+      expect(error.status).to.equal(400)
     });
     expect(activityService.addActivity).not.to.have.been.called;
   });
 
-  it("should return status code 422 when activity is unknown", () => {
+  it("should return status code 400 when activity is unknown", () => {
     let req = {
       params: { caseid: 55 },
       body: { activity: "unknown" },
@@ -70,7 +70,7 @@ describe("add activity route", () => {
     var res = buildResponse();
     sandbox.spy(activityService, 'addActivity');
     addActivityRoute(req, res, function (error) {
-      expect(error.status).to.equal(422)
+      expect(error.status).to.equal(400)
     });
     expect(activityService.addActivity).not.to.have.been.called;
   });
