@@ -77,6 +77,8 @@
     "supertest": "^3.0.0"
   },
   "resolutions": {
+    "es6-promisify" : "5.0.0",
+    "async" : "3.2.2",
     "lodash": "^4.17.21",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.6",
