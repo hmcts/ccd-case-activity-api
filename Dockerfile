@@ -1,7 +1,5 @@
 # ---- Base Image ----
-ARG base=hmctspublic.azurecr.io/base/node:14-alpine
-
-FROM ${base} as base
+FROM hmctspublic.azurecr.io/base/node:14-alpine as base
 
 USER hmcts
 
