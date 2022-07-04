@@ -10,7 +10,3 @@ nodejs:
 
 redis:
   enabled: true
-  architecture: standalone
-  auth:
-    enabled: true
-    password: "fake-password"
