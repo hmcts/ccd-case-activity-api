@@ -1,12 +1,11 @@
 redis:
   enabled: false
-  nameOverride: redis
+  architecture: standalone
   master:
     persistence:
       enabled: false
-  cluster:
+  auth:
     enabled: false
-  password: fake-password
 
 nodejs:
   image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
@@ -14,7 +13,7 @@ nodejs:
   aadIdentityName: ccd
   ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
-    enabled: true 
+    enabled: true
     minReplicas: 8
     maxReplicas: 16
   environment:
