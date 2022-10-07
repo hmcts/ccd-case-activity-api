@@ -50,7 +50,7 @@
     "ioredis": "^3.1.4",
     "joi": "^17.2.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.19.3",
+    "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "nocache": "^2.1.0",
     "node-cache": "^5.1.0",
@@ -60,7 +60,7 @@
     "socket.io-router-middleware": "^1.1.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.3.6",
     "chai-arrays": "^2.0.0",
     "chai-http": "^4.0.0",
     "eslint": "6",
@@ -80,15 +80,18 @@
     "supertest": "^3.0.0"
   },
   "resolutions": {
+    "async" : "^2.6.4",
     "lodash": "^4.17.21",
     "yargs-parser": "^18.1.2",
-    "minimist": "^1.2.3",
+    "minimist": "^1.2.6",
     "y18n": "^4.0.1",
     "hosted-git-info": "^3.0.8",
     "underscore": "^1.13.1",
     "ansi-regex": "^5.0.1",
     "path-parse": "^1.0.7",
     "glob-parent": "^5.1.2",
-    "ws": "^7.4.6"
+    "ws": "^7.4.6",
+    "moment": "^2.29.4",
+    "ajv": "6.12.3"
   }
 }
