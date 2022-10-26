@@ -2,14 +2,14 @@ apiVersion: v2
 description: Helm chart for the HMCTS CCD Case Activity
 name: ccd-case-activity-api
 home: https://github.com/hmcts/ccd-case-activity-api
-version: 1.2.4
+version: 1.2.5
 maintainers:
   - name: HMCTS CCD Dev Team
     email: ccd-devops@HMCTS.NET
 dependencies:
   - name: nodejs
     version: 2.3.7
-    repository: '@hmctspublic'
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: redis
     version: 16.0.0
     repository: "https://charts.bitnami.com/bitnami"
