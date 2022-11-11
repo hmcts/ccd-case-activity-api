@@ -4,7 +4,6 @@ const userRequestAuthorizer = require('./user-request-authorizer');
 const logger = Logger.getLogger('authCheckerUserOnlyFilter');
 
 const isBadGatewayError = (error) => {
-  logger.error('mikes error inside authCheckerUserOnlyFilter.isBadGatewayError error.name: '.concat(error.name, ' status: ', error.status));
   return error.message !== undefined && (error.message.includes('getaddrinfo ENOTFOUND')
   || error.message.includes('socket hang up')
   || error.message.includes('getaddrinfo EAI_AGAIN')
@@ -14,8 +13,7 @@ const isBadGatewayError = (error) => {
 };
 
 const mapFetchErrors = (error, res, next) => {
-  logger.error('mikes error inside mapsFetchErrors typeof next: '.concat(typeof next, ' constructor.name): ', next.constructor.name));
-  if (isBadGatewayError(error)) {
+  if (next !== undefined && isBadGatewayError(error)) {
     next({
       error: 'Bad Gateway',
       status: 502,
