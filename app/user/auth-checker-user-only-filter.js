@@ -13,18 +13,20 @@ const isBadGatewayError = (error) => {
 };
 
 const mapFetchErrors = (error, res, next) => {
-  if (next !== undefined && isBadGatewayError(error)) {
-    next({
-      error: 'Bad Gateway',
-      status: 502,
-      message: error.message,
-    });
-  } else {
-    next({
-      error: 'Internal Server Error',
-      status: 500,
-      message: error.message,
-    });
+  if (next !== undefined) {
+    if (isBadGatewayError(error)) {
+      next({
+        error: 'Bad Gateway',
+        status: 502,
+        message: error.message,
+      });
+    } else {
+      next({
+        error: 'Internal Server Error',
+        status: 500,
+        message: error.message,
+      });
+    }
   }
 };
 
