@@ -11,20 +11,18 @@ const isBadGatewayError = (error) => error.message !== undefined && (error.messa
   || error.message.includes('ECONNREFUSED'));
 
 const mapFetchErrors = (error, next) => {
-  if (next !== undefined) {
-    if (isBadGatewayError(error)) {
-      next({
-        error: 'Bad Gateway',
-        status: 502,
-        message: error.message,
-      });
-    } else {
-      next({
-        error: 'Internal Server Error',
-        status: 500,
-        message: error.message,
-      });
-    }
+  if (isBadGatewayError(error)) {
+    next({
+      error: 'Bad Gateway',
+      status: 502,
+      message: error.message,
+    });
+  } else {
+    next({
+      error: 'Internal Server Error',
+      status: 500,
+      message: error.message,
+    });
   }
 };
 
