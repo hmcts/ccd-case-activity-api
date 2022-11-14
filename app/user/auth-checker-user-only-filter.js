@@ -12,7 +12,7 @@ const isBadGatewayError = (error) => {
   || error.message.includes('ECONNREFUSED'));
 };
 
-const mapFetchErrors = (error, res, next) => {
+const mapFetchErrors = (error, next) => {
   if (next !== undefined) {
     if (isBadGatewayError(error)) {
       next({
@@ -42,7 +42,7 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'FetchError') {
         logger.error(error);
-        mapFetchErrors(error, res, next);
+        mapFetchErrors(error, next);
       } else {
         logger.warn('Unsuccessful user authentication', error);
         error.status = error.status || 401; // eslint-disable-line no-param-reassign
