@@ -3,14 +3,12 @@ const userRequestAuthorizer = require('./user-request-authorizer');
 
 const logger = Logger.getLogger('authCheckerUserOnlyFilter');
 
-const isBadGatewayError = (error) => {
-  return error.message !== undefined && (error.message.includes('getaddrinfo ENOTFOUND')
+const isBadGatewayError = (error) => error.message !== undefined && (error.message.includes('getaddrinfo ENOTFOUND')
   || error.message.includes('socket hang up')
   || error.message.includes('getaddrinfo EAI_AGAIN')
   || error.message.includes('connect ETIMEOUT')
   || error.message.includes('ECONNRESET')
   || error.message.includes('ECONNREFUSED'));
-};
 
 const mapFetchErrors = (error, next) => {
   if (next !== undefined) {
