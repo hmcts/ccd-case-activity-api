@@ -42,7 +42,7 @@ withNightlyPipeline(type, product, component) {
     enableSlackNotifications('#ccd-nightly-builds')
     //enableHighLevelDataSetup()
     enableFortifyScan()
-    after('fortify-scan') {
+    afterAlways('fortify-scan') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     }
 
