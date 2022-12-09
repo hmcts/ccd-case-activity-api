@@ -40,7 +40,7 @@
     "@hmcts/nodejs-logging": "^3.0.1",
     "@hmcts/properties-volume": "^0.0.13",
     "applicationinsights": "^1.0.5",
-    "body-parser": "^1.18.2",
+    "body-parser": "^6.7.3",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.2.0",
