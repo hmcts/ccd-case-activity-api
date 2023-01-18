@@ -8,7 +8,7 @@ maintainers:
     email: ccd-devops@HMCTS.NET
 dependencies:
   - name: nodejs
-    version: 2.4.8
+    version: 2.4.12
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: redis
     version: 16.13.0
