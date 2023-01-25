@@ -114,7 +114,7 @@ withPipeline(type, product, component) {
     disableLegacyDeployment()
     enableHighLevelDataSetup()
 
-    afterCheckout {
+    afterAlways('checkOut')  {
         sh "yarn cache clean"
     }
 
