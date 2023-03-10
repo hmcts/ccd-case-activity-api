@@ -53,6 +53,7 @@ const router = {
       router.addConnection(socket);
       router.addUser(socket.id, JSON.parse(socket.handshake.query.user));
       utils.log(socket, '', `connected (${router.getConnections().length} total)`);
+      // eslint-disable-next-line no-console
       utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, Date.now());
       socket.use((packet, next) => {
         iorouter.attach(socket, packet, next);
@@ -60,6 +61,7 @@ const router = {
       // When the socket disconnects, do an appropriate teardown.
       socket.on('disconnect', () => {
         utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`);
+        // eslint-disable-next-line no-console
         utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`, console.log, Date.now());
         handlers.removeSocketActivity(socket.id);
         router.removeUser(socket.id);

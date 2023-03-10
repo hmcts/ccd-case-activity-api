@@ -56,7 +56,7 @@ const other = {
         'caseworker-employment-leeds',
         'caseworker'
       ],
-      name: name,
+      name,
       given_name: givenName,
       family_name: familyName
     };

@@ -19,7 +19,8 @@ module.exports = (activityService, socketServer) => {
 
   /**
    * Notify all users in a case room about any change to activity on a case.
-   * @param {*} caseId The id of the case that has activity and that people should be notified about.
+   * @param {*} caseId The id of the case that has activity and that people should be
+   * notified about.
    */
   async function notify(caseId) {
     const cs = await activityService.getActivityForCases([caseId]);

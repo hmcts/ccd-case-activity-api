@@ -1,6 +1,6 @@
 const debug = require('debug')('ccd-case-activity-api:socket-utils-store');
 const redisActivityKeys = require('../redis/keys');
-const toUserString = require('./other').toUserString;
+const { toUserString } = require('./other');
 
 const store = {
   userActivity: (activityKey, userId, score) => {
@@ -9,15 +9,15 @@ const store = {
   },
   userDetails: (user, ttl) => {
     const key = redisActivityKeys.user(user.uid);
-    const store = toUserString(user);
-    debug(`about to store details "${key}" for user "${user.uid}": ${store}`);
-    return ['set', key, store, 'EX', ttl];
+    const userString = toUserString(user);
+    debug(`about to store details "${key}" for user "${user.uid}": ${userString}`);
+    return ['set', key, userString, 'EX', ttl];
   },
   socketActivity: (socketId, activityKey, caseId, userId, ttl) => {
     const key = redisActivityKeys.socket(socketId);
-    const store = JSON.stringify({ activityKey, caseId, userId });
-    debug(`about to store activity "${key}" for socket "${socketId}": ${store}`);
-    return ['set', key, store, 'EX', ttl];
+    const userString = JSON.stringify({ activityKey, caseId, userId });
+    debug(`about to store activity "${key}" for socket "${socketId}": ${userString}`);
+    return ['set', key, userString, 'EX', ttl];
   }
 };
 
