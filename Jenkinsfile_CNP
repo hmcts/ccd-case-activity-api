@@ -87,7 +87,7 @@ withPipeline(type, product, component) {
 
         def githubApi = new GithubAPI(this)
         if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
-            enableCleanupOfHelmReleaseOnSuccess()
+            enableCleanupOfHelmReleaseAlways()
         }
     }
 
@@ -114,27 +114,27 @@ withPipeline(type, product, component) {
     disableLegacyDeployment()
     enableHighLevelDataSetup()
 
-    afterCheckout {
+    afterAlways('checkOut')  {
         sh "yarn cache clean"
     }
 
-    after('build') {
-        sh "yarn check"
+    afterAlways('build') {
+        sh "yarn --check-cache"
     }
 
-    after('smoketest:preview') {
+    afterAlways('smoketest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
     }
 
-    after('smoketest:aat') {
+    afterAlways('smoketest:aat') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
     }
 
-    after('functionalTest:preview') {
+    afterAlways('functionalTest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Functional Tests/**/*'
     }
 
-    after('functionalTest:aat') {
+    afterAlways('functionalTest:aat') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Functional Tests/**/*'
     }
 

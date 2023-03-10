@@ -3,12 +3,11 @@
   "version": "0.1.0-socket-alpha",
   "private": true,
   "engines": {
-    "node": "^14.18.1",
-    "yarn": "^1.12.3"
+    "node": "^16.15.0"
   },
   "scripts": {
-    "setup": "cross-env NODE_PATH=. node --version",
-    "start": "cross-env NODE_PATH=. node server.js",
+    "setup": "cross-env NODE_PATH=. yarn node --version",
+    "start": "cross-env NODE_PATH=. yarn node server.js",
     "start:debug": "DEBUG=ccd-case-activity-api:* yarn start",
     "test": "NODE_ENV=test mocha --exit --recursive test/spec app/user",
     "test:end2end": "NODE_ENV=test mocha --exit test/e2e --timeout 15000",
@@ -20,7 +19,7 @@
     "test:a11y": "echo 'TODO: Accessibility tests'",
     "sonar-scan": "NODE_PATH=. sonar-scanner -X",
     "highLevelDataSetup": "echo './aat/gradlew -p aat highLevelDataSetup --args=$1' > ./temp.sh && sh ./temp.sh",
-    "lint": "NODE_PATH=. eslint app.js app/**/*.js test/**/*.js",
+    "lint": "NODE_PATH=. eslint app.js app/**/*.js",
     "lint-fix": "NODE_PATH=. eslint --fix app.js app/**/*.js test/**/*.js"
   },
   "nyc": {
@@ -37,16 +36,16 @@
     ]
   },
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "1.7.0",
-    "@hmcts/nodejs-logging": "^3.0.1",
-    "@hmcts/properties-volume": "^0.0.13",
+    "@hmcts/nodejs-healthcheck": "^1.8.0",
+    "@hmcts/nodejs-logging": "^4.0.4",
+    "@hmcts/properties-volume": "^0.0.14",
     "applicationinsights": "^1.0.5",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.20.1",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.2.0",
     "debug": "~2.6.3",
-    "express": "^4.16.0",
+    "express": "^4.17.3",
     "ioredis": "^3.1.4",
     "joi": "^17.2.1",
     "jwt-decode": "^2.2.0",
@@ -76,11 +75,11 @@
     "sinon": "^9.0.0",
     "sinon-chai": "^3.5.0",
     "sinon-express-mock": "^2.2.1",
-    "sonar-scanner": "^3.0.3",
+    "sonar-scanner": "^3.1.0",
     "supertest": "^3.0.0"
   },
   "resolutions": {
-    "async" : "^2.6.4",
+    "async": "^2.6.4",
     "lodash": "^4.17.21",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.6",
@@ -92,6 +91,12 @@
     "glob-parent": "^5.1.2",
     "ws": "^7.4.6",
     "moment": "^2.29.4",
-    "ajv": "6.12.3"
-  }
+    "ajv": "6.12.3",
+    "json5": "^2.2.2",
+    "minimatch": "^3.0.5",
+    "cookiejar": "^2.1.4",
+    "flat": "^5.0.1",
+    "qs": "^6.11.0"
+  },
+  "packageManager": "yarn@3.4.1"
 }
