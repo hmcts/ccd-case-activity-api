@@ -6,7 +6,7 @@ nodejs:
     REDIS_PORT: 6379
     REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: ""
-    CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net,https://xui-webapp-pr-1172.service.core-compute-preview.internal
+    CORS_ORIGIN_WHITELIST: *
   keyVaults:
 
 redis:
