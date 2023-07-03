@@ -24,6 +24,9 @@ module "redis-activity-service" {
   product     = "${var.product}-activity-service"
   location    = var.location
   env         = "${var.env}"
-  subnetid    = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
+  private_endpoint_enabled = true
+  redis_version = "6"
+  business_area = "cft" # cft or sds
+  public_network_access_enabled = false
   common_tags = "${var.common_tags}"
 }
