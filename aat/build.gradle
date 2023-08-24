@@ -1,11 +1,13 @@
-
 plugins {
     id 'application'
     id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 // tag::repositories[]
 repositories {
@@ -43,7 +45,7 @@ configurations {
     cucumberRuntime.extendsFrom(functionalRuntime)
 }
 
-task fortifyScan(type: JavaExec)  {
+tasks.register('fortifyScan', JavaExec)  {
     main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
     classpath += sourceSets.test.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
@@ -52,14 +54,14 @@ task fortifyScan(type: JavaExec)  {
     ignoreExitValue = true
 }
 
-task highLevelDataSetup(type: JavaExec) {
+tasks.register('highLevelDataSetup', JavaExec) {
     main = "uk.gov.hmcts.ccd.caseactivity.befta.HighLevelDataSetupApp"
     classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
 
 
-task smoke(type: Test) {
+tasks.register('smoke', Test) {
   description = 'Executes smoke tests against an the CCD Case Activity API instance just deployed'
   setTestClassesDirs(sourceSets.aat.output.classesDirs)
 
@@ -85,7 +87,7 @@ task smoke(type: Test) {
   outputs.upToDateWhen { false }
 }
 
-task functional(type: Test) {
+tasks.register('functional', Test) {
   description = 'Executes functional tests against an the CCD Case Activity API instance just deployed'
   setTestClassesDirs(sourceSets.aat.output.classesDirs)
 
