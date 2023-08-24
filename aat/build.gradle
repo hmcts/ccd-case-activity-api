@@ -71,6 +71,7 @@ task smoke(type: Test) {
     javaexec {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+      jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
       args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', '@Smoke', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
@@ -97,6 +98,7 @@ task functional(type: Test) {
     javaexec {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+      jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
       args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
