@@ -9,5 +9,4 @@ const getUserDetails = (jwt) => fetch(`${config.get('idam.base_url')}/o/userinfo
 })
   .then((res) => res.json());
 
-
 exports.getUserDetails = getUserDetails;
