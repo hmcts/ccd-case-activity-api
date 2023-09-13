@@ -4,8 +4,11 @@ plugins {
     id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
 
 // tag::repositories[]
 repositories {
@@ -19,9 +22,9 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testCompile group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.0.0'
-    testCompile group: 'com.github.hmcts', name: 'befta-fw', version: '8.7.11'
-    testCompile 'com.github.hmcts:fortify-client:1.3.0:all'
+    testImplementation group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.0.0'
+    testImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '8.7.11'
+    testImplementation 'com.github.hmcts:fortify-client:1.3.0:all'
 }
 // end::dependencies[]
 
@@ -39,12 +42,12 @@ sourceSets {
 }
 
 configurations {
-    aatCompile.extendsFrom(testCompile)
+    aatImplementation.extendsFrom(testImplementation)
     cucumberRuntime.extendsFrom(functionalRuntime)
 }
 
 task fortifyScan(type: JavaExec)  {
-    main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+    mainClass = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
     classpath += sourceSets.test.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
     // The line below prevents the build from failing
@@ -53,7 +56,7 @@ task fortifyScan(type: JavaExec)  {
 }
 
 task highLevelDataSetup(type: JavaExec) {
-    main = "uk.gov.hmcts.ccd.caseactivity.befta.HighLevelDataSetupApp"
+    mainClass = "uk.gov.hmcts.ccd.caseactivity.befta.HighLevelDataSetupApp"
     classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
@@ -68,6 +71,7 @@ task smoke(type: Test) {
     javaexec {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+      jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
       args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', '@Smoke', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
@@ -94,6 +98,7 @@ task functional(type: Test) {
     javaexec {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
+      jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
       args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
