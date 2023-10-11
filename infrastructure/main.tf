@@ -20,13 +20,16 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
 }
 
 module "redis-activity-service" {
-  source      = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product     = "${var.product}-activity-service"
-  location    = var.location
-  env         = "${var.env}"
-  private_endpoint_enabled = true
-  redis_version = "6"
-  business_area = "cft" # cft or sds
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = "${var.product}-activity-service"
+  location                      = var.location
+  env                           = var.env
+  private_endpoint_enabled      = true
+  redis_version                 = "6"
+  business_area                 = "cft" # cft or sds
   public_network_access_enabled = false
-  common_tags = "${var.common_tags}"
+  common_tags                   = var.common_tags
+  sku_name                      = var.sku_name
+  family                        = var.family
+  capacity                      = var.capacity
 }
