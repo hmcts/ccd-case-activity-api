@@ -60,7 +60,7 @@ def vaultOverrides = [
 ]
 
 // Assume a feature build branched off 'develop', with dependencies develop-to-develop.
-env.CCD_DATA_STORE_API_BASE_URL = "https://ccd-data-store-api-${dataStoreDevelopPr}.preview.platform".toLowerCase()
+env.CCD_DATA_STORE_API_BASE_URL = "https://ccd-data-store-api-pr-1260.preview.platform".toLowerCase()
 
 // Other env variables needed for BEFTA.
 env.CCD_API_GATEWAY_OAUTH2_CLIENT_ID = "ccd_gateway"
