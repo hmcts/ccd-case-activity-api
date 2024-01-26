@@ -3509,7 +3509,7 @@ __metadata:
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
-    lodash: ^4.17.19
+    lodash: ^4.14.202
     propagate: ^2.0.0
   checksum: ce55ecf30772c8b0b37ca61507afe24048750fe4d7b42677f653f950856e20fa8da0c2258e8900399a5a056634c373225654565b3f243245688da90fc67e31b8
   languageName: node
