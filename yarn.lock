@@ -29,7 +29,7 @@ __metadata:
     debug: ^4.1.0
     gensync: ^1.0.0-beta.1
     json5: ^2.1.0
-    lodash: ^4.17.13
+    lodash: ^4.17.19
     resolve: ^1.3.2
     semver: ^5.4.1
     source-map: ^0.5.0
@@ -43,7 +43,7 @@ __metadata:
   dependencies:
     "@babel/types": ^7.8.6
     jsesc: ^2.5.1
-    lodash: ^4.17.13
+    lodash: ^4.17.19
     source-map: ^0.5.0
   checksum: 288fecb43915130c926e5b977213137f208901b8360879e952ec4467716b472cebffc776ab15735094fc0bbf6083e544f0c3b53315f43f734fe862ec554725b5
   languageName: node
@@ -132,7 +132,7 @@ __metadata:
     "@babel/types": ^7.8.6
     debug: ^4.1.0
     globals: ^11.1.0
-    lodash: ^4.17.13
+    lodash: ^4.17.19
   checksum: 1f21937a9d3768fc56571771529ba7942c9f33a1376799dec1a607ca1af92e953b7ff23bfca026cee2a505459247f292ddd15349bfd12bdb7ac94746cb9a979b
   languageName: node
   linkType: hard
@@ -142,7 +142,7 @@ __metadata:
   resolution: "@babel/types@npm:7.8.6"
   dependencies:
     esutils: ^2.0.2
-    lodash: ^4.17.13
+    lodash: ^4.17.19
     to-fast-properties: ^2.0.0
   checksum: 04d524bf69f276b385e4470a2561a3ab0638a9feca2cc201288973b17cc2ff50e5e121af8576329ec1a30fe20fb8a5c5a260d775f625b3610dbb5961333fd7e9
   languageName: node
@@ -221,7 +221,7 @@ __metadata:
   resolution: "@hmcts/properties-volume@npm:0.0.14"
   dependencies:
     "@hmcts/nodejs-logging": ^4.0.4
-    lodash: ^4.17.11
+    lodash: ^4.17.19
     path: ^0.12.7
   checksum: 3859effd7c1579f151a050e85514ca73a341ae9a6be9246e8f3995cf86eafceecac8f64fba38281b3c20f518f1dae744428dbf5c3d6a33782d493dcb3995aeec
   languageName: node
@@ -622,7 +622,7 @@ __metadata:
   version: 2.6.4
   resolution: "async@npm:2.6.4"
   dependencies:
-    lodash: ^4.17.14
+    lodash: ^4.17.19
   checksum: a52083fb32e1ebe1d63e5c5624038bb30be68ff07a6c8d7dfe35e47c93fc144bd8652cbec869e0ac07d57dde387aa5f1386be3559cdee799cb1f789678d88e19
   languageName: node
   linkType: hard
@@ -1649,7 +1649,7 @@ __metadata:
     js-yaml: ^3.13.1
     json-stable-stringify-without-jsonify: ^1.0.1
     levn: ^0.3.0
-    lodash: ^4.17.14
+    lodash: ^4.17.19
     minimatch: ^3.0.4
     mkdirp: ^0.5.1
     natural-compare: ^1.4.0
@@ -2201,7 +2201,7 @@ __metadata:
   resolution: "globule@npm:1.3.1"
   dependencies:
     glob: ~7.1.1
-    lodash: ~4.17.12
+    lodash: ~4.17.19
     minimatch: ~3.0.2
   checksum: a86b65c5c173a3613d9f27854d4656535a92c7a617fffec1b9bb1606a1563131dc83ee7f4826a655984881a2d84b13a6938a04c7f9fe5c34b2837fe943d986f5
   languageName: node
@@ -2466,7 +2466,7 @@ __metadata:
     cli-width: ^2.0.0
     external-editor: ^3.0.3
     figures: ^3.0.0
-    lodash: ^4.17.15
+    lodash: ^4.17.19
     mute-stream: 0.0.8
     run-async: ^2.4.0
     rxjs: ^6.5.3
@@ -3509,7 +3509,7 @@ __metadata:
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
-    lodash: ^4.17.13
+    lodash: ^4.17.19
     propagate: ^2.0.0
   checksum: ce55ecf30772c8b0b37ca61507afe24048750fe4d7b42677f653f950856e20fa8da0c2258e8900399a5a056634c373225654565b3f243245688da90fc67e31b8
   languageName: node
@@ -4968,7 +4968,7 @@ __metadata:
   resolution: "table@npm:5.4.6"
   dependencies:
     ajv: ^6.10.2
-    lodash: ^4.17.14
+    lodash: ^4.17.19
     slice-ansi: ^2.1.0
     string-width: ^3.0.0
   checksum: 9e35d3efa788edc17237eef8852f8e4b9178efd65a7d115141777b2ee77df4b7796c05f4ed3712d858f98894ac5935a481ceeb6dcb9895e2f67a61cce0e63b6c
@@ -5377,7 +5377,7 @@ __metadata:
   resolution: "yargs-unparser@npm:1.6.0"
   dependencies:
     flat: ^4.1.0
-    lodash: ^4.17.15
+    lodash: ^4.17.19
     yargs: ^13.3.0
   checksum: ca662bb94af53d816d47f2162f0a1d135783f09de9fd47645a5cb18dd25532b0b710432b680d2c065ff45de122ba4a96433c41595fa7bfcc08eb12e889db95c1
   languageName: node
