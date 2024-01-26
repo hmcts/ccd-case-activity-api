@@ -808,7 +808,7 @@ __metadata:
     moment: ^2.29.4
     morgan: ^1.9.1
     nocache: ^2.1.0
-    nock: ^13.5.0
+    nock: ^12.0.3
     node-cache: ^5.1.0
     node-cron: ^1.2.1
     node-fetch: ^2.6.7
@@ -3503,9 +3503,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:^13.5.0":
-  version: 13.5.0
-  resolution: "nock@npm:13.5.0"
+"nock@npm:^12.0.3":
+  version: 12.0.3
+  resolution: "nock@npm:12.0.3"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
