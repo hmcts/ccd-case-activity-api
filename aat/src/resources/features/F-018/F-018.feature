@@ -77,3 +77,4 @@ Scenario: must return a negative response for a missing Case ID
 
      Then a negative response is received,
       And the response has all the details as expected.
+
