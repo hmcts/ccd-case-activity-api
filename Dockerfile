@@ -1,5 +1,5 @@
 ARG PLATFORM=""
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:16-alpine as base
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:18-alpine AS base
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -22,12 +22,12 @@ RUN yarn config set yarn-offline-mirror ~/npm-packages-offline-cache && \
   yarn install --prefer-offline --ignore-optional --network-timeout 1200000
 
 # ---- Build Image ----
-FROM base as build
+FROM base AS build
 
 RUN sleep 1 && yarn install --ignore-optional --production --network-timeout 1200000 && yarn cache clean
 
 # ---- Runtime Image ----
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:16-alpine as runtime
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:18-alpine AS runtime
 COPY --from=build $WORKDIR .
 
 EXPOSE 3460

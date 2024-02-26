@@ -9,6 +9,7 @@ const enableAppInsights = () => {
     .setAutoCollectConsole(true, true);
   appInsights.defaultClient.context.tags[
     appInsights.defaultClient.context.keys.cloudRole] = appInsightsRoleName;
+  appInsights.defaultClient.config.samplingPercentage = 1;
   appInsights.start();
 };
 
