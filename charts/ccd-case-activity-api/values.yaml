@@ -13,7 +13,7 @@ nodejs:
   aadIdentityName: ccd
   ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 8
     maxReplicas: 16
   environment:
