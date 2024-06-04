@@ -19,8 +19,6 @@ cache:
 app:
   requestTimeoutSec: 5
   storeCleanupCrontab: "* * * * *"
-appInsights:
-  roleName: "ccd-case-activity-api"
 
 secrets:
   ccd:

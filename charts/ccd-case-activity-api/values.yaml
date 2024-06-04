@@ -38,5 +38,7 @@ nodejs:
   keyVaults:
     ccd:
       secrets:
-        - activity-redis-password
-        - app-insights-connection-string
+        - name: activity-redis-password
+          alias: activity-redis-password
+        - name: app-insights-connection-string
+          alias: app-insights-connection-string
