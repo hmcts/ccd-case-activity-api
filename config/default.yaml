@@ -25,4 +25,4 @@ appInsights:
 secrets:
   ccd:
     activity-redis-password: testPassword
-    AppInsightsInstrumentationKey: "some-key"
+    app-insights-connection-string: "some-key"

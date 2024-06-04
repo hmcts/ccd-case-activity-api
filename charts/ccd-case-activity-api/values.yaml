@@ -39,4 +39,4 @@ nodejs:
     ccd:
       secrets:
         - activity-redis-password
-        - AppInsightsInstrumentationKey
+        - app-insights-connection-string
