@@ -21,9 +21,9 @@ app:
   requestTimeoutSec: APP_REQUEST_TIMEOUT
   storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB
 appInsights:
-  connectionString: APP_INSIGHTS_CONNECTION_STRING
+  instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
 
 secrets:
   ccd:
     activity-redis-password: REDIS_PASSWORD
-    app-insights-connection-string: APP_INSIGHTS_CONNECTION_STRING
+    AppInsightsInstrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
