@@ -1,7 +1,7 @@
 const config = require('config');
 const appInsights = require('applicationinsights');
 
-const enabled = config.has('appInsights.enabled') && config.get('appInsights.enabled');
+const enabled = config.get('appInsights.enabled');
 
 const enableAppInsights = () => {
   if (!enabled) {
