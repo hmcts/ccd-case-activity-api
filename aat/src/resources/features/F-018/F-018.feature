@@ -6,8 +6,8 @@ Feature: F-018: Add Activity
 Background: Load test data for the scenario
       Given an appropriate test context as detailed in the test data source
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-001 @Smoke @Ignore
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-001 @Smoke
 Scenario: must successfully add an activity with a correct and complete invocation
 
     Given a user with [an active profile in CCD],
@@ -21,8 +21,8 @@ Scenario: must successfully add an activity with a correct and complete invocati
       And the response has all the details as expected,
       And another call [to observe the new activity just added on the case above] will get the expected response as in [S-014-Verification-call].
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-002 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-002
 Scenario: must return a negative response when activity is missing
 
     Given a user with [an active profile in CCD],
@@ -36,8 +36,8 @@ Scenario: must return a negative response when activity is missing
      Then a negative response is received,
       And the response has all the details as expected.
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-003 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-003
 Scenario: must return a negative response when activity is unknown
 
     Given a user with [an active profile in CCD],
@@ -51,7 +51,7 @@ Scenario: must return a negative response when activity is unknown
      Then a negative response is received,
       And the response has all the details as expected.
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 @S-004
 Scenario: must return a negative response for a malformed Case ID
 
@@ -64,7 +64,7 @@ Scenario: must return a negative response for a malformed Case ID
      Then a negative response is received,
       And the response has all the details as expected.
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 @S-005
 Scenario: must return a negative response for a missing Case ID
 
@@ -77,3 +77,4 @@ Scenario: must return a negative response for a missing Case ID
 
      Then a negative response is received,
       And the response has all the details as expected.
+
