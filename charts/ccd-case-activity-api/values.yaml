@@ -22,6 +22,7 @@ nodejs:
     CACHE_USER_INFO_ENABLED: true
     CACHE_USER_INFO_TTL: 600
     CACHE_USER_INFO_CHECK_PERIOD: 120
+    NODE_CONFIG_DIR: ./config
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
@@ -37,6 +38,6 @@ nodejs:
 
   keyVaults:
     ccd:
-      secrets:
-        - activity-redis-password
-        - AppInsightsInstrumentationKey
+      secrets:        
+        - name: activity-redis-password
+        - name: app-insights-connection-string

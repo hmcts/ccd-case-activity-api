@@ -13,9 +13,9 @@ RUN apk update \
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
 USER hmcts
-COPY app.js server.js ./
-COPY app ./app
-COPY config ./config
+COPY --chown=hmcts:hmcts app.js server.js ./
+COPY --chown=hmcts:hmcts app ./app
+COPY --chown=hmcts:hmcts config ./config
 
 RUN yarn config set yarn-offline-mirror ~/npm-packages-offline-cache && \
   yarn config set yarn-offline-mirror-pruning true && \
