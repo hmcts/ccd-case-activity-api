@@ -2111,7 +2111,7 @@ __metadata:
     eslint: 6
     eslint-config-airbnb-base: ^14.0.0
     eslint-plugin-import: ^2.14.0
-    express: ^4.17.3
+    express: ^4.19.2
     ioredis: ^3.1.4
     jasmine-node: 3
     joi: ^17.2.1
@@ -3201,7 +3201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.17.3":
+"express@npm:^4.19.2":
   version: 4.19.2
   resolution: "express@npm:4.19.2"
   dependencies:
