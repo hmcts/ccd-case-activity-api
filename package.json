@@ -78,7 +78,7 @@
   "resolutions": {
     "async": "^2.6.4",
     "lodash": "^4.17.21",
-    "lodash.pick": "4.4.0",
+    "lodash.pick": "4.17.19",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.6",
     "y18n": "^4.0.1",
