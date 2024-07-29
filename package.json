@@ -78,6 +78,7 @@
   "resolutions": {
     "async": "^2.6.4",
     "lodash": "^4.17.21",
+    "lodash.pick": "4.4.0",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.6",
     "y18n": "^4.0.1",
@@ -95,9 +96,6 @@
     "flat": "^5.0.1",
     "qs": "^6.11.0",
     "semver": "7.5.4"
-  },
-  "overrides": {
-    "lodash.pick@>=3.7.0 <4.17.19": "https://github.com/lodash/lodash/archive/f299b52f39486275a9e6483b60a410e06520c538.tar.gz"
   },
   "packageManager": "yarn@3.4.1"
 }
