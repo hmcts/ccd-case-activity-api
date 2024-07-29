@@ -4710,6 +4710,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash._baseflatten@npm:^3.0.0":
+  version: 3.1.4
+  resolution: "lodash._baseflatten@npm:3.1.4"
+  dependencies:
+    lodash.isarguments: ^3.0.0
+    lodash.isarray: ^3.0.0
+  checksum: 7637d1105ce272c5df5c552879dccdbae48da8b8e613d303c3bc1bbee9e1443fd1c934f7c8c0049b96e54df14d9cfd1bab5522412ad6952bb13cbdff1b37a20c
+  languageName: node
+  linkType: hard
+
+"lodash._basefor@npm:^3.0.0":
+  version: 3.0.3
+  resolution: "lodash._basefor@npm:3.0.3"
+  checksum: 8028af9901a33c336eeb18945bfe304f9e2abc1a741f688a5e26e3fa1a1c975688f7a40ec90d8dc3eda3c04160ede0aa5a89c2beb04ac29daf914b5aeb8b6b5a
+  languageName: node
+  linkType: hard
+
+"lodash._bindcallback@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "lodash._bindcallback@npm:3.0.1"
+  checksum: 3916fd72bc02de3643a52d46cf5aaeab4c0b21cd7cb2fb801a8bf9dacdc8532e89b30a4ebafdf65da5fe09d8b0bf898a7416402704fd7262a976703e1c59e549
+  languageName: node
+  linkType: hard
+
+"lodash._pickbyarray@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "lodash._pickbyarray@npm:3.0.2"
+  checksum: 73b92877d8133c645b5485f8140f9b5a10a42331b9c15b290bd6bd3204e7f86d30d18e1d24725b2ba3e279ca46b370b6e88caa5510b4cea00e4ce3b06060c84f
+  languageName: node
+  linkType: hard
+
+"lodash._pickbycallback@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "lodash._pickbycallback@npm:3.0.0"
+  dependencies:
+    lodash._basefor: ^3.0.0
+    lodash.keysin: ^3.0.0
+  checksum: 46ebbd4baecde6a408cf4b3d159b31ba3c36499dfa336ee32665b5327c2af33ff8cceb8110a93a2e33b1fe2d674818c2e2e40cebbeb05759ec2ee2dc8ee595d4
+  languageName: node
+  linkType: hard
+
 "lodash.assign@npm:^4.2.0":
   version: 4.2.0
   resolution: "lodash.assign@npm:4.2.0"
@@ -4794,6 +4835,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.isarguments@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "lodash.isarguments@npm:3.1.0"
+  checksum: ae1526f3eb5c61c77944b101b1f655f846ecbedcb9e6b073526eba6890dc0f13f09f72e11ffbf6540b602caee319af9ac363d6cdd6be41f4ee453436f04f13b5
+  languageName: node
+  linkType: hard
+
+"lodash.isarray@npm:^3.0.0":
+  version: 3.0.4
+  resolution: "lodash.isarray@npm:3.0.4"
+  checksum: 3b298fb76ff16981353f7d0695d8680be9451b74d2e76714ddbd903a90fbaa8e1d84979d0ae99325f5a9033776771154b19e05027ab23de83202251c8abe81b5
+  languageName: node
+  linkType: hard
+
 "lodash.isboolean@npm:^3.0.3":
   version: 3.0.3
   resolution: "lodash.isboolean@npm:3.0.3"
@@ -4843,6 +4898,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.keysin@npm:^3.0.0":
+  version: 3.0.8
+  resolution: "lodash.keysin@npm:3.0.8"
+  dependencies:
+    lodash.isarguments: ^3.0.0
+    lodash.isarray: ^3.0.0
+  checksum: 7d748df105266a474b6b3b17bef339f16c8625fb3091e3c6cad4a02ad943617c3fd5cb9036fed0dbd4a38e6d02e1f6d4a8cc5399f075d411f2a8f21b2eb8a8e4
+  languageName: node
+  linkType: hard
+
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
@@ -4871,10 +4936,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.pick@npm:4.4.0":
-  version: 4.4.0
-  resolution: "lodash.pick@npm:4.4.0"
-  checksum: 2c36cab7da6b999a20bd3373b40e31a3ef81fa264f34a6979c852c5bc8ac039379686b27380f0cb8e3781610844fafec6949c6fbbebc059c98f8fa8570e3675f
+"lodash.pick@npm:3.1.0":
+  version: 3.1.0
+  resolution: "lodash.pick@npm:3.1.0"
+  dependencies:
+    lodash._baseflatten: ^3.0.0
+    lodash._bindcallback: ^3.0.0
+    lodash._pickbyarray: ^3.0.0
+    lodash._pickbycallback: ^3.0.0
+    lodash.restparam: ^3.0.0
+  checksum: daaa1cc8a1baf5f0880122330f383a68c9829e437bdda73e3222ea75de2804951edd9564e15e276c4e8d2d845d406676cf06acf71e50c3b17d4c599f86f9e02f
+  languageName: node
+  linkType: hard
+
+"lodash.restparam@npm:^3.0.0":
+  version: 3.6.1
+  resolution: "lodash.restparam@npm:3.6.1"
+  checksum: 8bda0c7aaeac93da2b7e856bfeec8e6fdefb4d7eadfe6fd84775312a729fc1cb985636d922fe33b49f41aba135204962f4b853d7946105b7704102edb2bf6082
   languageName: node
   linkType: hard
 
