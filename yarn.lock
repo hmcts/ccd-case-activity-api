@@ -2107,7 +2107,7 @@ __metadata:
     config: ^1.26.1
     connect-timeout: ^1.9.0
     cross-env: ^5.2.0
-    debug: ~2.6.3
+    debug: ~3.2.0
     eslint: 6
     eslint-config-airbnb-base: ^14.0.0
     eslint-plugin-import: ^2.14.0
@@ -2562,7 +2562,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2.6.9, debug@npm:^2.6.9, debug@npm:~2.6.3":
+"debug@npm:2.6.9, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -2592,7 +2592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.1.0, debug@npm:^3.2.7":
+"debug@npm:^3.1.0, debug@npm:^3.2.7, debug@npm:~3.2.0":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
