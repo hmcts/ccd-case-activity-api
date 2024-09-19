@@ -1734,7 +1734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^3.1.0":
+"applicationinsights@npm:^3.3.0":
   version: 3.3.0
   resolution: "applicationinsights@npm:3.3.0"
   dependencies:
@@ -2105,7 +2105,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^0.0.14
-    applicationinsights: ^3.1.0
+    applicationinsights: ^3.3.0
     body-parser: ^1.20.1
     chai: ^4.3.6
     chai-arrays: ^2.0.0
