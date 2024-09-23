@@ -95,7 +95,7 @@
     "flat": "^5.0.1",
     "qs": "^6.11.0",
     "semver": "7.5.4",
-    "opentelemetry/api": "^1.4.1"
+    "opentelemetry/api": "^1.0.0"
   },
   "packageManager": "yarn@3.4.1"
 }
