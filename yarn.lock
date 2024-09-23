@@ -6484,7 +6484,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"send@npm:^0.18.0":
+"send@npm:0.18.0":
   version: 0.18.0
   resolution: "send@npm:0.18.0"
   dependencies:
