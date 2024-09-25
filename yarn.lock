@@ -914,7 +914,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/otlp-exporter-base@npm:0.53.0, @opentelemetry/otlp-exporter-base@npm:^0.53.0":
+"@opentelemetry/otlp-exporter-base@npm:^0.53.0":
   version: 0.53.0
   resolution: "@opentelemetry/otlp-exporter-base@npm:0.53.0"
   dependencies:
