@@ -105,7 +105,10 @@
     "@opentelemetry/sdk-metrics": "^1.26.0",
     "@opentelemetry/sdk-trace-base": "^1.26.0",
     "@opentelemetry/sdk-trace-node": "^1.26.0",
-    "@opentelemetry/semantic-conventions": "^1.26.0"
+    "@opentelemetry/semantic-conventions": "^1.26.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.53.0",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.53.0",
+    "@opentelemetry/core": "^1.10.0"
   },
   "packageManager": "yarn@3.4.1"
 }
