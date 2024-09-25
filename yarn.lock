@@ -147,7 +147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.26, @azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.26":
+"@azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.26":
   version: 1.0.0-beta.26
   resolution: "@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.26"
   dependencies:
