@@ -95,7 +95,8 @@
     "flat": "^5.0.1",
     "qs": "^6.11.0",
     "semver": "7.5.4",
-    "type-detect": "^4.0.0"
+    "type-detect": "^4.0.0",
+    "@types/pg": "^8.6.1"
   },
   "packageManager": "yarn@3.4.1"
 }
