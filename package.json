@@ -97,7 +97,8 @@
     "semver": "7.5.4",
     "type-detect": "^4.0.0",
     "@types/pg": "^8.6.1",
-    "@opentelemetry/api-logs": "^0.52.1"
+    "@opentelemetry/api-logs": "^0.52.1",
+    "@opentelemetry/instrumentation": "^0.52.1"
   },
   "packageManager": "yarn@3.4.1"
 }
