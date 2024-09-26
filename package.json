@@ -94,7 +94,9 @@
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
     "qs": "^6.11.0",
-    "semver": "7.5.4"
+    "semver": "7.5.4",
+    "@azure/core-util": "^1.1.0",
+    "@azure/functions": "^3.5.1"
   },
   "packageManager": "yarn@3.4.1"
 }
