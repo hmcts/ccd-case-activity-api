@@ -95,7 +95,8 @@
     "flat": "^5.0.1",
     "qs": "^6.11.0",
     "semver": "7.5.4",
-    "@azure/identity": "4.4.1"
+    "@azure/identity": "4.4.1",
+    "@grpc/grpc-js": "1.11.3"
   },
   "packageManager": "yarn@3.4.1"
 }
