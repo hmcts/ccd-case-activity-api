@@ -44,8 +44,8 @@
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.2.0",
     "debug": "~2.6.3",
-    "express": "^4.19.2",
-    "ioredis": "^3.1.4",
+    "express": "^4.21.0",
+    "ioredis": "^5.4.1",
     "joi": "^17.2.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.29.4",
@@ -94,7 +94,10 @@
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
     "qs": "^6.11.0",
-    "semver": "7.5.4"
+    "semver": "7.5.4",
+    "@azure/identity": "4.4.1",
+    "@grpc/grpc-js": "1.11.3",
+    "@azure/msal-node": "2.14.0"
   },
   "packageManager": "yarn@3.4.1"
 }
