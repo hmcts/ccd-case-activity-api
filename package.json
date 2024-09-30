@@ -96,7 +96,8 @@
     "qs": "^6.11.0",
     "semver": "7.5.4",
     "@azure/identity": "4.4.1",
-    "@grpc/grpc-js": "1.11.3"
+    "@grpc/grpc-js": "1.11.3",
+    "@azure/msal-node": "2.14.0"
   },
   "packageManager": "yarn@3.4.1"
 }

@@ -220,7 +220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^2.9.2":
+"@azure/msal-node@npm:2.14.0":
   version: 2.14.0
   resolution: "@azure/msal-node@npm:2.14.0"
   dependencies:
