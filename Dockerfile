@@ -1,5 +1,5 @@
 ARG PLATFORM=""
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:18-alpine AS base
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS base
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -27,7 +27,7 @@ FROM base AS build
 RUN sleep 1 && yarn install --ignore-optional --production --network-timeout 1200000 && yarn cache clean
 
 # ---- Runtime Image ----
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:18-alpine AS runtime
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS runtime
 COPY --from=build $WORKDIR .
 
 EXPOSE 3460
