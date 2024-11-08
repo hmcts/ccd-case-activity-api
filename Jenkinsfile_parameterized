@@ -1,5 +1,5 @@
 #!groovy
-@Library("Infrastructure@java-home-for-node-builds") _
+@Library("Infrastructure") _
 
 properties([
         parameters([
