@@ -19,6 +19,10 @@ repositories {
 }
 // end::repositories[]
 
+jar {
+  archiveClassifier.set("")
+}
+
 // tag::dependencies[]
 dependencies {
     testImplementation group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.22.2'
