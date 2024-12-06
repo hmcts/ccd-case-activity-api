@@ -25,7 +25,7 @@ jar {
 
 // tag::dependencies[]
 dependencies {
-    testImplementation group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.22.2'
+    testImplementation group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.24.0'
     testImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.0'
     testImplementation 'com.github.hmcts:fortify-client:1.4.2'
 }
