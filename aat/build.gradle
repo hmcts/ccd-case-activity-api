@@ -9,14 +9,6 @@ java {
   }
 }
 
-allprojects {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
-
 // tag::dependencies[]
 dependencies {
     testImplementation 'com.github.hmcts:ccd-test-definitions:7.24.0'
