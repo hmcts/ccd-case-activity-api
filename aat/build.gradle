@@ -9,15 +9,13 @@ java {
   }
 }
 
-// tag::repositories[]
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        url 'https://jitpack.io/#hmcts'
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
-// end::repositories[]
 
 // tag::dependencies[]
 dependencies {
