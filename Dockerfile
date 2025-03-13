@@ -18,7 +18,13 @@ COPY --chown=hmcts:hmcts app.js server.js ./
 COPY --chown=hmcts:hmcts app ./app
 COPY --chown=hmcts:hmcts config ./config
 
-RUN yarn install && yarn cache clean
+#RUN yarn config set httpProxy "$http_proxy" \
+#     && yarn config set httpsProxy "$https_proxy" \
+#     && rm -rf $(yarn cache clean)
+
+#RUN yarn install && yarn cache clean
+
+RUN yarn workspaces focus --all --production && rm -rf $(yarn cache clean)
 
 # ---- Build Image ----
 FROM base AS build
