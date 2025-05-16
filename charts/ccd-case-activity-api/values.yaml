@@ -1,12 +1,11 @@
 redis:
   enabled: false
-  nameOverride: redis
+  architecture: standalone
   master:
     persistence:
       enabled: false
-  cluster:
+  auth:
     enabled: false
-  password: fake-password
 
 nodejs:
   image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
@@ -14,7 +13,7 @@ nodejs:
   aadIdentityName: ccd
   ingressHost: ccd-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
-    enabled: true 
+    enabled: false
     minReplicas: 8
     maxReplicas: 16
   environment:
@@ -23,6 +22,7 @@ nodejs:
     CACHE_USER_INFO_ENABLED: true
     CACHE_USER_INFO_TTL: 600
     CACHE_USER_INFO_CHECK_PERIOD: 120
+    NODE_CONFIG_DIR: ./config
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
@@ -38,6 +38,6 @@ nodejs:
 
   keyVaults:
     ccd:
-      secrets:
-        - activity-redis-password
-        - AppInsightsInstrumentationKey
+      secrets:        
+        - name: activity-redis-password
+        - name: app-insights-connection-string

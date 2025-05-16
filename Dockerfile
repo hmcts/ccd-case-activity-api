@@ -1,11 +1,35 @@
-# ---- Base Image ----
-FROM hmctspublic.azurecr.io/base/node:14-alpine as base
+ARG PLATFORM=""
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS base
+
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+USER root
+RUN corepack enable
+COPY --chown=hmcts:hmcts . .
+
+USER hmcts
+RUN yarn workspaces focus --all --production && rm -rf $(yarn cache clean)
+
+# ---- Build Image ----
+FROM base AS build
+
+USER root
+
+RUN apk update \
+  && apk add bzip2 patch python3 py3-pip make gcc g++ \
+  && rm -rf /var/lib/apt/lists/* \
+  && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 USER hmcts
 
-COPY package.json yarn.lock ./
-RUN yarn install --production \
-    && yarn cache clean
-COPY . .
+RUN sleep 1 && yarn install && yarn cache clean
+
+COPY --chown=hmcts:hmcts package.json yarn.lock ./
+
+
+# ---- Runtime Image ----
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS runtime
+COPY --from=build $WORKDIR .
 
 EXPOSE 3460
