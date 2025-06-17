@@ -52,7 +52,7 @@ tasks.register('fortifyScan', JavaExec)  {
     jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
     // The line below prevents the build from failing
     // if the Fortify scan detects issues
-    ignoreExitValue = true
+   // ignoreExitValue = true     **No longer required as fortify scan is enabled now
 }
 
 tasks.register('highLevelDataSetup', JavaExec) {
