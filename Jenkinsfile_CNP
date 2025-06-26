@@ -109,7 +109,7 @@ withPipeline(type, product, component) {
     disableLegacyDeployment()
     enableHighLevelDataSetup()
 
-    
+
 
     afterAlways('checkOut')  {
         sh "yarn cache clean"
@@ -120,12 +120,12 @@ withPipeline(type, product, component) {
     }
 
    afterAlways('test') {
- 
+
      steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/checkstyle/*.html'
      steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/pmd/*.html'
      //copyIgnore('./build/reports/tests/test', './Unit Tests/')
      //steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Unit Tests/**/*'
-    
+
      publishHTML target: [
           allowMissing         : true,
           alwaysLinkToLastBuild: true,
@@ -155,7 +155,7 @@ withPipeline(type, product, component) {
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportDir            : 'aat/BEFTA Report for Smoke Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Smoke Test Report"
      ]
@@ -167,7 +167,7 @@ withPipeline(type, product, component) {
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : 'BEFTA Report for Functional Tests',
+            reportDir            : 'aat/BEFTA Report for Functional Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Functional Test Report"
      ]
@@ -179,7 +179,7 @@ withPipeline(type, product, component) {
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : 'BEFTA Report for Functional Tests',
+            reportDir            : 'aat/BEFTA Report for Functional Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Functional Test Report"
       ]
