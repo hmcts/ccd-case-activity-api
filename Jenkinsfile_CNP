@@ -138,26 +138,36 @@ withPipeline(type, product, component) {
   }
 
     afterAlways('smoketest:preview') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/tests/smoke/**/*.*', excludes: '**/*.tmp', fingerprint: true
+        sh '''
+        mkdir -p archived/smoke-tests
+        cp -r aat/target/cucumber/cucumber-html-reports/* 'BEFTA Report for Smoke Tests'
+        '''
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
 
         publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
         keepAll              : true,
-        reportDir            : 'build/reports/tests/smoke',
+        reportDir            : 'BEFTA Report for Smoke Tests',
         reportFiles          : "overview-features.html",
         reportName           : "Smoke Test Report"
       ]
     }
 
     afterAlways('smoketest:aat') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/tests/smoke/**/*.*', excludes: '**/*.tmp', fingerprint: true
+        sh '''
+        mkdir -p archived/smoke-tests
+        cp -r aat/target/cucumber/cucumber-html-reports/* 'BEFTA Report for Smoke Tests'
+        '''
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
 
         publishHTML target: [
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : 'build/reports/tests/smoke',
+            reportDir            : 'BEFTA Report for Smoke Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Smoke Test Report"
      ]
