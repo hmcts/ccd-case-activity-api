@@ -138,9 +138,18 @@ withPipeline(type, product, component) {
   }
 
     afterAlways('smoketest:preview') {
+
         sh '''
-        mkdir -p 'aat/BEFTA Report for Smoke Tests'
-        cp -r target/cucumber/cucumber-html-reports/* 'aat/BEFTA Report for Smoke Tests'
+        # Find the most recent 'cucumber-html-reports' directory under target/
+        LATEST_REPORT_DIR=$(find target -type d -name "cucumber-html-reports" | sort -r | head -n 1)
+
+        if [ -n "$LATEST_REPORT_DIR" ] && [ -d "$LATEST_REPORT_DIR" ]; then
+          echo "Found report directory: $LATEST_REPORT_DIR"
+          mkdir -p "aat/BEFTA Report for Smoke Tests"
+          cp -r "$LATEST_REPORT_DIR/"* "aat/BEFTA Report for Smoke Tests/"
+        else
+          echo "No cucumber-html-reports directory found under target/"
+        fi
         '''
 
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
@@ -157,8 +166,16 @@ withPipeline(type, product, component) {
 
     afterAlways('smoketest:aat') {
         sh '''
-        mkdir -p 'aat/BEFTA Report for Smoke Tests'
-        cp -r target/cucumber/cucumber-html-reports/* 'aat/BEFTA Report for Smoke Tests'
+        # Find the most recent 'cucumber-html-reports' directory under target/
+        LATEST_REPORT_DIR=$(find target -type d -name "cucumber-html-reports" | sort -r | head -n 1)
+
+        if [ -n "$LATEST_REPORT_DIR" ] && [ -d "$LATEST_REPORT_DIR" ]; then
+          echo "Found report directory: $LATEST_REPORT_DIR"
+          mkdir -p "aat/BEFTA Report for Smoke Tests"
+          cp -r "$LATEST_REPORT_DIR/"* "aat/BEFTA Report for Smoke Tests/"
+        else
+          echo "No cucumber-html-reports directory found under target/"
+        fi
         '''
 
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
