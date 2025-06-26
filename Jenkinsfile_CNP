@@ -139,21 +139,6 @@ withPipeline(type, product, component) {
 
     afterAlways('smoketest:preview') {
 
-        sh '''
-        SOURCE_DIR="aat/target/cucumber/cucumber-html-reports"
-        DEST_DIR="aat/BEFTA Report for Smoke Tests"
-
-        if [ -d "$SOURCE_DIR" ]; then
-          echo "Copying Cucumber reports from $SOURCE_DIR to $DEST_DIR"
-          mkdir -p "$DEST_DIR"
-          cp -r "$SOURCE_DIR/"* "$DEST_DIR/"
-        else
-          echo "Cucumber report directory not found at $SOURCE_DIR"
-          exit 0  # Or exit 1 if this should fail the build
-        fi
-        '''
-        archiveArtifacts artifacts: 'aat/BEFTA Report for Smoke Tests/**/*.*', fingerprint: true
-
         publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
@@ -161,35 +146,21 @@ withPipeline(type, product, component) {
         reportDir            : 'aat/BEFTA Report for Smoke Tests',
         reportFiles          : "overview-features.html",
         reportName           : "Smoke Test Report"
-      ]
+        ]
+
     }
 
     afterAlways('smoketest:aat') {
-
-        sh '''
-        SOURCE_DIR="aat/target/cucumber/cucumber-html-reports"
-        DEST_DIR="aat/BEFTA Report for Smoke Tests"
-
-        if [ -d "$SOURCE_DIR" ]; then
-          echo "Copying Cucumber reports from $SOURCE_DIR to $DEST_DIR"
-          mkdir -p "$DEST_DIR"
-          cp -r "$SOURCE_DIR/"* "$DEST_DIR/"
-        else
-          echo "Cucumber report directory not found at $SOURCE_DIR"
-          exit 0  # Or exit 1 if this should fail the build
-        fi
-        '''
-
-        archiveArtifacts artifacts: 'aat/BEFTA Report for Smoke Tests/**/*.*', fingerprint: true
 
         publishHTML target: [
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportDir            : 'aat/BEFTA Report for Smoke Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Smoke Test Report"
-     ]
+        ]
+
     }
 
     afterAlways('functionalTest:preview') {
