@@ -140,45 +140,47 @@ withPipeline(type, product, component) {
     afterAlways('smoketest:preview') {
 
         sh '''
-        # Find the most recent 'cucumber-html-reports' directory under target/
-        LATEST_REPORT_DIR=$(find target -type d -name "cucumber-html-reports" | sort -r | head -n 1)
+        SOURCE_DIR="aat/target/cucumber/cucumber-html-reports"
+        DEST_DIR="aat/BEFTA Report for Smoke Tests"
 
-        if [ -n "$LATEST_REPORT_DIR" ] && [ -d "$LATEST_REPORT_DIR" ]; then
-          echo "Found report directory: $LATEST_REPORT_DIR"
-          mkdir -p "aat/BEFTA Report for Smoke Tests"
-          cp -r "$LATEST_REPORT_DIR/"* "aat/BEFTA Report for Smoke Tests/"
+        if [ -d "$SOURCE_DIR" ]; then
+          echo "Copying Cucumber reports from $SOURCE_DIR to $DEST_DIR"
+          mkdir -p "$DEST_DIR"
+          cp -r "$SOURCE_DIR/"* "$DEST_DIR/"
         else
-          echo "No cucumber-html-reports directory found under target/"
+          echo "Cucumber report directory not found at $SOURCE_DIR"
+          exit 0  # Or exit 1 if this should fail the build
         fi
         '''
-
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
+        archiveArtifacts artifacts: 'aat/BEFTA Report for Smoke Tests/**/*.*', fingerprint: true
 
         publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
         keepAll              : true,
-        reportDir            : 'BEFTA Report for Smoke Tests',
+        reportDir            : 'aat/BEFTA Report for Smoke Tests',
         reportFiles          : "overview-features.html",
         reportName           : "Smoke Test Report"
       ]
     }
 
     afterAlways('smoketest:aat') {
-        sh '''
-        # Find the most recent 'cucumber-html-reports' directory under target/
-        LATEST_REPORT_DIR=$(find target -type d -name "cucumber-html-reports" | sort -r | head -n 1)
 
-        if [ -n "$LATEST_REPORT_DIR" ] && [ -d "$LATEST_REPORT_DIR" ]; then
-          echo "Found report directory: $LATEST_REPORT_DIR"
-          mkdir -p "aat/BEFTA Report for Smoke Tests"
-          cp -r "$LATEST_REPORT_DIR/"* "aat/BEFTA Report for Smoke Tests/"
+        sh '''
+        SOURCE_DIR="aat/target/cucumber/cucumber-html-reports"
+        DEST_DIR="aat/BEFTA Report for Smoke Tests"
+
+        if [ -d "$SOURCE_DIR" ]; then
+          echo "Copying Cucumber reports from $SOURCE_DIR to $DEST_DIR"
+          mkdir -p "$DEST_DIR"
+          cp -r "$SOURCE_DIR/"* "$DEST_DIR/"
         else
-          echo "No cucumber-html-reports directory found under target/"
+          echo "Cucumber report directory not found at $SOURCE_DIR"
+          exit 0  # Or exit 1 if this should fail the build
         fi
         '''
 
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
+        archiveArtifacts artifacts: 'aat/BEFTA Report for Smoke Tests/**/*.*', fingerprint: true
 
         publishHTML target: [
             allowMissing         : true,
