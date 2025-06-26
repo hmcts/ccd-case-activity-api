@@ -139,8 +139,8 @@ withPipeline(type, product, component) {
 
     afterAlways('smoketest:preview') {
         sh '''
-        mkdir -p archived/smoke-tests
-        cp -r aat/target/cucumber/cucumber-html-reports/* 'BEFTA Report for Smoke Tests'
+        mkdir -p 'aat/BEFTA Report for Smoke Tests'
+        cp -r target/cucumber/cucumber-html-reports/* 'aat/BEFTA Report for Smoke Tests'
         '''
 
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
@@ -157,8 +157,8 @@ withPipeline(type, product, component) {
 
     afterAlways('smoketest:aat') {
         sh '''
-        mkdir -p archived/smoke-tests
-        cp -r aat/target/cucumber/cucumber-html-reports/* 'BEFTA Report for Smoke Tests'
+        mkdir -p 'aat/BEFTA Report for Smoke Tests'
+        cp -r target/cucumber/cucumber-html-reports/* 'aat/BEFTA Report for Smoke Tests'
         '''
 
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
