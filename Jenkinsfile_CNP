@@ -119,35 +119,34 @@ withPipeline(type, product, component) {
         sh "yarn --check-cache"
     }
 
-   afterAlways('test') {
+    afterAlways('test') {
 
-     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/checkstyle/*.html'
-     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/pmd/*.html'
-     //copyIgnore('./build/reports/tests/test', './Unit Tests/')
-     //steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Unit Tests/**/*'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/checkstyle/*.html'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/pmd/*.html'
+        //copyIgnore('./build/reports/tests/test', './Unit Tests/')
+        //steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Unit Tests/**/*'
 
-     publishHTML target: [
-          allowMissing         : true,
-          alwaysLinkToLastBuild: true,
-          keepAll              : true,
-          reportDir            : 'build/reports/tests/test',
-          reportFiles          : "index.html",
-          reportName           : "Unit Test Report"
-      ]
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'build/reports/tests/test',
+            reportFiles          : "index.html",
+            reportName           : "Unit Test Report"
+        ]
 
-  }
+    }
 
     afterAlways('smoketest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
         publishHTML target: [
-        allowMissing         : true,
-        alwaysLinkToLastBuild: true,
-        keepAll              : true,
-        reportDir            : 'aat/BEFTA Report for Smoke Tests',
-        reportFiles          : "overview-features.html",
-        reportName           : "Smoke Test Report"
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Smoke Test Report"
         ]
-
     }
 
     afterAlways('smoketest:aat') {
@@ -160,7 +159,6 @@ withPipeline(type, product, component) {
             reportFiles          : "overview-features.html",
             reportName           : "Smoke Test Report"
         ]
-
     }
 
     afterAlways('functionalTest:preview') {
@@ -172,7 +170,7 @@ withPipeline(type, product, component) {
             reportDir            : 'aat/BEFTA Report for Functional Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Functional Test Report"
-     ]
+        ]
     }
 
     afterAlways('functionalTest:aat') {
@@ -184,15 +182,15 @@ withPipeline(type, product, component) {
             reportDir            : 'aat/BEFTA Report for Functional Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Functional Test Report"
-      ]
+        ]
     }
 
-   afterAlways('pact-provider-verification') {
+    afterAlways('pact-provider-verification') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/tests/**/*'
         publishHTML target: [
-             allowMissing         : true,
-             alwaysLinkToLastBuild: true,
-             keepAll              : true,
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
             reportDir            : "build/reports/tests/runProviderPactVerification",
             reportFiles          : "index.html",
             reportName           : "Contract Tests Report"
