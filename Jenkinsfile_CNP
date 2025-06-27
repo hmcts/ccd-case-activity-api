@@ -138,7 +138,7 @@ withPipeline(type, product, component) {
   }
 
     afterAlways('smoketest:preview') {
-
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
         publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
@@ -151,7 +151,7 @@ withPipeline(type, product, component) {
     }
 
     afterAlways('smoketest:aat') {
-
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
         publishHTML target: [
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
