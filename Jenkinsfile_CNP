@@ -117,20 +117,51 @@ withPipeline(type, product, component) {
         sh "yarn --check-cache"
     }
 
-    afterAlways('smoketest:preview') {
+    afterAlways('smokeTest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Smoke Test Report"
+        ]
     }
 
-    afterAlways('smoketest:aat') {
+    afterAlways('smokeTest:aat') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Smoke Test Report"
+        ]
     }
 
     afterAlways('functionalTest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Functional Tests/**/*'
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'aat/BEFTA Report for Functional Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Functional Test Report"
+        ]
     }
 
     afterAlways('functionalTest:aat') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Functional Tests/**/*'
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'aat/BEFTA Report for Functional Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Functional Test Report"
+        ]
     }
-
 }
