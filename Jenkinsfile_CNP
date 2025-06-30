@@ -117,7 +117,19 @@ withPipeline(type, product, component) {
         sh "yarn --check-cache"
     }
 
-    afterAlways('smokeTest') {
+    afterAlways('smokeTest:preview') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : 'BEFTA Report for Smoke Tests',
+            reportFiles          : "overview-features.html",
+            reportName           : "Smoke Test Report"
+        ]
+    }
+
+    afterAlways('smokeTest:aat') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
         publishHTML target: [
             allowMissing         : true,
