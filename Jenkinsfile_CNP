@@ -109,8 +109,6 @@ withPipeline(type, product, component) {
     disableLegacyDeployment()
     enableHighLevelDataSetup()
 
-
-
     afterAlways('checkOut')  {
         sh "yarn cache clean"
     }
@@ -119,44 +117,13 @@ withPipeline(type, product, component) {
         sh "yarn --check-cache"
     }
 
-    afterAlways('test') {
-
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/checkstyle/*.html'
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/pmd/*.html'
-        //copyIgnore('./build/reports/tests/test', './Unit Tests/')
-        //steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Unit Tests/**/*'
-
-
-        publishHTML target: [
-            allowMissing         : true,
-            alwaysLinkToLastBuild: true,
-            keepAll              : true,
-            reportDir            : 'build/reports/tests/test',
-            reportFiles          : "index.html",
-            reportName           : "Unit Test Report"
-        ]
-
-    }
-
-    afterAlways('smoketest:preview') {
+    afterAlways('smokeTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
         publishHTML target: [
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
             reportDir            : 'BEFTA Report for Smoke Tests',
-            reportFiles          : "overview-features.html",
-            reportName           : "Smoke Test Report"
-        ]
-    }
-
-    afterAlways('smoketest:aat') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/BEFTA Report for Smoke Tests/**/*'
-        publishHTML target: [
-            allowMissing         : true,
-            alwaysLinkToLastBuild: true,
-            keepAll              : true,
-            reportDir            : 'aat/BEFTA Report for Smoke Tests',
             reportFiles          : "overview-features.html",
             reportName           : "Smoke Test Report"
         ]
