@@ -98,7 +98,7 @@
     "flat": "^5.0.1",
     "qs": "^6.11.0",
     "semver": "7.5.4",
-    "@grpc/grpc-js": "1.11.3",
+    "@grpc/grpc-js": "1.13.4",
     "cross-spawn": "^7.0.6"
   },
   "packageManager": "yarn@4.6.0"
