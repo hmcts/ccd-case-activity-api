@@ -101,5 +101,5 @@
     "@grpc/grpc-js": "1.13.4",
     "cross-spawn": "^7.0.6"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.9.2"
 }
