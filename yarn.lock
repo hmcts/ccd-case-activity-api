@@ -1267,7 +1267,7 @@ __metadata:
     node-mocks-http: "npm:^1.7.0"
     nyc: "npm:^15.0.0"
     proxyquire: "npm:^2.1.3"
-    sinon: "npm:^18.0.1"
+    sinon: "npm:^18.0.0"
     sinon-chai: "npm:^3.5.0"
     sinon-express-mock: "npm:^2.2.1"
     sonar-scanner: "npm:^3.1.0"
