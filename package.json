@@ -56,7 +56,7 @@
     "node-cache": "^5.1.0",
     "node-cron": "^1.2.1",
     "node-fetch": "^2.6.7",
-    "or": "^0.2.0"
+    "or": "^0.2.0",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
