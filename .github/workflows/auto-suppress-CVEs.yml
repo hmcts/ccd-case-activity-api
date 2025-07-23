@@ -23,6 +23,7 @@ jobs:
 
       - name: Run yarn audit
         run: yarn npm audit --recursive --environment production --json > yarn-audit-known-issues
+        continue-on-error: true
 
       - name: Commit updated CVE suppressions
         uses: stefanzweifel/git-auto-commit-action@v4
