@@ -22,7 +22,7 @@ jobs:
           ref: dinesh1patel-patch-1
 
       - name: Run yarn audit
-        run: yarn npm audit --recursive --environment production --json > yarn-audit-known-issues || true
+        run: yarn npm audit --recursive --environment production --json > yarn-audit-known-issues
         # continue-on-error: true
 
       - name: Check if working directory has changes
