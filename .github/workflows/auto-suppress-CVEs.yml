@@ -30,4 +30,5 @@ jobs:
         with:
           commit_message: "Auto-suppress CVEs"
           branch: dinesh1patel-patch-1
+          continue-on-error: true
           skip_dirty_check: true
