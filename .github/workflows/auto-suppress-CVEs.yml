@@ -23,7 +23,7 @@ jobs:
 
       - name: Run yarn audit
         run: yarn npm audit --recursive --environment production --json > yarn-audit-known-issues || true
-        continue-on-error: true
+        # continue-on-error: true
 
       - name: Check if working directory has changes
         id: check_git_changes
