@@ -28,6 +28,6 @@ jobs:
       - name: Commit updated CVE suppressions
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          skip_dirty_check: true
           commit_message: "Auto-suppress CVEs"
           branch: dinesh1patel-patch-1
+          skip_dirty_check: true
