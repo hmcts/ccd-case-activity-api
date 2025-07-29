@@ -1,33 +1,35 @@
 ARG PLATFORM=""
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:16-alpine as base
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS base
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 USER root
+RUN corepack enable
+COPY --chown=hmcts:hmcts . .
+
+USER hmcts
+RUN yarn workspaces focus --all --production && rm -rf $(yarn cache clean)
+
+# ---- Build Image ----
+FROM base AS build
+
+USER root
+
 RUN apk update \
   && apk add bzip2 patch python3 py3-pip make gcc g++ \
   && rm -rf /var/lib/apt/lists/* \
   && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+USER hmcts
+
+RUN sleep 1 && yarn install && yarn cache clean
+
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
-USER hmcts
-COPY app.js server.js ./
-COPY app ./app
-COPY config ./config
-
-RUN yarn config set yarn-offline-mirror ~/npm-packages-offline-cache && \
-  yarn config set yarn-offline-mirror-pruning true && \
-  yarn install --prefer-offline --ignore-optional --network-timeout 1200000
-
-# ---- Build Image ----
-FROM base as build
-
-RUN sleep 1 && yarn install --ignore-optional --production --network-timeout 1200000 && yarn cache clean
 
 # ---- Runtime Image ----
-FROM hmctspublic.azurecr.io/base/node${PLATFORM}:16-alpine as runtime
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS runtime
 COPY --from=build $WORKDIR .
 
 EXPOSE 3460
