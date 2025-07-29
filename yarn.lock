@@ -1251,7 +1251,6 @@ __metadata:
     eslint-config-airbnb-base: "npm:^14.0.0"
     eslint-plugin-import: "npm:^2.14.0"
     express: "npm:^5.0.1"
-    formidable: "npm:^3.5.4"
     ioredis: "npm:^3.1.4"
     jasmine-node: "npm:3"
     joi: "npm:^17.2.1"
@@ -2644,7 +2643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"formidable@npm:^3.5.1, formidable@npm:^3.5.4":
+"formidable@npm:^3.5.1":
   version: 3.5.4
   resolution: "formidable@npm:3.5.4"
   dependencies:
