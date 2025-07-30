@@ -1,4 +1,3 @@
-const moment = require('moment');
 const debug = require('debug')('ccd-case-activity-api:activity-service');
 
 module.exports = (config, redis, ttlScoreGenerator) => {
@@ -31,7 +30,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     const uniqueUserIds = [];
     let caseViewers = [];
     let caseEditors = [];
-    const now = moment.now();
+    const now = Date.now();
     const getUserDetails = () => redis.pipeline(uniqueUserIds.map((userId) => ['get', `user:${userId}`])).exec();
     const extractUniqueUserIds = (result) => {
       result.forEach((item) => {

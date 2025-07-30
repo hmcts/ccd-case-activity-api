@@ -14,5 +14,4 @@ const activityHealth = healthcheck.configure({
       .catch(() => healthcheck.down())),
   },
 });
-
 module.exports = activityHealth;
