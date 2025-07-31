@@ -1,6 +1,6 @@
 plugins {
     id 'application'
-    id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
+    id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.25'
 }
 
 java {
