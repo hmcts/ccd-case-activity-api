@@ -6,7 +6,12 @@ nodejs:
     REDIS_PORT: 6379
     REDIS_PASSWORD: fake-password
     REDIS_SSL_ENABLED: ""
+    CORS_ORIGIN_WHITELIST: "*"
   keyVaults:
 
 redis:
   enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    password: "fake-password"
