@@ -1258,7 +1258,6 @@ __metadata:
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.29.4"
     morgan: "npm:^1.9.1"
-    nocache: "npm:^2.1.0"
     nock: "npm:^12.0.3"
     node-cache: "npm:^5.1.0"
     node-cron: "npm:^1.2.1"
@@ -4484,13 +4483,6 @@ __metadata:
     just-extend: "npm:^6.2.0"
     path-to-regexp: "npm:^6.2.1"
   checksum: 10/a11be5fd21ece95c80fda14a2cf80350404acc895467fc5104dc9ea9c0630614fcc83e10591ead96796b31aa2f3ccb7dc9198ed940d0f3e91e760bf5104d41a8
-  languageName: node
-  linkType: hard
-
-"nocache@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "nocache@npm:2.1.0"
-  checksum: 10/cea7277b22a8113243991b2bd4516db2b7de8013750b7634eb34c3debb04575021aa6c20eb9f8cdea7b7060036b969463eeab6c507a3c1961c6e12f85b2b644b
   languageName: node
   linkType: hard
 
