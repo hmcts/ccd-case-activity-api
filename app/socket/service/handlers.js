@@ -10,15 +10,13 @@ module.exports = (activityService, socketServer) => {
    * @param {*} activity Whether they're viewing or editing.
    */
   async function addActivity(socket, caseId, user, activity) {
-
     // Update what's being watched.
     utils.watch.update(socket, [caseId]);
 
     console.log('Adding activity for caseId ', caseId, ' user ', user, ' activity ', activity);
 
     // Then add this new activity to redis, which will also clear out the old activity.
-     await activityService.addActivity(caseId, user, socket.id, activity);
-
+    await activityService.addActivity(caseId, user, socket.id, activity);
   }
 
   /**
@@ -27,22 +25,22 @@ module.exports = (activityService, socketServer) => {
    * notified about.
    */
   async function notify(caseId) {
-   // console.log('notifying change for caseId: ', caseId);
-    let cs = await activityService.getActivityForCases([caseId]);
+    // console.log('notifying change for caseId: ', caseId);
+    const cs = await activityService.getActivityForCases([caseId]);
     console.log('notifying case activity: ', JSON.stringify(cs, null, 2));
     // Temp hack to get around lack of user details in redis.
     // cs = [
     //   {
     //     caseId: '1712141847061149',
     //     viewers: [
-    //       {   
+    //       {
     //         id: '1712141847061149',
     //         forename: 'SSC',
     //         surname: 'Super User'
     //       }
     //     ],
     //     unknownViewers: 0,
-    //     editors: [ {   
+    //     editors: [ {
     //         id: '1712141847061149',
     //         forename: 'SSC',
     //         surname: 'Super User'
@@ -91,6 +89,5 @@ module.exports = (activityService, socketServer) => {
     watch
   };
 };
-
 
 // ws://localhost:3000/socket.io/?user=%7B%22given_name%22%3A%22SSCS%22%2C%22email%22%3A%22sscs.superuserhmc%40justice.gov.uk%22%2C%22family_name%22%3A%22superuser%22%2C%22name%22%3A%22SSCS%20superuser%22%2C%22ssoProvider%22%3A%22testing-support%22%2C%22uid%22%3A%2241033a79-b9c1-4a36-b0ff-113451f736ba%22%2C%22identity%22%3A%22id%3D41033a79-b9c1-4a36-b0ff-113451f736ba%2Cou%3Duser%2Co%3Dhmcts%2Cou%3Dservices%2Cou%3Dam-config%22%2C%22roles%22%3A%5B%22caseworker%22%2C%22caseworker-sscs%22%2C%22caseworker-sscs-superuser%22%2C%22caseworker-sscs-systemupdate%22%2C%22cwd-user%22%2C%22staff-admin%22%2C%22hmcts-legal-operations%22%2C%22hearing-viewer%22%2C%22hearing-manager%22%2C%22tribunal-caseworker%22%2C%22sscs-tribunal-caseworker%22%5D%2C%22sub%22%3A%22sscs.superuserhmc%40justice.gov.uk%22%2C%22subname%22%3A%22sscs.superuserhmc%40justice.gov.uk%22%2C%22iss%22%3A%22https%3A%2F%2Fforgerock-am.service.core-compute-idam-aat2.internal%3A8443%2Fopenam%2Foauth2%2Frealms%2Froot%2Frealms%2Fhmcts%22%2C%22roleCategory%22%3A%22LEGAL_OPERATIONS%22%7D&EIO=3&transport=websocket

@@ -64,7 +64,6 @@ module.exports = (config, redis) => {
   const doAddActivity = async (caseId, user, socketId, activity) => {
     // Now store this activity.
     const activityKey = keys.case[activity](caseId);
-    //console.log(`storing activity '${activity}' for caseId '${caseId}' and user`, user, `on socket '${socketId}'`);
     return redis.pipeline([
       utils.store.userActivity(activityKey, user.uid, utils.score(ttl.activity)),
       utils.store.socketActivity(socketId, activityKey, caseId, user.uid, ttl.user),
@@ -78,13 +77,12 @@ module.exports = (config, redis) => {
       // First, clear out any existing activity on this socket.
       const removedCaseId = await doRemoveSocketActivity(socketId);
 
-      let cs = await getActivityForCases([caseId]);
-      console.log('notifying case activity: addActivity method ', JSON.stringify(cs, null, 2));
+      // const cs = await getActivityForCases([caseId]);
+      // console.log('notifying case activity: addActivity method ', JSON.stringify(cs, null, 2));
 
       console.log('removedCaseId => ', removedCaseId);
 
       // Now store this activity.
-     // console.log('about to doAddActivity');
       await doAddActivity(caseId, user, socketId, activity);
       if (removedCaseId !== caseId) {
         notifyChange(removedCaseId);
@@ -98,15 +96,12 @@ module.exports = (config, redis) => {
     if (!Array.isArray(caseIds) || caseIds.length === 0) {
       return [];
     }
-   // console.log('calling getActivityForCases with caseIds:', caseIds);
+    // console.log('calling getActivityForCases with caseIds:', caseIds);
     let uniqueUserIds = [];
     let caseViewers = [];
     let caseEditors = [];
     const now = Date.now();
     const getPromise = async (activity, failureMessage, cb) => {
-
-     // console.log('utils.get.caseActivities(caseIds, activity, now) => ', utils.get.caseActivities(caseIds, activity, now));
-
       // console.log('Redis Pipeline => ', await redis.pipeline(
       //   utils.get.caseActivities(caseIds, activity, now)));
 
@@ -119,7 +114,6 @@ module.exports = (config, redis) => {
       redis.logPipelineFailures(result, failureMessage);
       cb(result);
       // console.log(`result for activity '${activity}' =>`, result);
-      // console.log(`uniqueUserIds before extracting for activity '${activity}' =>`, uniqueUserIds);
       uniqueUserIds = utils.extractUniqueUserIds(result, uniqueUserIds);
       // console.log(`uniqueUserIds after extracting for activity '${activity}' =>`, uniqueUserIds);
     };
@@ -143,7 +137,6 @@ module.exports = (config, redis) => {
     console.log('case viewers => ', caseViewers);
     console.log('case editors => ', caseEditors);
 
-
     console.log('case ids => ', caseIds);
     // console.log('case viewers =>', caseViewers);
     // console.log('case editors =>', caseEditors);
@@ -154,7 +147,7 @@ module.exports = (config, redis) => {
       const cv = caseViewers[index][1];
       const ce = caseEditors[index][1];
       const viewers = cv ? cv.map((v) => userDetails[v]) : [];
-     // console.log('viewers for caseId ', caseId, ' => ', viewers);
+      // console.log('viewers for caseId ', caseId, ' => ', viewers);
       const editors = ce ? ce.map((e) => userDetails[e]) : [];
       return {
         caseId,
