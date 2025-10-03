@@ -81,7 +81,7 @@ describe('socket.service.handlers', () => {
   describe('addActivity', () => {
     it('should update what the socket is watching and add activity for the specified case', async () => {
       const CASE_ID = '0987654321';
-      const USER = { id: 'a', name: 'John Smith' };
+      const USER = { uid: 'a', name: 'John Smith', given_name: 'John', family_name: 'Smith' };
       const ACTIVITY = 'view';
 
       // Pretend the socket is watching a bunch of additional rooms.
@@ -106,7 +106,7 @@ describe('socket.service.handlers', () => {
       expect(MOCK_ACTIVITY_SERVICE.calls[0].params.socketId).to.equal(MOCK_SOCKET.id);
       expect(MOCK_ACTIVITY_SERVICE.calls[0].params.activity).to.equal(ACTIVITY);
       // The user parameter should have been transformed appropriatel.
-      expect(MOCK_ACTIVITY_SERVICE.calls[0].params.user.uid).to.equal(USER.id);
+      expect(MOCK_ACTIVITY_SERVICE.calls[0].params.user.uid).to.equal(USER.uid);
       expect(MOCK_ACTIVITY_SERVICE.calls[0].params.user.name).to.equal(USER.name);
       expect(MOCK_ACTIVITY_SERVICE.calls[0].params.user.given_name).to.equal('John');
       expect(MOCK_ACTIVITY_SERVICE.calls[0].params.user.family_name).to.equal('Smith');
