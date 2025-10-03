@@ -15,3 +15,10 @@ redis:
   auth:
     enabled: true
     password: "fake-password"
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
+    
+  global:
+    security:
+      allowInsecureImages: true
