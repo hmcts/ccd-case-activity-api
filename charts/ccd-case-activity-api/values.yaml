@@ -9,6 +9,7 @@ redis:
   image:
     registry: hmctspublic.azurecr.io
     repository: imported/bitnami/redis
+    
   global:
     security:
       allowInsecureImages: true
