@@ -6,6 +6,12 @@ redis:
       enabled: false
   auth:
     enabled: false
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
+  global:
+    security:
+      allowInsecureImages: true
 
 nodejs:
   image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
