@@ -26,6 +26,8 @@ module.exports = (config, redis) => {
       // Get hold of the details.
       const details = await redis.pipeline(utils.get.users(userIds)).exec();
 
+      // console.log('user details for userIds ', userIds, ' => ', details);
+
       // Now turn them into a map.
       return details.reduce((obj, item) => {
         if (item[1]) {
@@ -41,6 +43,7 @@ module.exports = (config, redis) => {
   const doRemoveSocketActivity = async (socketId) => {
     // First make sure we actually have some activity to remove.
     const activity = await getSocketActivity(socketId);
+    console.log('Removing activity for socketId ', socketId, ' activity ', activity);
     if (activity) {
       await redis.pipeline([
         utils.remove.userActivity(activity),
@@ -61,6 +64,7 @@ module.exports = (config, redis) => {
   const doAddActivity = async (caseId, user, socketId, activity) => {
     // Now store this activity.
     const activityKey = keys.case[activity](caseId);
+    //console.log(`storing activity '${activity}' for caseId '${caseId}' and user`, user, `on socket '${socketId}'`);
     return redis.pipeline([
       utils.store.userActivity(activityKey, user.uid, utils.score(ttl.activity)),
       utils.store.socketActivity(socketId, activityKey, caseId, user.uid, ttl.user),
@@ -69,11 +73,18 @@ module.exports = (config, redis) => {
   };
 
   const addActivity = async (caseId, user, socketId, activity) => {
+    console.log(`adding activity for caseId '${caseId}', user`, user, `on socket '${socketId}' with activity '${activity}'`);
     if (caseId && user && socketId && activity) {
       // First, clear out any existing activity on this socket.
       const removedCaseId = await doRemoveSocketActivity(socketId);
 
+      let cs = await getActivityForCases([caseId]);
+      console.log('notifying case activity: addActivity method ', JSON.stringify(cs, null, 2));
+
+      console.log('removedCaseId => ', removedCaseId);
+
       // Now store this activity.
+     // console.log('about to doAddActivity');
       await doAddActivity(caseId, user, socketId, activity);
       if (removedCaseId !== caseId) {
         notifyChange(removedCaseId);
@@ -87,17 +98,30 @@ module.exports = (config, redis) => {
     if (!Array.isArray(caseIds) || caseIds.length === 0) {
       return [];
     }
+   // console.log('calling getActivityForCases with caseIds:', caseIds);
     let uniqueUserIds = [];
     let caseViewers = [];
     let caseEditors = [];
     const now = Date.now();
     const getPromise = async (activity, failureMessage, cb) => {
+
+     // console.log('utils.get.caseActivities(caseIds, activity, now) => ', utils.get.caseActivities(caseIds, activity, now));
+
+      // console.log('Redis Pipeline => ', await redis.pipeline(
+      //   utils.get.caseActivities(caseIds, activity, now)));
+
       const result = await redis.pipeline(
         utils.get.caseActivities(caseIds, activity, now)
       ).exec();
+
+      console.log(`raw result for activity '${activity}' =>`, result);
+
       redis.logPipelineFailures(result, failureMessage);
       cb(result);
+      // console.log(`result for activity '${activity}' =>`, result);
+      // console.log(`uniqueUserIds before extracting for activity '${activity}' =>`, uniqueUserIds);
       uniqueUserIds = utils.extractUniqueUserIds(result, uniqueUserIds);
+      // console.log(`uniqueUserIds after extracting for activity '${activity}' =>`, uniqueUserIds);
     };
 
     // Set up the promises fore view and edit.
@@ -112,13 +136,25 @@ module.exports = (config, redis) => {
     await Promise.all([caseViewersPromise, caseEditorsPromise]);
 
     // Get all the user details for both viewers and editors.
+    console.log('uniqueUserIds => ', uniqueUserIds);
+
     const userDetails = await getUserDetails(uniqueUserIds);
+
+    console.log('case viewers => ', caseViewers);
+    console.log('case editors => ', caseEditors);
+
+
+    console.log('case ids => ', caseIds);
+    // console.log('case viewers =>', caseViewers);
+    // console.log('case editors =>', caseEditors);
+    console.log('user details => ', userDetails);
 
     // Now produce a response for every case requested.
     return caseIds.map((caseId, index) => {
       const cv = caseViewers[index][1];
       const ce = caseEditors[index][1];
       const viewers = cv ? cv.map((v) => userDetails[v]) : [];
+     // console.log('viewers for caseId ', caseId, ' => ', viewers);
       const editors = ce ? ce.map((e) => userDetails[e]) : [];
       return {
         caseId,
