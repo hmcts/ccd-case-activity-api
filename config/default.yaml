@@ -13,7 +13,7 @@ redis:
   activityTtlSec: 5
   userDetailsTtlSec: 2
   socket:
-    activityTtlSec: 30
+    activityTtlSec: 3000
     userDetailsTtlSec: 3600
 cache:
   user_info_enabled: true
