@@ -25,29 +25,8 @@ module.exports = (activityService, socketServer) => {
    * notified about.
    */
   async function notify(caseId) {
-    // console.log('notifying change for caseId: ', caseId);
     const cs = await activityService.getActivityForCases([caseId]);
     console.log('notifying case activity: ', JSON.stringify(cs, null, 2));
-    // Temp hack to get around lack of user details in redis.
-    // cs = [
-    //   {
-    //     caseId: '1712141847061149',
-    //     viewers: [
-    //       {
-    //         id: '1712141847061149',
-    //         forename: 'SSC',
-    //         surname: 'Super User'
-    //       }
-    //     ],
-    //     unknownViewers: 0,
-    //     editors: [ {
-    //         id: '1712141847061149',
-    //         forename: 'SSC',
-    //         surname: 'Super User'
-    //       }],
-    //     unknownEditors: 0
-    //   }
-    // ];
     socketServer.to(keys.case.base(caseId)).emit('activity', cs);
   }
 
