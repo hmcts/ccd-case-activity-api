@@ -87,7 +87,6 @@ module.exports = (config, redis) => {
     if (!Array.isArray(caseIds) || caseIds.length === 0) {
       return [];
     }
-    
     let uniqueUserIds = [];
     let caseViewers = [];
     let caseEditors = [];
