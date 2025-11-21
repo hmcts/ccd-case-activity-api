@@ -59,13 +59,22 @@ module.exports = (activityService, socketServer) => {
     socket.emit('activity', cs);
   }
 
+  async function stop(socket, caseId) {
+    // Stop watching the current cases.
+    console.log('Stop watching cases to ', caseId, ' for socket ', socket.id);
+
+    // Remove the activity for this socket.
+    await activityService.removeUserActivity(socket.id);
+  }
+
   return {
     activityService,
     addActivity,
     notify,
     removeSocketActivity,
     socketServer,
-    watch
+    watch,
+    stop
   };
 };
 

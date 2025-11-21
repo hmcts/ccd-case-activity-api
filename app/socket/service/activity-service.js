@@ -37,18 +37,50 @@ module.exports = (config, redis) => {
     return {};
   };
 
-  const doRemoveSocketActivity = async (socketId) => {
+  // const doRemoveSocketActivity = async (socketId) => {
+  //   // First make sure we actually have some activity to remove.
+  //   const activity = await getSocketActivity(socketId);
+  //   if (activity) {
+  //     await redis.pipeline([
+  //       utils.remove.userActivity(activity),
+  //       utils.remove.socketEntry(socketId)
+  //     ]).exec();
+  //     return activity.caseId;
+  //   }
+  //   return null;
+  // };
+
+  //  const doRemoveUserActivity = async (socketId) => {
+  //   // First make sure we actually have some activity to remove.
+  //   const activity = await getSocketActivity(socketId);
+
+  //   if (activity) {
+  //     await redis.pipeline([
+  //       utils.remove.userActivity(activity),
+  //     ]).exec();
+  //     return activity.caseId;
+  //   }
+  //   return null;
+  // };
+
+   const doRemoveActivity = async (socketId, removeSocketEntry = false) => {
     // First make sure we actually have some activity to remove.
     const activity = await getSocketActivity(socketId);
     if (activity) {
-      await redis.pipeline([
-        utils.remove.userActivity(activity),
-        utils.remove.socketEntry(socketId)
-      ]).exec();
+      const pipeline = [ utils.remove.userActivity(activity) ];
+      if (removeSocketEntry) {
+        pipeline.push(utils.remove.socketEntry(socketId));
+      }
+      await redis.pipeline(pipeline).exec();
       return activity.caseId;
     }
     return null;
   };
+
+  // Backwards-compatible wrappers
+  const doRemoveSocketActivity = async (socketId) => doRemoveActivity(socketId, true);
+  const doRemoveUserActivity = async (socketId) => doRemoveActivity(socketId, false);
+
 
   const removeSocketActivity = async (socketId) => {
     const removedCaseId = await doRemoveSocketActivity(socketId);
@@ -56,6 +88,15 @@ module.exports = (config, redis) => {
       notifyChange(removedCaseId);
     }
   };
+
+  const removeUserActivity = async (socketId) => {
+    const removedCaseId = await doRemoveUserActivity(socketId);
+    if (removedCaseId) {
+      notifyChange(removedCaseId);
+    }
+  };
+
+  
 
   const doAddActivity = async (caseId, user, socketId, activity) => {
     // Now store this activity.
@@ -139,6 +180,7 @@ module.exports = (config, redis) => {
     notifyChange,
     redis,
     removeSocketActivity,
-    ttl
+    ttl,
+    removeUserActivity
   };
 };

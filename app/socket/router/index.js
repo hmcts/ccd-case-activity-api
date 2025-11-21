@@ -47,6 +47,12 @@ const router = {
       handlers.watch(socket, ctx.request.caseIds);
       next();
     });
+    iorouter.on('stop', (socket, ctx, next) => {
+      const user = router.getUser(socket.id);
+      utils.log(socket, `${ctx.request.caseId} (${user.name})`, 'stop');
+      handlers.stop(socket, ctx.request.caseId, user, 'stop');
+      next();
+    });
 
     // On client connection, attach the router and track the socket.
     io.on('connection', (socket) => {
