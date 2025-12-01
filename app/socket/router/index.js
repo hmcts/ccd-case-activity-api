@@ -59,10 +59,10 @@ const router = {
       router.addConnection(socket);
       let userObj = null;
       if (
-        socket &&
-        socket.handshake &&
-        socket.handshake.query &&
-        socket.handshake.query.user
+        socket
+        && socket.handshake
+        && socket.handshake.query
+        && socket.handshake.query.user
       ) {
         try {
           userObj = JSON.parse(socket.handshake.query.user);
