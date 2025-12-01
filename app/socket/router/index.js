@@ -57,7 +57,20 @@ const router = {
     // On client connection, attach the router and track the socket.
     io.on('connection', (socket) => {
       router.addConnection(socket);
-      router.addUser(socket.id, JSON.parse(socket.handshake.query.user));
+      let userObj = null;
+      if (
+        socket &&
+        socket.handshake &&
+        socket.handshake.query &&
+        socket.handshake.query.user
+      ) {
+        try {
+          userObj = JSON.parse(socket.handshake.query.user);
+        } catch (e) {
+          utils.log(socket, '', 'Failed to parse user from handshake query', console.error, e);
+        }
+      }
+      router.addUser(socket.id, userObj);
       utils.log(socket, '', `connected (${router.getConnections().length} total)`);
       // eslint-disable-next-line no-console
       utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, Date.now());
