@@ -58,6 +58,9 @@ const router = {
 
     // On client connection, attach the router and track the socket.
     io.on('connection', (socket) => {
+      console.log(`Socket connected: ${socket.id}`);
+      logger.warn(`Socket connected: ${socket.id}`);
+      
       router.addConnection(socket);
       let userObj = null;
       if (
@@ -71,6 +74,7 @@ const router = {
         } catch (e) {
           utils.log(socket, '', 'Failed to parse user from handshake query', console.error, e);
           logger.warn(`Failed to parse user from handshake query: ${e.message}`);
+          console.log(`Failed to parse user from handshake query: ${e.message}`);
         }
       }
       router.addUser(socket.id, userObj);
@@ -84,6 +88,9 @@ const router = {
       });
       // When the socket disconnects, do an appropriate teardown.
       socket.on('disconnect', () => {
+        console.log(`Socket disconnected: ${socket.id}`);
+        logger.warn(`Socket disconnected: ${socket.id}`);
+
         utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`);
         // eslint-disable-next-line no-console
         utils.log(socket, '', `disconnected (${router.getConnections().length - 1} total)`, console.log, Date.now());
