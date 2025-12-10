@@ -1,5 +1,7 @@
+const { Logger } = require('@hmcts/nodejs-logging');
 const utils = require('../utils');
 
+const logger = Logger.getLogger('index-socket-router');
 const users = {};
 const connections = [];
 const router = {
@@ -74,7 +76,7 @@ const router = {
       router.addUser(socket.id, userObj);
       utils.log(socket, '', `connected (${router.getConnections().length} total)`);
       logger.warn(`Socket connected: ${socket.id} for user ${userObj ? userObj.name : 'unknown'}`);
-      
+
       // eslint-disable-next-line no-console
       utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, Date.now());
       socket.use((packet, next) => {
