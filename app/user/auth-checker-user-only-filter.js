@@ -29,6 +29,9 @@ const mapFetchErrors = (error, next) => {
 const authCheckerUserOnlyFilter = (req, res, next) => {
   req.authentication = {};
 
+  console.log('Authenticating user');
+  logger.warn('Authenticating user');
+
   userRequestAuthorizer
     .authorise(req)
     .then((user) => {
