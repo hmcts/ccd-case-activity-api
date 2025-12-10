@@ -68,10 +68,13 @@ const router = {
           userObj = JSON.parse(socket.handshake.query.user);
         } catch (e) {
           utils.log(socket, '', 'Failed to parse user from handshake query', console.error, e);
+          logger.warn(`Failed to parse user from handshake query: ${e.message}`);
         }
       }
       router.addUser(socket.id, userObj);
       utils.log(socket, '', `connected (${router.getConnections().length} total)`);
+      logger.warn(`Socket connected: ${socket.id} for user ${userObj ? userObj.name : 'unknown'}`);
+      
       // eslint-disable-next-line no-console
       utils.log(socket, '', `connected (${router.getConnections().length} total)`, console.log, Date.now());
       socket.use((packet, next) => {
