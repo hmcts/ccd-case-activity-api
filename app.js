@@ -40,11 +40,15 @@ if (config.util.getEnv('NODE_ENV') === 'test') {
 }
 
 debug(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
+console.log(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
 
 app.use(corsHandler);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.text());
+
+console.log('Applying auth checker user only filter');
+
 app.use(authCheckerUserOnlyFilter);
 
 app.use('/', activity);
