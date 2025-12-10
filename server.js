@@ -40,6 +40,16 @@ require('./app/socket')(server, redis);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
+console.log(`Listening on port ${port}`);
 server.listen(port);
+
+console.log(`Server started on port ${port}`);
+
+console.log('Registering onServerError handler');
+
 server.on('error', onServerError(port, console.error, process.exit));
+
+console.log('Registering onListening handler');
+
 server.on('listening', onListening(server, debug));

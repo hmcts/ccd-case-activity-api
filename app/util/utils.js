@@ -30,7 +30,12 @@ exports.onServerError = (port, logTo, exitRoute) => {
       throw error;
     }
 
+    console.log(`Server error on port ${port}: ${error.message}`);
+
     const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+
+    console.log(`Handling server error for ${bind}`);
+    console.log(`Error code: ${error.code}`);
 
     // Handle specific listen errors with friendly messages.
     switch (error.code) {
@@ -53,8 +58,10 @@ exports.onServerError = (port, logTo, exitRoute) => {
  */
 exports.onListening = (server, logTo) => {
   return () => {
+    console.log('Server listening event triggered');
     const addr = server.address();
     const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
     logTo(`Listening on ${bind}`);
+    console.log(`Listening on ${bind}`);
   };
 };
