@@ -36,6 +36,7 @@ module.exports = (activityService, socketServer) => {
    * @param {*} socketId The id of the socket to remove activity for.
    */
   async function removeSocketActivity(socketId) {
+    console.log('Removing socket activity for socketId ', socketId);
     await activityService.removeSocketActivity(socketId);
   }
 

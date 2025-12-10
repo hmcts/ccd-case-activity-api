@@ -8,21 +8,26 @@ module.exports = (config, redis) => {
   };
 
   const notifyChange = (caseId) => {
+    console.log('Notifying change for caseId ', caseId);
     if (caseId) {
       redis.publish(keys.case.base(caseId), Date.now().toString());
     }
   };
 
   const getSocketActivity = async (socketId) => {
+    console.log('Getting socket activity for socketId ', socketId);
     if (socketId) {
       const key = keys.socket(socketId);
+      console.log('Socket activity key: ', key);
       return JSON.parse(await redis.get(key));
     }
     return null;
   };
 
   const getUserDetails = async (userIds) => {
+    console.log('Getting user details for userIds ', userIds);
     if (Array.isArray(userIds) && userIds.length > 0) {
+      console.log('Fetching user details from redis');
       // Get hold of the details.
       const details = await redis.pipeline(utils.get.users(userIds)).exec();
       // Now turn them into a map.
@@ -64,6 +69,7 @@ module.exports = (config, redis) => {
   // };
 
   const doRemoveActivity = async (socketId, removeSocketEntry = false) => {
+    console.log('Removing activity for socketId ', socketId, ' removeSocketEntry=', removeSocketEntry);
     // First make sure we actually have some activity to remove.
     const activity = await getSocketActivity(socketId);
     if (activity) {
