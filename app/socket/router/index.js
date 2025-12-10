@@ -60,7 +60,7 @@ const router = {
     io.on('connection', (socket) => {
       console.log(`Socket connected: ${socket.id}`);
       logger.warn(`Socket connected: ${socket.id}`);
-      
+
       router.addConnection(socket);
       let userObj = null;
       if (
