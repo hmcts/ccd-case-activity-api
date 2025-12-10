@@ -23,8 +23,18 @@ module.exports = (server, redis) => {
   const activityService = ActivityService(config, redis);
 
   console.log('Creating socket server');
+  // const socketServer = SocketIO(server, {
+  //   allowEIO3: true,
+  //   cors: {
+  //     origin: '*',
+  //     methods: ['GET', 'POST'],
+  //     credentials: true
+  //   },
+  // });
+
   const socketServer = SocketIO(server, {
     allowEIO3: true,
+    transports: ['websocket', 'polling'],
     cors: {
       origin: '*',
       methods: ['GET', 'POST'],
