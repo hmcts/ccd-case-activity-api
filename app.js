@@ -41,8 +41,6 @@ if (config.util.getEnv('NODE_ENV') === 'test') {
 
 debug(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
 
-logger.warn(`CCD Case Activity API - Starting application in ${config.util.getEnv('NODE_ENV')} mode`);
-
 app.use(corsHandler);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
