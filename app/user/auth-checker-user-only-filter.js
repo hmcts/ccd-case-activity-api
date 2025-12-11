@@ -35,7 +35,7 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
   userRequestAuthorizer
     .authorise(req)
     .then((user) => {
-      console.log(`User authenticated: ${user}`);
+      console.log(`User authenticated: ${JSON.stringify(user)}`);
       console.log(`User authenticated id: ${user.id}`);
       req.authentication.user = user;
     })
