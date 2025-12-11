@@ -50,6 +50,7 @@ app.use(express.text());
 console.log('Applying auth checker user only filter');
 app.use(authCheckerUserOnlyFilter);
 
+console.log('Mounting activity route at /');
 app.use('/', activity);
 
 // catch 404 and forward to error handler
@@ -78,5 +79,4 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
-
 module.exports = app;
