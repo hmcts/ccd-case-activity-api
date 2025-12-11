@@ -62,11 +62,12 @@ module.exports = (server, redis) => {
      */
     allowRequest: (req, accept) => {
       try {
-        const origin = req.headers.origin;
-        const upgrade = req.headers.upgrade;
+        const { origin } = req.headers;
+        const { upgrade } = req.headers;
         const connectionHeader = req.headers.connection;
-        const url = req.url || req._parsedUrl && req._parsedUrl.pathname;
+        const { url } = req;
 
+        console.log('[ALLOW_REQUEST] handshake req=', req);
         console.log('[ALLOW_REQUEST] handshake url=', url);
         console.log('[ALLOW_REQUEST] headers.origin=', origin);
         console.log('[ALLOW_REQUEST] headers.upgrade=', upgrade);
