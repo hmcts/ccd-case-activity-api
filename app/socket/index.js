@@ -53,5 +53,7 @@ module.exports = (server, redis) => {
   router.init(socketServer, new IORouter(), handlers);
 
   console.log('Socket server setup complete');
+
+  console.log('socket Server ', socketServer);
   return { socketServer, activityService, handlers };
 };
