@@ -42,18 +42,37 @@ module.exports = (server, redis) => {
     },
   });
 
+  // console.log('Setting up socket handlers and router');
+  // const handlers = Handlers(activityService, socketServer);
+  // const watcher = redis.duplicate();
+
+  // console.log('Initializing pubsub for socket server');
+  // pubSub.init(watcher, handlers.notify);
+
+  // console.log('Initializing router for socket server');
+  // router.init(socketServer, new IORouter(), handlers);
+
+  // console.log('Socket server setup complete');
+
+  // console.log('socket Server ', socketServer);
   console.log('Setting up socket handlers and router');
   const handlers = Handlers(activityService, socketServer);
   const watcher = redis.duplicate();
 
-  console.log('Initializing pubsub for socket server');
-  pubSub.init(watcher, handlers.notify);
-
   console.log('Initializing router for socket server');
   router.init(socketServer, new IORouter(), handlers);
 
-  console.log('Socket server setup complete');
+  console.log('Initializing pubsub for socket server');
+  try {
+    pubSub.init(watcher, handlers.notify);
+    console.log('PubSub initialized');
+  } catch (e) {
+    console.error('PubSub init failed (sockets still running):', e);
+  }
 
-  console.log('socket Server ', socketServer);
+  // Optional: log connections to confirm traffic in Azure
+  socketServer.on('connection', (s) => {
+    console.log('Socket connected:', s.id, 'transport:', s.conn.transport.name);
+  });
   return { socketServer, activityService, handlers };
 };
