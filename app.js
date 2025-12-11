@@ -69,20 +69,23 @@ app.use((req, res, next) => {
 // error handler
 // FIXME `next` MUST be kept for error handling, even though it causes linting to fail
 /* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
-  debug(`Error processing request: ${err}`);
-  console.log(`Error processing request: ${err}`);
 
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// Temporarily commenting out error handler to check socket functionality
 
-  console.log(`Returning error response: ${err.status || 500} - ${err.message}`);
+// app.use((err, req, res, next) => {
+//   debug(`Error processing request: ${err}`);
+//   console.log(`Error processing request: ${err}`);
 
-  res.status(err.status || 500);
-  res.json({
-    message: err.message,
-  });
-});
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   console.log(`Returning error response: ${err.status || 500} - ${err.message}`);
+
+//   res.status(err.status || 500);
+//   res.json({
+//     message: err.message,
+//   });
+// });
 
 module.exports = app;
