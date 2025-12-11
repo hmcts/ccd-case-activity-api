@@ -3,17 +3,13 @@ const express = require('express');
 const logger = require('morgan');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-api:app');
-
-// Temporary commenting out config import to avoid lint error
-// const c = require('config');
+const c = require('config');
 const enableAppInsights = require('./app/app-insights/app-insights');
 
 enableAppInsights();
 
 const storeCleanupJob = require('./app/job/store-cleanup-job');
-
-// Temporary commenting out auth checker import to avoid lint error
-// const authCheckerUserOnlyFilter = require('./app/user/auth-checker-user-only-filter');
+const authCheckerUserOnlyFilter = require('./app/user/auth-checker-user-only-filter');
 const corsHandler = require('./app/security/cors');
 
 const redis = require('./app/redis/redis-client');
@@ -54,7 +50,7 @@ app.use(express.text());
 
 console.log('Applying auth checker user only filter');
 console.log('NOTE: To disable authentication temporarily, comment out the auth checker middleware in app.js');
-// app.use(authCheckerUserOnlyFilter);
+app.use(authCheckerUserOnlyFilter);
 
 app.use('/', activity);
 
