@@ -46,7 +46,7 @@ module.exports = (server, redis) => {
           return callback(null, true);
         }
 
-        console.warn('[CORS] Origin rejected:', origin);
+        console.log('[CORS] Origin rejected:', origin);
         // Provide an error to the callback so the client sees rejection
         return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
       },
@@ -75,7 +75,7 @@ module.exports = (server, redis) => {
 
         // Basic validation: ensure allowed origin if provided
         if (origin && !allowedOrigins.has(origin)) {
-          console.warn('[ALLOW_REQUEST] Rejecting handshake due to disallowed origin:', origin);
+          console.log('[ALLOW_REQUEST] Rejecting handshake due to disallowed origin:', origin);
           // reject the request — the client will get a CORS error / handshake failure
           return accept(new Error('Origin not allowed'), false);
         }
@@ -139,7 +139,7 @@ module.exports = (server, redis) => {
 
   // Global engine-level error logging (handshake/connect errors)
   io.engine.on('connection_error', (err) => {
-    console.warn('[ENGINE] connection_error:', err && err.message ? err.message : err);
+    console.log('[ENGINE] connection_error:', err && err.message ? err.message : err);
   });
 
   console.log('Socket server setup complete');
