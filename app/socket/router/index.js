@@ -30,6 +30,7 @@ const router = {
     return [...connections];
   },
   init: (io, iorouter, handlers) => {
+    console.log('Initializing socket router');
     // Set up routes for each type of message.
     iorouter.on('view', (socket, ctx, next) => {
       const user = router.getUser(socket.id);

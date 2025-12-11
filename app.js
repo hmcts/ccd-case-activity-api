@@ -49,7 +49,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.text());
 
 console.log('Applying auth checker user only filter');
-console.log('NOTE: To disable authentication temporarily, comment out the auth checker middleware in app.js');
 app.use(authCheckerUserOnlyFilter);
 
 app.use('/', activity);
