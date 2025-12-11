@@ -36,7 +36,7 @@ module.exports = (server, redis) => {
     allowEIO3: true,
     transports: ['websocket', 'polling'],
     cors: {
-      origin: '*',
+      origin: ['https://manage-case-int1.demo.platform.hmcts.net', 'http://localhost:3000'],
       methods: ['GET', 'POST'],
       credentials: true
     },
