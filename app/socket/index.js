@@ -33,25 +33,26 @@ module.exports = (server, redis) => {
     transports: ['websocket', 'polling'],
     // Use origin function to accept/reject and log
     cors: {
-      origin: (origin, callback) => {
-        // Note: `origin` will be undefined for non-browser clients (e.g. wscat)
-        if (!origin) {
-          console.log('[CORS] No Origin header (non-browser client?) — allowing by default.');
-          return callback(null, true);
-        }
+      // origin: (origin, callback) => {
+      //   // Note: `origin` will be undefined for non-browser clients (e.g. wscat)
+      //   if (!origin) {
+      //     console.log('[CORS] No Origin header (non-browser client?) — allowing by default.');
+      //     return callback(null, true);
+      //   }
 
-        console.log('[CORS] Incoming Origin:', origin);
-        if (allowedOrigins.has(origin)) {
-          console.log('[CORS] Origin allowed:', origin);
-          return callback(null, true);
-        }
+      //   console.log('[CORS] Incoming Origin:', origin);
+      //   if (allowedOrigins.has(origin)) {
+      //     console.log('[CORS] Origin allowed:', origin);
+      //     return callback(null, true);
+      //   }
 
-        console.log('[CORS] Origin rejected:', origin);
-        // Provide an error to the callback so the client sees rejection
-        return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
-      },
-      methods: ['GET', 'POST'],
-      credentials: true
+      //   console.log('[CORS] Origin rejected:', origin);
+      //   // Provide an error to the callback so the client sees rejection
+      //   return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
+      // },
+      origin: '*',
+      // methods: ['GET', 'POST'],
+      credentials: false
     },
 
     /**
