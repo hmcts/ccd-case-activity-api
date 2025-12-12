@@ -7,6 +7,10 @@ const Handlers = require('./service/handlers');
 const pubSub = require('./redis/pub-sub')();
 const router = require('./router');
 
+// Missing imports — REQUIRED for Redis Adapter
+const { createClient } = require('redis');
+const { createAdapter } = require('@socket.io/redis-adapter');
+
 /**
  * Sets up a series of routes for a "socket" endpoint, that
  * leverages socket.io and will more than likely use long polling
@@ -23,38 +27,79 @@ module.exports = (server, redis) => {
   const activityService = ActivityService(config, redis);
 
   console.log('Creating socket server');
+  const socketServer = SocketIO(server, {
+    allowEIO3: true,
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST'],
+      credentials: false
+    },
+  });
+
   // const socketServer = SocketIO(server, {
   //   allowEIO3: true,
+  //   transports: ['websocket', 'polling'],
   //   cors: {
-  //     origin: '*',
+  //     origin: [
+  //       'https://manage-case-int1.demo.platform.hmcts.net',
+  //       'http://localhost:3000'
+  //     ],
   //     methods: ['GET', 'POST'],
   //     credentials: true
   //   },
   // });
 
-  const socketServer = SocketIO(server, {
-    allowEIO3: true,
-    transports: ['websocket', 'polling'],
-    cors: {
-      origin: ['https://manage-case-int1.demo.platform.hmcts.net', 'http://localhost:3000'],
-      methods: ['GET', 'POST'],
-      credentials: true
-    },
+  //
+  // ---------------------------------------------------------
+  // ENABLE REDIS ADAPTER (Fixes “Session ID unknown”)
+  // ---------------------------------------------------------
+  //
+  async function enableRedisAdapter(io) {
+    try {
+
+      const redisPort = config.get('redis.port');
+      const redisHost = config.get('redis.host');
+
+      // HMCTS secret pattern → password is inside .value
+      const redisPwdObj = config.get('secrets.ccd.activity-redis-password');
+      const redisPwd = redisPwdObj?.value ?? redisPwdObj;   // supports both flat and nested
+
+      if (!redisHost || !redisPort) {
+        console.warn('[SOCKET.IO] redis.host/redis.port missing — Redis adapter not enabled');
+        return;
+      }
+
+      const redisUrl = redisPwd
+        ? `redis://:${encodeURIComponent(redisPwd)}@${redisHost}:${redisPort}`
+        : `redis://${redisHost}:${redisPort}`;
+
+      console.log('[SOCKET.IO] Connecting to Redis at', redisUrl);
+
+      const pubClient = createClient({ url: redisUrl });
+      const subClient = pubClient.duplicate();
+
+      await pubClient.connect();
+      await subClient.connect();
+
+      io.adapter(createAdapter(pubClient, subClient));
+
+      console.log('[SOCKET.IO] Redis adapter enabled');
+    } catch (err) {
+      console.error('[SOCKET.IO] Failed to enable Redis adapter:', err);
+    }
+  }
+
+  // Call the adapter initialisation (non-blocking)
+  enableRedisAdapter(socketServer).catch(err => {
+    console.error('[SOCKET.IO] Redis adapter init failed:', err);
   });
 
-  // console.log('Setting up socket handlers and router');
-  // const handlers = Handlers(activityService, socketServer);
-  // const watcher = redis.duplicate();
 
-  // console.log('Initializing pubsub for socket server');
-  // pubSub.init(watcher, handlers.notify);
-
-  // console.log('Initializing router for socket server');
-  // router.init(socketServer, new IORouter(), handlers);
-
-  // console.log('Socket server setup complete');
-
-  // console.log('socket Server ', socketServer);
+  //
+  // ---------------------------------------------------------
+  // SETUP ROUTER + HANDLERS + PUBSUB
+  // ---------------------------------------------------------
+  //
   console.log('Setting up socket handlers and router');
   const handlers = Handlers(activityService, socketServer);
   const watcher = redis.duplicate();
@@ -70,7 +115,11 @@ module.exports = (server, redis) => {
     console.error('PubSub init failed (sockets still running):', e);
   }
 
-  // Optional: log connections to confirm traffic in Azure
+  //
+  // ---------------------------------------------------------
+  // LOG CONNECTION EVENTS
+  // ---------------------------------------------------------
+  //
   socketServer.on('connection', (s) => {
     console.log('Socket connected:', s.id, 'transport:', s.conn.transport.name);
   });

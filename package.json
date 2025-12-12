@@ -39,6 +39,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^0.0.14",
+    "@socket.io/redis-adapter": "^8.3.0",
     "applicationinsights": "2.9.8",
     "body-parser": "^1.20.1",
     "config": "^1.26.1",
@@ -58,6 +59,7 @@
     "node-cron": "^1.2.1",
     "node-fetch": "^2.6.7",
     "or": "^0.2.0",
+    "redis": "^5.10.0",
     "socket.io": "^4.8.1",
     "socket.io-router-middleware": "^1.1.2",
     "yarn": "^1.22.22"
