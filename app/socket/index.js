@@ -1,15 +1,14 @@
 const config = require('config');
 const IORouter = require('socket.io-router-middleware');
 const SocketIO = require('socket.io');
+// Missing imports — REQUIRED for Redis Adapter
+const { createClient } = require('redis');
+const { createAdapter } = require('@socket.io/redis-adapter');
 
 const ActivityService = require('./service/activity-service');
 const Handlers = require('./service/handlers');
 const pubSub = require('./redis/pub-sub')();
 const router = require('./router');
-
-// Missing imports — REQUIRED for Redis Adapter
-const { createClient } = require('redis');
-const { createAdapter } = require('@socket.io/redis-adapter');
 
 /**
  * Sets up a series of routes for a "socket" endpoint, that
@@ -56,13 +55,16 @@ module.exports = (server, redis) => {
   //
   async function enableRedisAdapter(io) {
     try {
-
       const redisPort = config.get('redis.port');
       const redisHost = config.get('redis.host');
 
       // HMCTS secret pattern → password is inside .value
       const redisPwdObj = config.get('secrets.ccd.activity-redis-password');
-      const redisPwd = redisPwdObj?.value ?? redisPwdObj;   // supports both flat and nested
+      // const redisPwd = redisPwdObj?.value ?? redisPwdObj;   // supports both flat and nested
+
+      const redisPwd = redisPwdObj && redisPwdObj.value
+        ? redisPwdObj.value
+        : redisPwdObj;
 
       if (!redisHost || !redisPort) {
         console.warn('[SOCKET.IO] redis.host/redis.port missing — Redis adapter not enabled');
@@ -90,10 +92,9 @@ module.exports = (server, redis) => {
   }
 
   // Call the adapter initialisation (non-blocking)
-  enableRedisAdapter(socketServer).catch(err => {
+  enableRedisAdapter(socketServer).catch((err) => {
     console.error('[SOCKET.IO] Redis adapter init failed:', err);
   });
-
 
   //
   // ---------------------------------------------------------
