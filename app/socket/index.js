@@ -52,6 +52,7 @@ module.exports = (server, redis) => {
       // },
       origin: '*',
       // methods: ['GET', 'POST'],
+      // Set credentials to false temporarily to allow testing
       credentials: false
     },
 
