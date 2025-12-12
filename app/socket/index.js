@@ -76,9 +76,26 @@ module.exports = (server, redis) => {
         : `redis://${redisHost}:${redisPort}`;
 
       console.log('[SOCKET.IO] Connecting to Redis at', redisUrl);
-
       const pubClient = createClient({ url: redisUrl });
       const subClient = pubClient.duplicate();
+
+      const attachErrorHandlers = (client, name) => {
+        client.on('error', (err) => {
+          console.log(`[SOCKET.IO][REDIS][${name}] redis client error:`, err && err.message ? err.message : err);
+        });
+        client.on('connect', () => {
+          console.log(`[SOCKET.IO][REDIS][${name}] connected`);
+        });
+        client.on('end', () => {
+          console.log(`[SOCKET.IO][REDIS][${name}] connection ended`);
+        });
+        client.on('reconnecting', () => {
+          console.log(`[SOCKET.IO][REDIS][${name}] reconnecting`);
+        });
+      };
+
+      attachErrorHandlers(pubClient, 'pub');
+      attachErrorHandlers(subClient, 'sub');
 
       await pubClient.connect();
       await subClient.connect();
@@ -87,13 +104,13 @@ module.exports = (server, redis) => {
 
       console.log('[SOCKET.IO] Redis adapter enabled');
     } catch (err) {
-      console.error('[SOCKET.IO] Failed to enable Redis adapter:', err);
+      console.log('[SOCKET.IO] Failed to enable Redis adapter:', err);
     }
   }
 
   // Call the adapter initialisation (non-blocking)
   enableRedisAdapter(socketServer).catch((err) => {
-    console.error('[SOCKET.IO] Redis adapter init failed:', err);
+    console.log('[SOCKET.IO] Redis adapter init failed:', err);
   });
 
   //
@@ -103,13 +120,13 @@ module.exports = (server, redis) => {
   //
   console.log('Setting up socket handlers and router');
   const handlers = Handlers(activityService, socketServer);
-  const watcher = redis.duplicate();
 
   console.log('Initializing router for socket server');
   router.init(socketServer, new IORouter(), handlers);
 
   console.log('Initializing pubsub for socket server');
   try {
+    const watcher = redis.duplicate();
     pubSub.init(watcher, handlers.notify);
     console.log('PubSub initialized');
   } catch (e) {
@@ -123,6 +140,9 @@ module.exports = (server, redis) => {
   //
   socketServer.on('connection', (s) => {
     console.log('Socket connected:', s.id, 'transport:', s.conn.transport.name);
+  });
+  socketServer.on('error', (err) => {
+    console.log('[SOCKET.IO] server error:', err && err.message ? err.message : err);
   });
   return { socketServer, activityService, handlers };
 };
