@@ -138,6 +138,7 @@ module.exports = (server, redis) => {
   // LOG CONNECTION EVENTS
   // ---------------------------------------------------------
   //
+  // log connections and errors
   socketServer.on('connection', (s) => {
     console.log('Socket connected:', s.id, 'transport:', s.conn.transport.name);
   });
