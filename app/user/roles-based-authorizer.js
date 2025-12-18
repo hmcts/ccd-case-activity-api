@@ -10,6 +10,7 @@ const blacklist = config.get('security.auth_blacklist')
 const isUserAuthorized = (request, user) => {
   const authorized = authorizer.isUserAuthorized(user.roles, whitelist, blacklist);
   debug(`user roles authorized: ${authorized}`);
+  console.log(`user roles authorized: ${authorized}`);
   return authorized;
 };
 
