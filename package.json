@@ -101,7 +101,7 @@
     "minimatch": "^3.0.5",
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
-    "qs": "^6.14.1",
+    "qs": "6.14.1",
     "semver": "7.7.2",
     "@grpc/grpc-js": "1.13.4",
     "cross-spawn": "^7.0.6"
