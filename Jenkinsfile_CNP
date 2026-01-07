@@ -73,19 +73,6 @@ env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN" // Temporary workaround for
 env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 withPipeline(type, product, component) {
-    onMaster {
-        enableSlackNotifications('#ccd-master-builds')
-    }
-    if (env.BRANCH_NAME.equalsIgnoreCase(activityApiDevelopPr)) {
-        enableSlackNotifications('#ccd-develop-builds')
-    }
-    onDemo {
-        enableSlackNotifications('#ccd-demo-builds')
-    }
-    onPR {
-        enableSlackNotifications('#ccd-pr-builds')
-    }
-
     syncBranchesWithMaster(branchesToSync)
 
     // Check if the build should be wired to an environment higher than 'preview'.
