@@ -1230,9 +1230,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ccd-case-activity-api@workspace:.":
+"rpx-case-activity-api@workspace:.":
   version: 0.0.0-use.local
-  resolution: "ccd-case-activity-api@workspace:."
+  resolution: "rpx-case-activity-api@workspace:."
   dependencies:
     "@hmcts/nodejs-healthcheck": "npm:^1.8.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"

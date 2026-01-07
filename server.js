@@ -7,7 +7,7 @@
 require('@hmcts/properties-volume').addTo(require('config'));
 var app = require('./app');
 
-var debug = require('debug')('ccd-case-activity-api:server');
+var debug = require('debug')('rpx-case-activity-api:server');
 var http = require('http');
 
 /**

@@ -1,5 +1,5 @@
 const moment = require('moment');
-const debug = require('debug')('ccd-case-activity-api:activity-service');
+const debug = require('debug')('rpx-case-activity-api:activity-service');
 
 module.exports = (config, redis, ttlScoreGenerator) => {
   const redisActivityKeys = {

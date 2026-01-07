@@ -3,7 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('config');
-const debug = require('debug')('ccd-case-activity-api:app');
+const debug = require('debug')('rpx-case-activity-api:app');
 const enableAppInsights = require('./app/app-insights/app-insights');
 
 enableAppInsights();

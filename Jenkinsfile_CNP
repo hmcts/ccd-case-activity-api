@@ -1,7 +1,7 @@
 #!groovy
 import uk.gov.hmcts.contino.GithubAPI
 properties(
-        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/ccd-case-activity-api'],
+        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/rpx-case-activity-api'],
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 

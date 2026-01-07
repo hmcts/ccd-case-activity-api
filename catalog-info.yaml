@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "ccd-case-activity-api"
+  name: "rpx-case-activity-api"
   annotations:
     # This must match folder-name/job-name in Jenkins.
-    jenkins.io/job-full-name: cft:HMCTS_a_to_c/ccd-case-activity-api
-    github.com/project-slug: hmcts/ccd-case-activity-api
+    jenkins.io/job-full-name: cft:HMCTS_a_to_c/rpx-case-activity-api
+    github.com/project-slug: hmcts/rpx-case-activity-api
   tags:
     - nodejs
   links:
