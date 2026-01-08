@@ -19,7 +19,7 @@ def activityApiDevelopPr     = "PR-211"  // This doesn't change frequently, but 
 def prsToUseAat              = "PR-288"  // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
 
 def secrets = [
-    'ccd-${env}': [
+    'xui-${env}': [
         secret('ccd-caseworker-autotest-email', 'CCD_CASEWORKER_AUTOTEST_EMAIL'),
         secret('ccd-caseworker-autotest-password', 'CCD_CASEWORKER_AUTOTEST_PASSWORD'),
         secret('ccd-api-gateway-oauth2-client-secret', 'OAUTH2_CLIENT_SECRET'),
