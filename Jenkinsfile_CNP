@@ -8,7 +8,7 @@ properties(
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "xui"
+def product = "rpx"
 def component = "case-activity-api"
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
