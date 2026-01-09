@@ -1,6 +1,8 @@
 #!groovy
 @Library("Infrastructure") _
 
+def vault = "rpx"
+
 properties([
         parameters([
                 string(name: 'PRODUCT_NAME', defaultValue: 'xui', description: ''),
