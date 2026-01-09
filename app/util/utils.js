@@ -1,4 +1,4 @@
-const debug = require('debug')('ccd-case-activity-api:utils');
+const debug = require('debug')('rpx-case-activity-api:utils');
 
 exports.ifNotTimedOut = (request, f) => {
   if (!request.timedout) {

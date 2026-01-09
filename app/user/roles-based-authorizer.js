@@ -1,4 +1,4 @@
-const debug = require('debug')('ccd-case-activity-api:roles-based-authorizer');
+const debug = require('debug')('rpx-case-activity-api:roles-based-authorizer');
 const config = require('config');
 const authorizer = require('./white-black-list-roles-authorizer');
 

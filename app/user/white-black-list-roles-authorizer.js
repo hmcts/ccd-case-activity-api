@@ -1,4 +1,4 @@
-const debug = require('debug')('ccd-case-activity-api:white-black-list-roles-authorizer');
+const debug = require('debug')('rpx-case-activity-api:white-black-list-roles-authorizer');
 
 const isUserAuthorized = (roles, whiteList, blackList) => {
   debug(`whitelist: ${whiteList}`);

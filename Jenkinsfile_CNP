@@ -1,14 +1,15 @@
 #!groovy
 import uk.gov.hmcts.contino.GithubAPI
 properties(
-        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/ccd-case-activity-api'],
+        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/rpx-case-activity-api'],
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "ccd"
+def product = "xui"
+def vault = "rpx"
 def component = "case-activity-api"
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
@@ -19,26 +20,26 @@ def activityApiDevelopPr     = "PR-211"  // This doesn't change frequently, but 
 def prsToUseAat              = "PR-288"  // Set this value to a PR number, or add it as a comma-separated value, if it's to follow CI/CD.
 
 def secrets = [
-    'ccd-${env}': [
-        secret('ccd-caseworker-autotest-email', 'CCD_CASEWORKER_AUTOTEST_EMAIL'),
-        secret('ccd-caseworker-autotest-password', 'CCD_CASEWORKER_AUTOTEST_PASSWORD'),
-        secret('ccd-api-gateway-oauth2-client-secret', 'OAUTH2_CLIENT_SECRET'),
+    'rpx-${env}': [
+        secret('xui-caseworker-autotest-email', 'XUI_CASEWORKER_AUTOTEST_EMAIL'),
+        secret('xui-caseworker-autotest-password', 'XUI_CASEWORKER_AUTOTEST_PASSWORD'),
+        secret('xui-api-gateway-oauth2-client-secret', 'OAUTH2_CLIENT_SECRET'),
 
-        secret('ccd-api-gateway-oauth2-client-secret', 'CCD_API_GATEWAY_OAUTH2_CLIENT_SECRET'),
+        secret('xui-api-gateway-oauth2-client-secret', 'XUI_API_GATEWAY_OAUTH2_CLIENT_SECRET'),
         secret('definition-importer-username', 'DEFINITION_IMPORTER_USERNAME'),
         secret('definition-importer-password', 'DEFINITION_IMPORTER_PASSWORD'),
 
         // Required for FTA tests
-        secret('ccd-befta-caseworker-2-solicitor-1-pwd', 'CCD_BEFTA_CASEWORKER_2_SOLICITOR_1_PWD'),
-        secret('ccd-befta-caseworker-2-solicitor-2-pwd', 'CCD_BEFTA_CASEWORKER_2_SOLICITOR_2_PWD'),
-        secret('ccd-befta-caseworker-2-solicitor-3-pwd', 'CCD_BEFTA_CASEWORKER_2_SOLICITOR_3_PWD'),
-        secret('ccd-befta-caseworker-1-pwd', 'CCD_BEFTA_CASEWORKER_1_PWD'),
-        secret('ccd-befta-caseworker-2-pwd', 'CCD_BEFTA_CASEWORKER_2_PWD'),
-        secret('ccd-befta-caseworker-3-pwd', 'CCD_BEFTA_CASEWORKER_3_PWD'),
-        secret('ccd-befta-citizen-2-pwd', 'CCD_BEFTA_CITIZEN_2_PWD'),
-        secret('ccd-befta-citizen-3-pwd', 'CCD_BEFTA_CITIZEN_3_PWD'),
-        secret('ccd-befta-solicitor-3-pwd', 'CCD_BEFTA_SOLICITOR_3_PWD'),
-        secret('ccd-befta-master-caseworker-pwd', 'CCD_BEFTA_MASTER_CASEWORKER_PWD')
+        secret('xui-befta-caseworker-2-solicitor-1-pwd', 'XUI_BEFTA_CASEWORKER_2_SOLICITOR_1_PWD'),
+        secret('xui-befta-caseworker-2-solicitor-2-pwd', 'XUI_BEFTA_CASEWORKER_2_SOLICITOR_2_PWD'),
+        secret('xui-befta-caseworker-2-solicitor-3-pwd', 'XUI_BEFTA_CASEWORKER_2_SOLICITOR_3_PWD'),
+        secret('xui-befta-caseworker-1-pwd', 'XUI_BEFTA_CASEWORKER_1_PWD'),
+        secret('xui-befta-caseworker-2-pwd', 'XUI_BEFTA_CASEWORKER_2_PWD'),
+        secret('xui-befta-caseworker-3-pwd', 'XUI_BEFTA_CASEWORKER_3_PWD'),
+        secret('xui-befta-citizen-2-pwd', 'XUI_BEFTA_CITIZEN_2_PWD'),
+        secret('xui-befta-citizen-3-pwd', 'XUI_BEFTA_CITIZEN_3_PWD'),
+        secret('xui-befta-solicitor-3-pwd', 'XUI_BEFTA_SOLICITOR_3_PWD'),
+        secret('xui-befta-master-caseworker-pwd', 'XUI_BEFTA_MASTER_CASEWORKER_PWD')
     ],
     's2s-${env}': [
         secret('microservicekey-ccd-gw', 'BEFTA_S2S_CLIENT_SECRET')
@@ -73,19 +74,6 @@ env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN" // Temporary workaround for
 env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 withPipeline(type, product, component) {
-    onMaster {
-        enableSlackNotifications('#ccd-master-builds')
-    }
-    if (env.BRANCH_NAME.equalsIgnoreCase(activityApiDevelopPr)) {
-        enableSlackNotifications('#ccd-develop-builds')
-    }
-    onDemo {
-        enableSlackNotifications('#ccd-demo-builds')
-    }
-    onPR {
-        enableSlackNotifications('#ccd-pr-builds')
-    }
-
     syncBranchesWithMaster(branchesToSync)
 
     // Check if the build should be wired to an environment higher than 'preview'.
@@ -107,7 +95,7 @@ withPipeline(type, product, component) {
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
-    enableHighLevelDataSetup()
+    enableHighLevelDataSetup("rpx")
 
     afterAlways('checkOut')  {
         sh "yarn cache clean"

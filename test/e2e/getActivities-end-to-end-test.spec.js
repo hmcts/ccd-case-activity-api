@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-process.env.DEBUG = 'ccd-case-activity-api:*';
+process.env.DEBUG = 'rpx-case-activity-api:*';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');

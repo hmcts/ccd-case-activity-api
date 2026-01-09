@@ -1,15 +1,17 @@
 #!groovy
 @Library("Infrastructure") _
 
+def vault = "rpx"
+
 properties([
         parameters([
-                string(name: 'PRODUCT_NAME', defaultValue: 'ccd', description: ''),
+                string(name: 'PRODUCT_NAME', defaultValue: 'xui', description: ''),
                 string(name: 'APP', defaultValue: 'case-activity-api', description: ''),
                 string(name: 'TYPE', defaultValue: 'nodejs', description: ''),
                 string(name: 'ENVIRONMENT', defaultValue: 'sandbox', description: 'Environment where code should be build and deployed'),
                 choice(name: 'SUBSCRIPTION', choices: 'sandbox', description: 'Azure subscriptions available to build in')
         ]),
-        [$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/ccd-case-activity-api'],
+        [$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/rpx-case-activity-api'],
         pipelineTriggers([[$class: 'GitHubPushTrigger']])
 ])
 
