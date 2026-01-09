@@ -9,6 +9,7 @@ properties(
 
 def type = "nodejs"
 def product = "xui"
+def vault = "rpx"
 def component = "case-activity-api"
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
