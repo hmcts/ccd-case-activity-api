@@ -79,6 +79,9 @@
     "sonar-scanner": "^3.1.0",
     "supertest": "^3.0.0"
   },
+  "overrides": {
+    "qs": "6.14.1"
+  },
   "resolutions": {
     "async": "^2.6.4",
     "lodash": "^4.17.21",
@@ -98,7 +101,7 @@
     "minimatch": "^3.0.5",
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
-    "qs": "^6.11.0",
+    "qs": "6.14.1",
     "semver": "7.7.2",
     "@grpc/grpc-js": "1.13.4",
     "cross-spawn": "^7.0.6"
