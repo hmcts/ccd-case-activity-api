@@ -18,7 +18,7 @@ data "azurerm_key_vault" "key_vault" {
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   name         = "activity-redis-password"
   value        = module.redis-activity-service.access_key
-  key_vault_id = data.azurerm_key_vault.shared.id
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
 module "redis-activity-service" {
