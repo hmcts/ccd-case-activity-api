@@ -56,8 +56,8 @@ describe("activity service", () => {
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
-      argStr = JSON.stringify(arguments);
+    sandbox.stub(redis, "pipeline").callsFake(function (args) {
+      argStr = JSON.stringify(args);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
         return pipStub;
@@ -93,8 +93,8 @@ describe("activity service", () => {
   it("getActivities should return unknown users if users detail are missing", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
-      argStr = JSON.stringify(arguments);
+    sandbox.stub(redis, "pipeline").callsFake(function (args) {
+      argStr = JSON.stringify(args);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
@@ -127,8 +127,8 @@ describe("activity service", () => {
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
-      argStr = JSON.stringify(arguments);
+    sandbox.stub(redis, "pipeline").callsFake(function (args) {
+      argStr = JSON.stringify(args);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
@@ -161,8 +161,8 @@ describe("activity service", () => {
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
-      argStr = JSON.stringify(arguments);
+    sandbox.stub(redis, "pipeline").callsFake(function (args) {
+      argStr = JSON.stringify(args);
       if (argStr.includes('zrangebyscore')) {
         //the following userIds will be returned for both viewers & editors
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);

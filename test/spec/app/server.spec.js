@@ -75,4 +75,58 @@ describe('server bootstrap', () => {
     const onError = fakeServer._handlers.error;
     expect(() => onError({ syscall: 'listen', code: 'PANIC_STATIONS' })).to.throw();
   });
+
+  it('should support named pipe ports and string bind', () => {
+    const originalPort = process.env.PORT;
+    process.env.PORT = 'pipe';
+
+    // Re-require server with named pipe env and custom address as string
+    const serverPath = path.resolve(__dirname, '../../../server.js');
+    delete require.cache[serverPath];
+    // Change address to return string to hit onListening string branch
+    fakeServer.address = () => 'named-socket';
+
+    proxyquire(serverPath, {
+      '@hmcts/properties-volume': { addTo: () => ({}) },
+      config: {},
+      './app': appStub,
+      http: httpStub,
+      debug: () => () => {},
+    });
+
+    // Validate normalizePort took string and listen used it
+    expect(appStub.set).to.have.been.calledWith('port', 'pipe');
+    expect(fakeServer.listen).to.have.been.calledWith('pipe');
+
+    // Trigger EACCES to exercise 'Pipe ' bind branch
+    const onError = fakeServer._handlers.error;
+    onError({ syscall: 'listen', code: 'EACCES' });
+    expect(processExitStub).to.have.been.calledWith(1);
+
+    // Trigger listening to exercise string address
+    expect(() => fakeServer._handlers.listening()).to.not.throw();
+
+    process.env.PORT = originalPort;
+  });
+
+  it('should handle invalid numeric port by returning false', () => {
+    const originalPort = process.env.PORT;
+    process.env.PORT = '-1';
+
+    const serverPath = path.resolve(__dirname, '../../../server.js');
+    delete require.cache[serverPath];
+
+    proxyquire(serverPath, {
+      '@hmcts/properties-volume': { addTo: () => ({}) },
+      config: {},
+      './app': appStub,
+      http: httpStub,
+      debug: () => () => {},
+    });
+
+    expect(appStub.set).to.have.been.calledWith('port', false);
+    expect(fakeServer.listen).to.have.been.calledWith(false);
+
+    process.env.PORT = originalPort;
+  });
 });
