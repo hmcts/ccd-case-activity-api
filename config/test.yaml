@@ -3,5 +3,5 @@ appInsights:
 idam:
   base_url: http://test-idam:1234
 secrets:
-  rpx:
+  ccd:
     app-insights-connection-string: ""
