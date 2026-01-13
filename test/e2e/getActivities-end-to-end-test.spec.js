@@ -197,4 +197,55 @@ describe('Activity Service - GetActivities', () => {
         done();
       });
   });
+
+  it('should return 401 when Authorization header is missing', (done) => {
+    chai.request(server)
+      .get('/cases/111/activity')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+
+  it('should return empty activity arrays when no activity exists', (done) => {
+    chai.request(server)
+      .get('/cases/999/activity')
+      .set('Authorization', Token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.body.should.be.a('array');
+        res.body.length.should.equal(1);
+        res.body[0].caseId.should.equal('999');
+        res.body[0].viewers.should.be.a('array');
+        res.body[0].viewers.length.should.equal(0);
+        res.body[0].editors.should.be.a('array');
+        res.body[0].editors.length.should.equal(0);
+        done();
+      });
+  });
+
+  it('should not include requesting user in viewers/editors', (done) => {
+    const a1 = testUtils.addActivity('242', 333, 'view', FORENAME, SURNAME);
+    const a2 = testUtils.addActivity('242', 444, 'edit', FORENAME, SURNAME);
+    Promise.all([a1, a2])
+      .then(() => {
+        chai.request(server)
+          .get('/cases/333,444/activity')
+          .set('Authorization', Token)
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a('array');
+            res.body.length.should.equal(2);
+            res.body[0].caseId.should.equal('333');
+            res.body[0].viewers.should.be.a('array');
+            res.body[0].viewers.length.should.equal(0);
+            res.body[1].caseId.should.equal('444');
+            res.body[1].editors.should.be.a('array');
+            res.body[1].editors.length.should.equal(0);
+            done();
+          });
+      })
+      .catch((error) => done(error));
+  });
 });

@@ -8,9 +8,9 @@ redis:
     enabled: false
 
 nodejs:
-  image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
+  image: 'hmctspublic.azurecr.io/rpx/case-activity-api:latest'
   applicationPort: 3460
-  aadIdentityName: ccd
+  aadIdentityName: rpx
   ingressHost: rpx-case-activity-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
     enabled: false
@@ -18,7 +18,7 @@ nodejs:
     maxReplicas: 16
   environment:
     CORS_ORIGIN_METHODS: GET,POST,OPTIONS
-    CORS_ORIGIN_WHITELIST: https://www-ccd.{{ .Values.global.environment }}.platform.hmcts.net
+    CORS_ORIGIN_WHITELIST: https://www-rpx.{{ .Values.global.environment }}.platform.hmcts.net
     CACHE_USER_INFO_ENABLED: true
     CACHE_USER_INFO_TTL: 600
     CACHE_USER_INFO_CHECK_PERIOD: 120
@@ -26,7 +26,7 @@ nodejs:
     AUTH_WHITE_LIST: ^caseworker-.+
     AUTH_BLACK_LIST: solicitor
     IDAM_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-    REDIS_HOST: ccd-activity-service-{{ .Values.global.environment }}.redis.cache.windows.net
+    REDIS_HOST: rpx-activity-service-{{ .Values.global.environment }}.redis.cache.windows.net
     REDIS_PORT: 6380
     REDIS_SSL_ENABLED: true
     REDIS_KEY_PREFIX: 'activity:'
@@ -37,7 +37,7 @@ nodejs:
     UV_THREADPOOL_SIZE: 64
 
   keyVaults:
-    ccd:
+    rpx:
       secrets:        
         - name: activity-redis-password
         - name: app-insights-connection-string

@@ -11,6 +11,7 @@ mock('../../app/user/auth-checker-user-only-filter', './stubs/idam-stub');
 const server = require('../../app');
 const redis = require('../../app/redis/redis-client');
 const activityAssert = require('./utils/activity-store-asserts');
+const delayed = require('./utils/delayed');
 
 const should = chai.should(); // eslint-disable-line no-unused-vars
 
@@ -50,6 +51,35 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       });
   });
 
+  it('should POST an edit activity and store editor', (done) => {
+    const body = {
+      activity: 'edit',
+    };
+    chai.request(server)
+      .post('/cases/66/activity')
+      .set('Authorization', Token)
+      .send(body)
+      .end((err, res) => {
+        const assertEndpointResult = new Promise((resolve) => {
+          res.should.have.status(201);
+          res.should.be.json; // eslint-disable-line no-unused-expressions
+          res.body.should.be.a('object');
+          res.body.case.should.equal('66');
+          res.body.user.should.equal('242');
+          res.body.activity.should.equal('edit');
+          resolve();
+        });
+
+        Promise.all([
+          assertEndpointResult,
+          activityAssert.allCaseEditorsEquals(66, '242'),
+          activityAssert.userDetailsEquals('242', '{"forename":"nayab","surname":"gul"}')
+        ])
+          .then(() => done())
+          .catch((error) => done(error));
+      });
+  });
+
   it('should not POST a user activity if the activity type is not specified', (done) => {
     const body = {};
     chai.request(server)
@@ -57,7 +87,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .set('Authorization', Token)
       .send(body)
       .end((err, res) => {
-        res.should.have.status(422);
+        res.should.have.status(400);
         res.should.be.json; // eslint-disable-line no-unused-expressions
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: undefined');
@@ -74,7 +104,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .set('Authorization', Token)
       .send(body)
       .end((err, res) => {
-        res.should.have.status(422);
+        res.should.have.status(400);
         res.should.be.json; // eslint-disable-line no-unused-expressions
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: vie');
@@ -121,6 +151,27 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .end((err, res) => {
         res.should.have.status(404);
         done();
+      });
+  });
+
+  it('should expire activity after TTL window', (done) => {
+    const body = {
+      activity: 'view',
+    };
+    chai.request(server)
+      .post('/cases/77/activity')
+      .set('Authorization', Token)
+      .send(body)
+      .end((err, res) => {
+        res.should.have.status(201);
+        const AfterActivitiesExpired = 7 * 1000;
+        delayed(AfterActivitiesExpired, () =>
+          Promise.all([
+            activityAssert.notExpiredCaseViewersEquals(77, [])
+          ])
+            .then(() => done())
+            .catch((error) => done(error))
+        );
       });
   });
 });
