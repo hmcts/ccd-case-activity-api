@@ -6,6 +6,8 @@ variable "location" {
   default = "UK South"
 }
 
+variable "component" {}
+
 variable "env" {
   description = "(Required) The environment in which to deploy the application infrastructure."
 }
@@ -26,4 +28,8 @@ variable "sku_name" {
 variable "capacity" {
   default     = "1"
   description = "The size of the Redis cache to deploy. Valid values are 1, 2, 3, 4, 5"
+}
+
+variable "shared_product_name" {
+  default = "rpx"
 }
