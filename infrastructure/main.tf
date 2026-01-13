@@ -9,8 +9,8 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 }
 
 data "azurerm_key_vault" "shared" {
-  name                = "ccd-${var.env}"
-  resource_group_name = "ccd-shared-${var.env}"
+  name                = "rpx-${var.env}"
+  resource_group_name = "rpx-shared-${var.env}"
 }
 
 resource "azurerm_key_vault_secret" "redis_connection_string" {

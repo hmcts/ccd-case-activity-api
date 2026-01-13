@@ -24,6 +24,6 @@ appInsights:
   enabled: true
 
 secrets:
-  ccd:
+  rpx:
     activity-redis-password: testPassword
     app-insights-connection-string: ""

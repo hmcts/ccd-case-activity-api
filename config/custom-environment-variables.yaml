@@ -22,6 +22,6 @@ app:
   storeCleanupCrontab: APP_STORE_CLEANUP_CRONTAB
 
 secrets:
-  ccd:
+  rpx:
     activity-redis-password: REDIS_PASSWORD
     app-insights-connection-string: ""
