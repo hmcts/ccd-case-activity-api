@@ -4,7 +4,7 @@ metadata:
   name: "rpx-case-activity-api"
   annotations:
     # This must match folder-name/job-name in Jenkins.
-    jenkins.io/job-full-name: cft:HMCTS_a_to_c/rpx-case-activity-api
+    jenkins.io/job-full-name: cft:HMCTS_j_to_z/rpx-case-activity-api
     github.com/project-slug: hmcts/rpx-case-activity-api
   tags:
     - nodejs
