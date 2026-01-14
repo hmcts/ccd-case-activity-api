@@ -1,5 +1,5 @@
 variable "product" {
-  default     = "ccd"
+  default     = "rpx"
   description = "The name of your application"
 }
 variable "location" {
@@ -15,6 +15,12 @@ variable "env" {
 variable "common_tags" {
   type = map(string)
 }
+
+variable "application_type" {
+  default     = "web"
+  description = "Type of Application Insights (Web/Other)"
+}
+
 variable "family" {
   default     = "C"
   description = "The SKU family/pricing group to use. Valid values are `C` (for Basic/Standard SKU family) and `P` (for Premium). Use P for higher availability, but beware it costs a lot more."

@@ -21,6 +21,26 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
+module "application_insights" {
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
+
+  env                 = var.env
+  product             = var.product
+  name                = "${local.app_full_name}-appinsights"
+  location            = var.location
+  application_type    = var.application_type
+  resource_group_name = azurerm_resource_group.rg.name
+
+  common_tags = var.common_tags
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "${local.app_full_name}-${var.env}"
+  location = var.location
+
+  tags = var.common_tags
+}
+
 module "redis-activity-service" {
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=4.x"
   product                       = "${var.product}-activity-service"
@@ -34,4 +54,23 @@ module "redis-activity-service" {
   sku_name                      = var.sku_name
   family                        = var.family
   capacity                      = var.capacity
+}
+
+module "application_insights" {
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
+
+  env                 = var.env
+  product             = var.product
+  name                = "${local.app_full_name}-appinsights"
+  location            = var.location
+  application_type    = var.application_type
+  resource_group_name = azurerm_resource_group.rg.name
+
+  common_tags = var.common_tags
+}
+
+resource "azurerm_key_vault_secret" "app_insights_connection_string" {
+  name         = "appinsights-connection-string-at"
+  value        = module.application_insights.connection_string
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
