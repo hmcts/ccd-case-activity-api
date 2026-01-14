@@ -58,7 +58,7 @@ module "redis-activity-service" {
 }
 
 resource "azurerm_key_vault_secret" "app_insights_connection_string" {
-  name         = "appinsights-connection-string-at"
+  name         = "app-insights-connection-string-at"
   value        = module.application_insights.connection_string
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
