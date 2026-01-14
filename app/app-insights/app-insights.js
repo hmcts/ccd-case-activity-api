@@ -7,7 +7,7 @@ const enableAppInsights = () => {
   if (!enabled) {
     return;
   }
-  const appInsightsString = config.get('secrets.rpx.app-insights-connection-string');
+  const appInsightsString = config.get('secrets.rpx.app-insights-connection-string-at');
   const appInsightsRoleName = config.get('appInsights.roleName');
   appInsights.setup(appInsightsString)
     .setAutoDependencyCorrelation(true)

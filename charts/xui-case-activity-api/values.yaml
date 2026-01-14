@@ -40,4 +40,4 @@ nodejs:
     rpx:
       secrets:        
         - name: activity-redis-password
-        - name: app-insights-connection-string
+        - name: app-insights-connection-string-at
