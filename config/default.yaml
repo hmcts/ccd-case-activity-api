@@ -26,4 +26,4 @@ appInsights:
 secrets:
   rpx:
     activity-redis-password: testPassword
-    app-insights-connection-string: ""
+    app-insights-connection-string-at: ""

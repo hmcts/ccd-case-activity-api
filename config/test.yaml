@@ -4,4 +4,4 @@ idam:
   base_url: http://test-idam:1234
 secrets:
   ccd:
-    app-insights-connection-string: ""
+    app-insights-connection-string-at: ""

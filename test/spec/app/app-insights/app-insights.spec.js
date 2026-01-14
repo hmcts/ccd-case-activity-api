@@ -14,7 +14,7 @@ describe('Application insights', () => {
     const configStub = {
       get: sinon.stub()
         .withArgs('appInsights.enabled').returns(true)
-        .withArgs('secrets.rpx.app-insights-connection-string').returns('InstrumentationKey=XYZ;IngestionEndpoint=https://foo')
+        .withArgs('secrets.rpx.app-insights-connection-string-at').returns('InstrumentationKey=XYZ;IngestionEndpoint=https://foo')
         .withArgs('appInsights.roleName').returns('rpx-case-activity-api'),
     };
     const defaultClient = { context: { tags: {}, keys: { cloudRole: 'cloudRoleKey' } }, config: {} };
