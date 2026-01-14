@@ -34,7 +34,7 @@ describe('Application insights', () => {
     enableWithStubs();
 
     expect(setupStub).to.have.been.calledOnce;
-    expect(configStub.get).to.have.been.calledWith('secrets.rpx.app-insights-connection-string');
+    expect(configStub.get).to.have.been.calledWith('secrets.rpx.app-insights-connection-string-at');
     expect(configStub.get).to.have.been.calledWith('appInsights.roleName');
     expect(defaultClient.context.tags['cloudRoleKey']).to.equal('rpx-case-activity-api');
     expect(startStub).to.have.been.calledOnce;
