@@ -24,4 +24,4 @@ app:
 secrets:
   rpx:
     activity-redis-password: REDIS_PASSWORD
-    app-insights-connection-string: ""
+    app-insights-connection-string-at: ""
