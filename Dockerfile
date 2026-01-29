@@ -1,4 +1,5 @@
-FROM hmctspublic.azurecr.io/base/node:18-alpine AS base
+ARG PLATFORM=""
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS base
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -28,7 +29,7 @@ COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
 
 # ---- Runtime Image ----
-FROM hmctspublic.azurecr.io/base/node:18-alpine AS runtime
+FROM hmctspublic.azurecr.io/base/node${PLATFORM}:20-alpine AS runtime
 COPY --from=build $WORKDIR .
 
 EXPOSE 3460
