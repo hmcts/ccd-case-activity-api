@@ -4,7 +4,7 @@ steps:
     privileged: true
 
   - id: pull-hmcts-base-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/base/node:20-alpine && docker tag {{.Run.Registry}}/base/node:20-alpine {{.Run.Registry}}/base/node/linux/amd64:20-alpine
+    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/base/node:20-alpine && docker tag {{.Run.Registry}}/base/node:20-alpine {{.Run.Registry}}/base/node/amd64:20-alpine
     when: ["-"]
     retries: 3
     retryDelay: 5
