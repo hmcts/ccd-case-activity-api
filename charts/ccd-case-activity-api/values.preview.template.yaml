@@ -12,6 +12,8 @@ nodejs:
 redis:
   enabled: true
   architecture: standalone
+  image:
+    tag: "8.2.0-debian-12-r0"
   auth:
     enabled: true
     password: "fake-password"
