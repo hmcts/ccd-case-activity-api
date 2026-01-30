@@ -1,7 +1,3 @@
-global:
-  security:
-    allowInsecureImages: true
-
 nodejs:
   ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
@@ -16,9 +12,6 @@ nodejs:
 redis:
   enabled: true
   architecture: standalone
-  image:
-    registry: hmctspublic.azurecr.io
-    repository: imported/bitnami/redis
   auth:
     enabled: true
     password: "fake-password"
