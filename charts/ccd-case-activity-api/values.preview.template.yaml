@@ -1,3 +1,7 @@
+global:
+  security:
+    allowInsecureImages: true
+
 nodejs:
   ingressHost: ${SERVICE_FQDN}
   image: ${IMAGE_NAME}
@@ -15,7 +19,6 @@ redis:
   image:
     registry: hmctspublic.azurecr.io
     repository: imported/bitnami/redis
-    tag: "8.2.0-debian-12-r0"
   auth:
     enabled: true
     password: "fake-password"
