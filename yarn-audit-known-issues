@@ -1,11 +1,2 @@
-[31m[1mInternal Error[22m[39m: ccd-case-activity-api@workspace:.: This package doesn't seem to be present in your lockfile; run "yarn install" to update the lockfile
-    at UT.getCandidates (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:204:4607)
-    at rm.getCandidates (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:141:1311)
-    at /Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:8420
-    at qE (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:45033)
-    at mt (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:8400)
-    at async Promise.allSettled (index 0)
-    at async Uu (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:44361)
-    at async /Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:9166
-    at async qi.startProgressPromise (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:129201)
-    at async t.resolveEverything (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:7138)
+{"value":"lodash.clone","children":{"ID":"lodash.clone (deprecation)","Issue":"This package is deprecated. Use structuredClone instead.","Severity":"moderate","Vulnerable Versions":"4.5.0","Tree Versions":["4.5.0"],"Dependents":["ioredis@npm:3.2.2"]}}
+{"value":"lodash.pick","children":{"ID":"lodash.pick (deprecation)","Issue":"This package is deprecated. Use destructuring assignment syntax instead.","Severity":"moderate","Vulnerable Versions":"3.1.0","Tree Versions":["3.1.0"],"Dependents":["ioredis@npm:3.2.2"]}}
