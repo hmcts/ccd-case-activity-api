@@ -1256,6 +1256,7 @@ __metadata:
     jasmine-node: "npm:3"
     joi: "npm:^17.2.1"
     jwt-decode: "npm:^2.2.0"
+    lodash: "npm:^4.17.23"
     mocha: "npm:7"
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.29.4"
