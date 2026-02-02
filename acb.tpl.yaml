@@ -10,16 +10,14 @@ steps:
     retryDelay: 5
 
   - id: pull-base-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
+    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 || true
     when: ["-"]
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
   - id: pull-build-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64
+    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 || true
     when: ["-"]
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
@@ -80,18 +78,16 @@ steps:
     retryDelay: 5
 
   - id: pull-base-arm64
-    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
+    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 || true
     when:
       - pull-base-amd64
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
   - id: pull-build-arm64
-    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64
+    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 || true
     when:
       - pull-build-amd64
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
