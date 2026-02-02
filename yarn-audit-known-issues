@@ -1,6 +1,11 @@
-{"value":"body-parser","children":{"ID":1110858,"Issue":"body-parser is vulnerable to denial of service when url encoding is used","URL":"https://github.com/advisories/GHSA-wqch-xfxh-vrr4","Severity":"moderate","Vulnerable Versions":">=2.2.0 <2.2.1","Tree Versions":["2.2.0"],"Dependents":["express@npm:5.1.0"]}}
-{"value":"js-yaml","children":{"ID":1112714,"Issue":"js-yaml has prototype pollution in merge (<<)","URL":"https://github.com/advisories/GHSA-mh29-5h37-fv8m","Severity":"moderate","Vulnerable Versions":"<3.14.2","Tree Versions":["3.14.1"],"Dependents":["@hmcts/nodejs-healthcheck@npm:1.8.6"]}}
-{"value":"lodash","children":{"ID":1112455,"Issue":"Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions","URL":"https://github.com/advisories/GHSA-xxjr-mmjv-4gpg","Severity":"moderate","Vulnerable Versions":">=4.0.0 <=4.17.22","Tree Versions":["4.17.21"],"Dependents":["@hmcts/properties-volume@npm:0.0.14"]}}
-{"value":"lodash.clone","children":{"ID":"lodash.clone (deprecation)","Issue":"This package is deprecated. Use structuredClone instead.","Severity":"moderate","Vulnerable Versions":"4.5.0","Tree Versions":["4.5.0"],"Dependents":["ioredis@npm:3.2.2"]}}
-{"value":"lodash.pick","children":{"ID":"lodash.pick (deprecation)","Issue":"This package is deprecated. Use destructuring assignment syntax instead.","Severity":"moderate","Vulnerable Versions":"3.1.0","Tree Versions":["3.1.0"],"Dependents":["ioredis@npm:3.2.2"]}}
-{"value":"qs","children":{"ID":1111755,"Issue":"qs's arrayLimit bypass in its bracket notation allows DoS via memory exhaustion","URL":"https://github.com/advisories/GHSA-6rw7-vpxm-498p","Severity":"high","Vulnerable Versions":"<6.14.1","Tree Versions":["6.14.0"],"Dependents":["body-parser@npm:1.20.3"]}}
+[31m[1mInternal Error[22m[39m: ccd-case-activity-api@workspace:.: This package doesn't seem to be present in your lockfile; run "yarn install" to update the lockfile
+    at UT.getCandidates (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:204:4607)
+    at rm.getCandidates (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:141:1311)
+    at /Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:8420
+    at qE (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:45033)
+    at mt (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:8400)
+    at async Promise.allSettled (index 0)
+    at async Uu (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:44361)
+    at async /Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:9166
+    at async qi.startProgressPromise (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:140:129201)
+    at async t.resolveEverything (/Users/ankitasrivastava/Desktop/CCD-Repos/ccd-case-activity-api/.yarn/releases/yarn-4.9.4.cjs:209:7138)
