@@ -12,10 +12,6 @@ nodejs:
 redis:
   enabled: true
   architecture: standalone
-  image:
-    registry: hmctspublic.azurecr.io
-    repository: imported/bitnami/redis
-    tag: 7.4.2-debian-12-r4
   auth:
     enabled: true
     password: "fake-password"
