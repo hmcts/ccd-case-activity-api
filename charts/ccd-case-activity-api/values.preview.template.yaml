@@ -8,6 +8,7 @@ nodejs:
     REDIS_SSL_ENABLED: ""
     CORS_ORIGIN_WHITELIST: "*"
   keyVaults:
+  replicas: 2
 
 redis:
   enabled: true
@@ -15,3 +16,10 @@ redis:
   auth:
     enabled: true
     password: "fake-password"
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
+    
+  global:
+    security:
+      allowInsecureImages: true

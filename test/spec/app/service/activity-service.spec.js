@@ -2,7 +2,6 @@ var redis = require('../../../../app/redis/redis-client');
 var config = require('config');
 var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
 var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
-var moment = require('moment');
 var chai = require("chai");
 var sinon = require("sinon");
 var sinonChai = require("sinon-chai");
@@ -54,7 +53,7 @@ describe("activity service", () => {
   });
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
-    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(Date, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
@@ -91,7 +90,7 @@ describe("activity service", () => {
   })
 
   it("getActivities should return unknown users if users detail are missing", (done) => {
-    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(Date, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
@@ -125,7 +124,7 @@ describe("activity service", () => {
   })
 
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
-    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(Date, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
@@ -159,7 +158,7 @@ describe("activity service", () => {
   })
 
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
-    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(Date, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);

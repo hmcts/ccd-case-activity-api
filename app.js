@@ -1,7 +1,6 @@
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const express = require('express');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-api:app');
 const enableAppInsights = require('./app/app-insights/app-insights');
@@ -41,17 +40,22 @@ if (config.util.getEnv('NODE_ENV') === 'test') {
 }
 
 debug(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
+console.log(`starting application with environment: ${config.util.getEnv('NODE_ENV')}`);
 
 app.use(corsHandler);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.text());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.text());
+
+console.log('Applying auth checker user only filter');
 app.use(authCheckerUserOnlyFilter);
 
+console.log('Mounting activity route at /');
 app.use('/', activity);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  console.log(`404 Not Found for request: ${req.method} ${req.originalUrl}`);
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -62,15 +66,17 @@ app.use((req, res, next) => {
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
   debug(`Error processing request: ${err}`);
+  console.log(`Error processing request: ${err}`);
 
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  console.log(`Returning error response: ${err.status || 500} - ${err.message}`);
 
   res.status(err.status || 500);
   res.json({
     message: err.message,
   });
 });
-
 module.exports = app;

@@ -6,6 +6,13 @@ redis:
       enabled: false
   auth:
     enabled: false
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
+    
+global:
+  security:
+    allowInsecureImages: true
 
 nodejs:
   image: 'hmctspublic.azurecr.io/ccd/case-activity-api:latest'
@@ -30,7 +37,7 @@ nodejs:
     REDIS_PORT: 6380
     REDIS_SSL_ENABLED: true
     REDIS_KEY_PREFIX: 'activity:'
-    REDIS_ACTIVITY_TTL: 5
+    REDIS_ACTIVITY_TTL: 30
     REDIS_USER_DETAILS_TTL: 6000
     APP_REQUEST_TIMEOUT: 5
     APP_STORE_CLEANUP_CRONTAB: '* * * * *'

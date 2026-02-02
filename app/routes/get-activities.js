@@ -4,8 +4,12 @@ const utils = require('../util/utils');
 const { ifNotTimedOut } = utils;
 
 const getActivities = (activityService) => (req, res, next) => {
+  console.log(`GET_ACTIVITIES request received at ${new Date().toISOString()}`);
+
   const caseIds = req.params.caseids.split(',');
   const { user } = req.authentication;
+
+  console.log(`GET_ACTIVITIES request for caseIds: ${caseIds}`);
 
   debug(`GET_ACTIVITIES request for caseIds: ${caseIds}`);
   activityService.getActivities(caseIds, user)
