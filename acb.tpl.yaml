@@ -4,28 +4,27 @@ steps:
     privileged: true
 
   - id: pull-hmcts-base-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/base/node:20-alpine && docker tag {{.Run.Registry}}/base/node:20-alpine {{.Run.Registry}}/base/node/linux/amd64:20-alpine
+    cmd: docker image rm -f {{.Run.Registry}}/base/node:20-alpine || true && docker pull --platform linux/amd64 {{.Run.Registry}}/base/node:20-alpine
     when: ["-"]
     retries: 3
     retryDelay: 5
 
   - id: pull-base-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
+    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64 || true
     when: ["-"]
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
   - id: pull-build-amd64
-    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64
+    cmd: docker pull --platform linux/amd64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64 || true
     when: ["-"]
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
   - id: base-amd64
     build: >
       -t {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
       --build-arg PLATFORM=/linux/amd64
       --platform linux/amd64
@@ -40,6 +39,7 @@ steps:
   - id: build-amd64
     build: >
       -t {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64
       --build-arg PLATFORM=/linux/amd64
@@ -56,6 +56,7 @@ steps:
   - id: runtime-amd64
     build: >
       -t {{.Run.Registry}}/{{CI_IMAGE_TAG}}-amd64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:amd64
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/build:amd64
       --build-arg PLATFORM=/linux/amd64
@@ -70,25 +71,23 @@ steps:
     retryDelay: 5
 
   - id: pull-hmcts-base-arm64
-    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/base/node:20-alpine && docker tag {{.Run.Registry}}/base/node:20-alpine {{.Run.Registry}}/base/node/linux/arm64:20-alpine
+    cmd: docker image rm -f {{.Run.Registry}}/base/node:20-alpine || true && docker pull --platform linux/arm64 {{.Run.Registry}}/base/node:20-alpine
     when:
       - pull-hmcts-base-amd64
     retries: 3
     retryDelay: 5
 
   - id: pull-base-arm64
-    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
+    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64 || true
     when:
       - pull-base-amd64
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
   - id: pull-build-arm64
-    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 && docker tag {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64
+    cmd: docker pull --platform linux/arm64 {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64 || true
     when:
       - pull-build-amd64
-    ignoreErrors: true
     retries: 3
     retryDelay: 5
 
@@ -103,6 +102,7 @@ steps:
   - id: base-arm64
     build: >
       -t {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
       --build-arg PLATFORM=/linux/arm64
       --platform linux/arm64/v8
@@ -117,6 +117,7 @@ steps:
   - id: build-arm64
     build: >
       -t {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64
       --build-arg PLATFORM=/linux/arm64
@@ -133,6 +134,7 @@ steps:
   - id: runtime-arm64
     build: >
       -t {{.Run.Registry}}/{{CI_IMAGE_TAG}}-arm64
+      --pull
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/base:arm64
       --cache-from {{.Run.Registry}}/ccd/ccd-case-activity-api/build:arm64
       --build-arg PLATFORM=/linux/arm64
