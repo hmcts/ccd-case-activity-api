@@ -107,5 +107,5 @@
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.12.0"
 }
