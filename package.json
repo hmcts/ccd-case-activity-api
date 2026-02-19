@@ -102,7 +102,7 @@
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
     "qs": "6.14.2",
-    "semver": "7.7.3",
+    "semver": "7.7.4",
     "@grpc/grpc-js": "1.14.3",
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1"
