@@ -1552,14 +1552,12 @@ __metadata:
     chai-http: "npm:^4.0.0"
     config: "npm:^1.26.1"
     connect-timeout: "npm:^1.9.0"
-    cookie: "npm:^0.7.0"
     cross-env: "npm:^5.2.0"
     debug: "npm:~2.6.3"
     eslint: "npm:9.39.2"
     eslint-config-airbnb-base: "npm:^14.0.0"
     eslint-plugin-import: "npm:^2.14.0"
     express: "npm:^5.0.1"
-    formidable: "npm:^3.5.4"
     ioredis: "npm:^3.1.4"
     jasmine-node: "npm:3"
     joi: "npm:^17.2.1"
@@ -1568,7 +1566,6 @@ __metadata:
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.29.4"
     morgan: "npm:^1.9.1"
-    nocache: "npm:^2.1.0"
     nock: "npm:^12.0.3"
     node-cache: "npm:^5.1.0"
     node-cron: "npm:^1.2.1"
@@ -1909,7 +1906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.7.0, cookie@npm:^0.7.1":
+"cookie@npm:^0.7.1":
   version: 0.7.2
   resolution: "cookie@npm:0.7.2"
   checksum: 10/24b286c556420d4ba4e9bc09120c9d3db7d28ace2bd0f8ccee82422ce42322f73c8312441271e5eefafbead725980e5996cc02766dbb89a90ac7f5636ede608f
@@ -4812,13 +4809,6 @@ __metadata:
     just-extend: "npm:^6.2.0"
     path-to-regexp: "npm:^8.1.0"
   checksum: 10/2d3175587cf0a351e2c91eb643fdc59d266de39f394a3ac0bace38571749d1e7f25341d763899245139b8f0d2ee048b2d3387d75ecf94c4897e947d5fc881eea
-  languageName: node
-  linkType: hard
-
-"nocache@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "nocache@npm:2.1.0"
-  checksum: 10/cea7277b22a8113243991b2bd4516db2b7de8013750b7634eb34c3debb04575021aa6c20eb9f8cdea7b7060036b969463eeab6c507a3c1961c6e12f85b2b644b
   languageName: node
   linkType: hard
 
