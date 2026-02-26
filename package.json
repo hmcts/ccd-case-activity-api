@@ -40,7 +40,7 @@
     "@hmcts/properties-volume": "^1.0.0",
     "applicationinsights": "2.9.8",
     "body-parser": "^2.2.1",
-    "config": "^1.26.1",
+    "config": "^4.0.0",
     "connect-timeout": "^1.9.0",
     "cookie": "^0.7.0",
     "cross-env": "^5.2.0",
