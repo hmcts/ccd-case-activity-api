@@ -83,7 +83,7 @@
     "qs": "6.15.0"
   },
   "resolutions": {
-    "async": "^2.6.4",
+    "async": "^3.0.0",
     "lodash": "^4.17.21",
     "lodash.pick": "3.1.0",
     "yargs-parser": "^18.1.2",
