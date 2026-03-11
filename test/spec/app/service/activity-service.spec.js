@@ -226,4 +226,99 @@ describe("activity service", () => {
       done();
     }).catch(err => console.log('error', done(err)));
   })
+
+  it("getActivities should return empty array when caseIds is empty", (done) => {
+    activityService.getActivities([], { uid: '123' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should return empty case status when access is non-standard", (done) => {
+    fetchStub.resolves({
+      json: () => Promise.resolve({
+        metadataFields: [
+          { id: '[ACCESS_PROCESS]', value: 'CHALLENGED' },
+          { id: '[ACCESS_GRANTED]', value: 'BASIC' }
+        ]
+      })
+    });
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+
+    activityService.getActivities(['1', '2'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([{
+          caseId: '1',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }, {
+          caseId: '2',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should return empty case status when access check fails", (done) => {
+    fetchStub.rejects(new Error('boom'));
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+
+    activityService.getActivities(['99'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([{
+          caseId: '99',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should call case view with bearer token when access allowed", (done) => {
+    fetchStub.resolves({ json: () => Promise.resolve({}) });
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+    pipStub = sinon.stub();
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+      argStr = JSON.stringify(arguments);
+      if (argStr.includes('zrangebyscore')) {
+        pipStub.exec = () => Promise.resolve([[null, []]]);
+        return pipStub;
+      }
+      pipStub.exec = () => Promise.resolve([]);
+      return pipStub;
+    });
+
+    activityService.getActivities(['123'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(fetchStub).to.have.been.calledWith('http://ccd/internal/cases/123', {
+          headers: { Authorization: 'token', Accept: 'application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json' }
+        });
+        expect(content).deep.equal([{
+          caseId: '123',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
 });
