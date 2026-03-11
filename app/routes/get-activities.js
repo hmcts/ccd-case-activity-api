@@ -6,9 +6,10 @@ const { ifNotTimedOut } = utils;
 const getActivities = (activityService) => (req, res, next) => {
   const caseIds = req.params.caseids.split(',');
   const { user } = req.authentication;
+  const bearerToken = req.get('Authorization');
 
   debug(`GET_ACTIVITIES request for caseIds: ${caseIds}`);
-  activityService.getActivities(caseIds, user)
+  activityService.getActivities(caseIds, user, bearerToken)
     .then((result) => ifNotTimedOut(req, () => {
       debug(`GET_ACTIVITIES response is ==> ${JSON.stringify(result)}`);
       res.status(200).json(result);
