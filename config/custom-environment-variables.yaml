@@ -5,6 +5,8 @@ security:
   auth_blacklist: AUTH_BLACK_LIST
 idam:
   base_url: IDAM_BASE_URL
+ccd:
+  url: SERVICES_CCD_COMPONENT_API
 redis:
   host: REDIS_HOST
   port: REDIS_PORT
