@@ -1504,7 +1504,7 @@ __metadata:
     chai: "npm:^4.3.6"
     chai-arrays: "npm:^2.0.0"
     chai-http: "npm:^4.0.0"
-    config: "npm:^1.26.1"
+    config: "npm:^4.0.0"
     connect-timeout: "npm:^1.9.0"
     cookie: "npm:^0.7.0"
     cross-env: "npm:^5.2.0"
@@ -1781,12 +1781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:^1.26.1":
-  version: 1.31.0
-  resolution: "config@npm:1.31.0"
+"config@npm:^4.0.0":
+  version: 4.4.1
+  resolution: "config@npm:4.4.1"
   dependencies:
-    json5: "npm:^1.0.1"
-  checksum: 10/cb53d3f84e13ad6dc531a6492ead2a86ea063684a1a5ed9cd204018ee8d444751840039d6e69f42263506367f613e5ed010aa276d44f469663ed56331add7b88
+    json5: "npm:^2.2.3"
+  checksum: 10/b237298b107111f88f8b4226c6412298a93052642c8e67a352e36f64be02fb4644351890f57e518338d1491e83064c6fb8fe31f676c7355491ef969e174ec9f1
   languageName: node
   linkType: hard
 
