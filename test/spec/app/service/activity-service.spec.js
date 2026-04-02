@@ -1,21 +1,37 @@
 var redis = require('../../../../app/redis/redis-client');
 var config = require('config');
 var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
-var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
 var moment = require('moment');
 var chai = require("chai");
 var sinon = require("sinon");
 var sinonChai = require("sinon-chai");
+var proxyquire = require('proxyquire');
 chai.should();
 var expect = chai.expect;
 chai.use(sinonChai);
 var sandbox = sinon.createSandbox();
+
+var activityService;
+var fetchStub;
 
 describe("activity service", () => {
 
   afterEach(function () {
     // completely restore all fakes created through the sandbox
     sandbox.restore();
+  });
+
+  beforeEach(function () {
+    fetchStub = sandbox.stub().resolves({
+      json: () => Promise.resolve({
+        metadataFields: [{ id: '[ACCESS_PROCESS]', value: 'NONE' }]
+      })
+    });
+
+    activityService = proxyquire('../../../../app/service/activity-service', {
+      '../util/fetch': fetchStub,
+      '../util/jwt': { addBearer: (jwt) => jwt }
+    })(config, redis, ttlScoreGenerator);
   });
 
   const CASE_ID = 55;
@@ -55,19 +71,23 @@ describe("activity service", () => {
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'redis.userDetailsTtlSec') return USER_DETAILS_TTL;
+      if (key === 'caseData.base_url') return 'http://case-data';
+      return USER_DETAILS_TTL;
+    });
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
         return pipStub;
       } else {
-        pipStub.exec = () => Promise.resolve([[null, "{\"forename\":\"nayab\",\"surname\":\"gul\"}"], [null, "{\"forename\":\"sam\",\"surname\":\"gamgee\"}"]]);
+        pipStub.exec = () => Promise.resolve([[null, '{"forename":"nayab","surname":"gul"}'], [null, '{"forename":"sam","surname":"gamgee"}']]);
         return pipStub;
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { uid: '900' });
+    const result = activityService.getActivities(['767', '888'], { uid: '900' }, 'Bearer token');
 
     result.then((content) => {
       expect(redis.pipeline).to.have.been.calledWith([['zrangebyscore', 'case:767:viewers', TIMESTAMP, '+inf'], ['zrangebyscore', 'case:888:viewers', TIMESTAMP, '+inf']]);
@@ -92,19 +112,23 @@ describe("activity service", () => {
 
   it("getActivities should return unknown users if users detail are missing", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'redis.userDetailsTtlSec') return USER_DETAILS_TTL;
+      if (key === 'caseData.base_url') return 'http://case-data';
+      return USER_DETAILS_TTL;
+    });
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
       } else {
-        pipStub.exec = () => Promise.resolve([[null, null], [null, "{\"forename\":\"sam\",\"surname\":\"gamgee\"}"]]);
+        pipStub.exec = () => Promise.resolve([[null, null], [null, '{"forename":"sam","surname":"gamgee"}']]);
         return pipStub;
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { uid: '111' });
+    const result = activityService.getActivities(['767', '888'], { uid: '111' }, 'Bearer token');
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -126,19 +150,23 @@ describe("activity service", () => {
 
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'redis.userDetailsTtlSec') return USER_DETAILS_TTL;
+      if (key === 'caseData.base_url') return 'http://case-data';
+      return USER_DETAILS_TTL;
+    });
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
         return pipStub;
       } else {
-        pipStub.exec = () => Promise.resolve([[null, "{\"forename\":\"nayab\",\"surname\":\"gul\"}"], [null, "{\"forename\":\"sam\",\"surname\":\"gamgee\"}"]]);
+        pipStub.exec = () => Promise.resolve([[null, '{"forename":"nayab","surname":"gul"}'], [null, '{"forename":"sam","surname":"gamgee"}']]);
         return pipStub;
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { uid: '242' });
+    const result = activityService.getActivities(['767', '888'], { uid: '242' }, 'Bearer token');
 
     result.then((content) => {
       expect(content).deep.equal([{
@@ -160,7 +188,11 @@ describe("activity service", () => {
 
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'redis.userDetailsTtlSec') return USER_DETAILS_TTL;
+      if (key === 'caseData.base_url') return 'http://case-data';
+      return USER_DETAILS_TTL;
+    });
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
@@ -169,12 +201,12 @@ describe("activity service", () => {
         return pipStub;
       } else {
         //return the following user info for users 242 (unkown) and 12 (sam gamgee)
-        pipStub.exec = () => Promise.resolve([[null, null], [null, "{\"forename\":\"sam\",\"surname\":\"gamgee\"}"]]);
+        pipStub.exec = () => Promise.resolve([[null, null], [null, '{"forename":"sam","surname":"gamgee"}']]);
         return pipStub;
       }
     });
 
-    const result = activityService.getActivities(['767', '888'], { uid: '242' });
+    const result = activityService.getActivities(['767', '888'], { uid: '242' }, 'Bearer token');
 
     result.then((content) => {
       // don't expect unknown users since the unknown user is the requester
@@ -194,4 +226,99 @@ describe("activity service", () => {
       done();
     }).catch(err => console.log('error', done(err)));
   })
+
+  it("getActivities should return empty array when caseIds is empty", (done) => {
+    activityService.getActivities([], { uid: '123' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should return empty case status when access is non-standard", (done) => {
+    fetchStub.resolves({
+      json: () => Promise.resolve({
+        metadataFields: [
+          { id: '[ACCESS_PROCESS]', value: 'CHALLENGED' },
+          { id: '[ACCESS_GRANTED]', value: 'BASIC' }
+        ]
+      })
+    });
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+
+    activityService.getActivities(['1', '2'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([{
+          caseId: '1',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }, {
+          caseId: '2',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should return empty case status when access check fails", (done) => {
+    fetchStub.rejects(new Error('boom'));
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+
+    activityService.getActivities(['99'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(content).deep.equal([{
+          caseId: '99',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
+
+  it("getActivities should call case view with bearer token when access allowed", (done) => {
+    fetchStub.resolves({ json: () => Promise.resolve({}) });
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(config, 'get').callsFake((key) => {
+      if (key === 'ccd.url') return 'http://ccd';
+      return USER_DETAILS_TTL;
+    });
+    pipStub = sinon.stub();
+    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+      argStr = JSON.stringify(arguments);
+      if (argStr.includes('zrangebyscore')) {
+        pipStub.exec = () => Promise.resolve([[null, []]]);
+        return pipStub;
+      }
+      pipStub.exec = () => Promise.resolve([]);
+      return pipStub;
+    });
+
+    activityService.getActivities(['123'], { uid: 'user-1' }, 'token')
+      .then((content) => {
+        expect(fetchStub).to.have.been.calledWith('http://ccd/internal/cases/123', {
+          headers: { Authorization: 'token', Accept: 'application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json' }
+        });
+        expect(content).deep.equal([{
+          caseId: '123',
+          viewers: [],
+          unknownViewers: 0,
+          editors: [],
+          unknownEditors: 0
+        }]);
+        done();
+      }).catch(err => console.log('error', done(err)));
+  });
 });
