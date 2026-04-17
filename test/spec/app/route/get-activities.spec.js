@@ -26,7 +26,8 @@ describe("get activities route", () => {
     let req = {
       params: { caseids: '111, 121' },
       authentication: { user: { id: 900 } },
-      timedout: false
+      timedout: false,
+      get: (header) => (header === 'Authorization' ? 'Bearer token' : undefined)
     };
     let next = () => {
     };
@@ -42,7 +43,7 @@ describe("get activities route", () => {
 
     getActivitesRoute(req, res, next)
 
-    expect(activityService.getActivities).to.have.been.calledWith(req.params.caseids.split(','), { id : 900 })
+    expect(activityService.getActivities).to.have.been.calledWith(req.params.caseids.split(','), { id : 900 }, 'Bearer token')
   })
 
   it("should not return a result when request is successful after it has timed out", (done) => {
@@ -52,7 +53,8 @@ describe("get activities route", () => {
         caseids: '111,121'
       },
       authentication: { user: { id: 900 } },
-      timedout: true
+      timedout: true,
+      get: (header) => (header === 'Authorization' ? 'Bearer token' : undefined)
     };
 
     let next = () => {
@@ -79,7 +81,8 @@ describe("get activities route", () => {
         caseids: '111,121'
       },
       authentication: { user: { id: 900 } },
-      timedout: true
+      timedout: true,
+      get: (header) => (header === 'Authorization' ? 'Bearer token' : undefined)
     };
 
     var res = buildResponse()
