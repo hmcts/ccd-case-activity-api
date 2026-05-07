@@ -167,7 +167,7 @@ describe('UserRequestAuthorizer', () => {
           done();
         })
         .catch((error) => {
-          done(new Error('Promise should have been resolved'))
+          done(new Error('Promise should have been resolved'));
         });
     });
   });

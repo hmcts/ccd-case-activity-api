@@ -14,7 +14,7 @@ const createWhitelistValidator = (val) => {
 const corsOptions = {
   allowOrigin: createWhitelistValidator,
   allowCredentials: true,
-  allowMethods: config.get('security.cors_origin_methods'),
+  allowMethods: config.get('security.cors_origin_methods')
 };
 
 const handleCors = (req, res, next) => {

@@ -19,25 +19,26 @@ describe('getCachedUserDetails', () => {
   let userInfoCacheSpy;
   let nodeCacheSpy;
   let sandbox;
-  let clock;
 
   let cachedUserResolver;
   let userInfoCache;
 
-  beforeEach(() => {
-    sandbox = sinon.createSandbox();
-    clock = sandbox.useFakeTimers();
-    nodeCacheSpy = sandbox.spy(NodeCache.prototype, 'set');
-    userInfoCache = new CacheService('UserInfoCache', CACHE_TTL_SECONDS, 120);
+  const setupCachedUserResolver = (ttlSeconds = CACHE_TTL_SECONDS) => {
+    userInfoCache = new CacheService('UserInfoCache', ttlSeconds, 120);
     userInfoCacheSpy = sandbox.spy(userInfoCache, 'getOrElseUpdate');
-    cachedUserResolver = proxyquire('../../../../app/user/cached-user-resolver', { 
+    cachedUserResolver = proxyquire('../../../../app/user/cached-user-resolver', {
       '../cache/cache-config': { userInfoCache }
     });
+  };
+
+  beforeEach(() => {
+    sandbox = sinon.createSandbox();
+    nodeCacheSpy = sandbox.spy(NodeCache.prototype, 'set');
+    setupCachedUserResolver();
   });
 
   afterEach(() => {
     sandbox.restore();
-    clock.restore();
     if (!nock.isDone()) {
       chai.assert.fail('Not all nock interceptors have completed');
     }
@@ -95,9 +96,10 @@ describe('getCachedUserDetails', () => {
   });
 
   it('should get new user details after ttl expiry', async () => {
+    setupCachedUserResolver(1); // 1 second TTL for test
     initNock(TOKEN, USER_DETAILS);
     await cachedUserResolver.getUserDetails(TOKEN);
-    clock.tick(CACHE_TTL_SECONDS * 1000 + 1);
+    await new Promise((resolve) => setTimeout(resolve, 1100)); // wait for TTL to expire
     initNock(TOKEN, USER_DETAILS);
   
     const result = await cachedUserResolver.getUserDetails(TOKEN);

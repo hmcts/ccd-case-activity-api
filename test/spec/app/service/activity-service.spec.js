@@ -1,7 +1,4 @@
-var redis = require('../../../../app/redis/redis-client');
-var config = require('config');
-var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
-var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
+var activityServiceFactory = require('../../../../app/service/activity-service');
 var moment = require('moment');
 var chai = require("chai");
 var sinon = require("sinon");
@@ -23,14 +20,32 @@ describe("activity service", () => {
   const SCORE = 30;
   const USER_DETAILS_TTL = 15;
   const TIMESTAMP = 40;
+  let redis;
+  let config;
+  let ttlScoreGenerator;
+  let activityService;
   let pipStub;
+
+  beforeEach(() => {
+    redis = {
+      pipeline: sandbox.stub(),
+      logPipelineFailures: sandbox.stub(),
+    };
+    config = {
+      get: sandbox.stub(),
+    };
+    ttlScoreGenerator = {
+      getScore: sandbox.stub(),
+    };
+    activityService = activityServiceFactory(config, redis, ttlScoreGenerator);
+  });
 
   it("addActivity should create a redis pipeline with the correct redis commands for edit", () => {
     pipStub = sinon.stub();
     pipStub.exec = () => "result";
-    sandbox.stub(redis, 'pipeline').returns(pipStub);
-    sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    redis.pipeline.returns(pipStub);
+    ttlScoreGenerator.getScore.returns(SCORE);
+    config.get.returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'edit');
 
@@ -42,10 +57,9 @@ describe("activity service", () => {
   it("addActivity should create a redis pipeline with the correct redis commands for view", () => {
     pipStub = sinon.stub();
     pipStub.exec = () => "result";
-    sandbox.stub(redis, 'pipeline').returns(pipStub);
-    sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
-
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    redis.pipeline.returns(pipStub);
+    ttlScoreGenerator.getScore.returns(SCORE);
+    config.get.returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'view')
     expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:viewers`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
@@ -55,8 +69,8 @@ describe("activity service", () => {
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+    config.get.returns(USER_DETAILS_TTL);
+    redis.pipeline.callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, [242]], [null, [12]]]);
@@ -92,8 +106,8 @@ describe("activity service", () => {
 
   it("getActivities should return unknown users if users detail are missing", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+    config.get.returns(USER_DETAILS_TTL);
+    redis.pipeline.callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
@@ -126,8 +140,8 @@ describe("activity service", () => {
 
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+    config.get.returns(USER_DETAILS_TTL);
+    redis.pipeline.callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         pipStub.exec = () => Promise.resolve([[null, ['242']], [null, ['12']]]);
@@ -160,8 +174,8 @@ describe("activity service", () => {
 
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
-    sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
+    config.get.returns(USER_DETAILS_TTL);
+    redis.pipeline.callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
         //the following userIds will be returned for both viewers & editors
