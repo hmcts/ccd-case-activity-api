@@ -4,7 +4,7 @@ steps:
     privileged: true
 
   - id: pull-hmcts-base-amd64
-    cmd: docker image rm -f hmctsprod.azurecr.io/base/node:20-alpine || true && docker pull --platform linux/amd64 hmctsprod.azurecr.io/base/node:20-alpine
+    cmd: docker image rm -f hmctsprod.azurecr.io/base/node:24-alpine || true && docker pull --platform linux/amd64 hmctsprod.azurecr.io/base/node:24-alpine
     when: ["-"]
     retries: 3
     retryDelay: 5
@@ -71,7 +71,7 @@ steps:
     retryDelay: 5
 
   - id: pull-hmcts-base-arm64
-    cmd: docker image rm -f hmctsprod.azurecr.io/base/node:20-alpine || true && docker pull --platform linux/arm64 hmctsprod.azurecr.io/base/node:20-alpine
+    cmd: docker image rm -f hmctsprod.azurecr.io/base/node:24-alpine || true && docker pull --platform linux/arm64 hmctsprod.azurecr.io/base/node:24-alpine
     when:
       - pull-hmcts-base-amd64
     retries: 3
