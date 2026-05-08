@@ -8,7 +8,7 @@
   "scripts": {
     "setup": "cross-env NODE_PATH=. yarn node --version",
     "start": "cross-env NODE_PATH=. yarn node server.js",
-    "test": "NODE_ENV=test mocha --exit --recursive test/spec app/user",
+    "test": "NODE_ENV=test mocha --reporter mochawesome --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=ccd-admin-web-unit --exit --recursive test/spec app/user",
     "test:end2end": "NODE_ENV=test mocha --exit test/e2e --timeout 15000",
     "test:smoke": "echo 'TODO - Ignore SMOKE tests'",
     "test:functional": "./aat/gradlew -p aat functional",
