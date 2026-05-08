@@ -15,13 +15,13 @@ const mapFetchErrors = (error, next) => {
     next({
       error: 'Bad Gateway',
       status: 502,
-      message: error.message,
+      message: error.message
     });
   } else {
     next({
       error: 'Internal Server Error',
       status: 500,
-      message: error.message,
+      message: error.message
     });
   }
 };
@@ -41,7 +41,7 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
         mapFetchErrors(error, next);
       } else {
         logger.warn('Unsuccessful user authentication', error);
-        error.status = error.status || 401; // eslint-disable-line no-param-reassign
+        error.status = error.status || 401;  
         next(error);
       }
     });

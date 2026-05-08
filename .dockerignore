@@ -3,6 +3,7 @@
 infrastructure
 kubernetes
 node_modules
+mochawesome-report
 Jenkinsfile*
 README.md
 !.yarnrc.yml
