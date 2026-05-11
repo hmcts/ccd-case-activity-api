@@ -23,7 +23,7 @@ repositories {
 // tag::dependencies[]
 dependencies {
     testImplementation group: 'com.github.hmcts', name: 'ccd-test-definitions', version: '7.25.4'
-    testImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.6_CCD-7522'
+    testImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.6'
     testImplementation 'com.github.hmcts:fortify-client:1.4.10:all'
 }
 // end::dependencies[]
