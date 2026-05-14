@@ -50,7 +50,7 @@
     "ioredis": "^3.1.4",
     "joi": "^17.2.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.23",
+    "lodash": "4.18.1",
     "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "nocache": "^2.1.0",
@@ -61,10 +61,10 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^6.0.0",
     "chai-arrays": "^2.0.0",
-    "chai-http": "^4.0.0",
-    "eslint": "9.39.3",
+    "chai-http": "^5.0.0",
+    "eslint": "9.39.4",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.14.0",
     "jasmine-node": "3",
@@ -81,32 +81,32 @@
     "supertest": "^3.0.0"
   },
   "overrides": {
-    "qs": "6.15.0"
+    "qs": "6.15.1"
   },
   "resolutions": {
     "async": "^2.6.4",
-    "lodash": "^4.17.21",
+    "lodash": "4.18.1",
     "lodash.pick": "3.1.0",
     "yargs-parser": "^18.1.2",
     "minimist": "^1.2.6",
     "y18n": "^4.0.1",
     "hosted-git-info": "^3.0.8",
     "underscore": "^1.13.1",
-    "ansi-regex": "^5.0.1",
+    "ansi-regex": "^6.0.0",
     "path-parse": "^1.0.7",
     "glob-parent": "^5.1.2",
     "moment": "^2.29.4",
-    "ajv": "6.14.0",
+    "ajv": "6.15.0",
     "json5": "^2.2.2",
     "js-yaml": "^4.1.1",
     "minimatch": "^3.0.5",
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
-    "qs": "6.15.0",
-    "semver": "7.7.4",
+    "qs": "6.15.1",
+    "semver": "7.8.0",
     "@grpc/grpc-js": "1.14.3",
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.14.1"
 }
