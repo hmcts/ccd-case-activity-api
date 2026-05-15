@@ -64,7 +64,7 @@
     "chai": "^6.0.0",
     "chai-arrays": "^2.0.0",
     "chai-http": "^5.0.0",
-    "eslint": "10.0.0",
+    "eslint": "9.39.4",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.14.0",
     "jasmine-node": "3",
