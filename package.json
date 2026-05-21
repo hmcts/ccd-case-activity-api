@@ -110,5 +110,5 @@
     "protobufjs": "7.6.0",
     "@protobufjs/utf8": "1.1.1"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.15.0"
 }
