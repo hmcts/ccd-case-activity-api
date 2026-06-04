@@ -103,12 +103,12 @@
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
     "qs": "6.15.2",
-    "semver": "7.8.0",
-    "@grpc/grpc-js": "1.14.3",
+    "semver": "7.8.1",
+    "@grpc/grpc-js": "1.14.4",
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1",
-    "protobufjs": "7.6.0",
+    "protobufjs": "7.6.2",
     "@protobufjs/utf8": "1.1.1"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.16.0"
 }
