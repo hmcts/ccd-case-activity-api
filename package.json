@@ -38,13 +38,13 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^1.0.0",
-    "applicationinsights": "2.9.8",
+    "applicationinsights": "3.15.0",
     "body-parser": "^2.2.1",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
     "cookie": "^0.7.0",
-    "cross-env": "^5.2.0",
-    "debug": "~2.6.3",
+    "cross-env": "^10.0.0",
+    "debug": "~4.4.0",
     "express": "^5.0.1",
     "formidable": "^3.5.4",
     "ioredis": "^3.1.4",
@@ -61,9 +61,9 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^6.0.0",
     "chai-arrays": "^2.0.0",
-    "chai-http": "^4.0.0",
+    "chai-http": "^5.0.0",
     "eslint": "9.39.4",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.14.0",
@@ -81,7 +81,7 @@
     "supertest": "^3.0.0"
   },
   "overrides": {
-    "qs": "6.15.1"
+    "qs": "6.15.2"
   },
   "resolutions": {
     "async": "^3.0.0",
@@ -92,21 +92,23 @@
     "y18n": "^4.0.1",
     "hosted-git-info": "^3.0.8",
     "underscore": "^1.13.1",
-    "ansi-regex": "^5.0.1",
+    "ansi-regex": "^6.0.0",
     "path-parse": "^1.0.7",
     "glob-parent": "^5.1.2",
     "moment": "^2.29.4",
-    "ajv": "6.14.0",
+    "ajv": "6.15.0",
     "json5": "^2.2.2",
     "js-yaml": "^4.1.1",
     "minimatch": "^3.0.5",
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
-    "qs": "6.15.1",
-    "semver": "7.7.4",
-    "@grpc/grpc-js": "1.14.3",
+    "qs": "6.15.2",
+    "semver": "7.8.1",
+    "@grpc/grpc-js": "1.14.4",
     "cross-spawn": "^7.0.6",
-    "body-parser": "^2.2.1"
+    "body-parser": "^2.2.1",
+    "protobufjs": "7.6.2",
+    "@protobufjs/utf8": "1.1.1"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.16.0"
 }
