@@ -519,12 +519,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/config-helpers@npm:^0.5.5":
-  version: 0.5.5
-  resolution: "@eslint/config-helpers@npm:0.5.5"
+"@eslint/config-helpers@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@eslint/config-helpers@npm:0.6.0"
   dependencies:
     "@eslint/core": "npm:^1.2.1"
-  checksum: 10/19072449502b928a716df87b2d9b13c7befb21974b0f93fdbea705ddba098792142808105170ef2183c28ce13ac9fa1713ef0599749f8469434ac2b914fc8f4d
+  checksum: 10/2daa66b0c3821313a6239beed2236ad7f3a45540050b5ce69527206ba7e58e9c17aff2f68be6d3f0f95d6294a911da86aa50863a1aeadd607faa943c11677a46
   languageName: node
   linkType: hard
 
@@ -573,7 +573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/plugin-kit@npm:^0.7.1":
+"@eslint/plugin-kit@npm:^0.7.2":
   version: 0.7.2
   resolution: "@eslint/plugin-kit@npm:0.7.2"
   dependencies:
@@ -2223,23 +2223,23 @@ __metadata:
     cookie: "npm:^1.1.1"
     cross-env: "npm:^10.1.0"
     debug: "npm:~4.4.3"
-    eslint: "npm:10.3.0"
-    eslint-plugin-mocha: "npm:^11.2.0"
+    eslint: "npm:10.4.1"
+    eslint-plugin-mocha: "npm:^11.3.0"
     express: "npm:^5.2.1"
     formidable: "npm:^3.5.4"
     globals: "npm:^17.6.0"
-    ioredis: "npm:^5.10.1"
+    ioredis: "npm:^5.11.1"
     jasmine-node: "npm:3.0.0"
     joi: "npm:^18.2.1"
     jwt-decode: "npm:^4.0.0"
     lodash: "npm:4.18.1"
-    mocha: "npm:11.7.5"
+    mocha: "npm:11.7.6"
     mochawesome: "npm:^7.1.4"
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.30.1"
-    morgan: "npm:^1.10.1"
+    morgan: "npm:^1.11.0"
     nocache: "npm:^4.0.0"
-    nock: "npm:^14.0.14"
+    nock: "npm:^14.0.15"
     node-cache: "npm:^5.1.2"
     node-cron: "npm:^4.2.1"
     node-fetch: "npm:^3.3.2"
@@ -2855,7 +2855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-mocha@npm:^11.2.0":
+"eslint-plugin-mocha@npm:^11.3.0":
   version: 11.3.0
   resolution: "eslint-plugin-mocha@npm:11.3.0"
   dependencies:
@@ -2900,16 +2900,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.3.0":
-  version: 10.3.0
-  resolution: "eslint@npm:10.3.0"
+"eslint@npm:10.4.1":
+  version: 10.4.1
+  resolution: "eslint@npm:10.4.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
     "@eslint/config-array": "npm:^0.23.5"
-    "@eslint/config-helpers": "npm:^0.5.5"
+    "@eslint/config-helpers": "npm:^0.6.0"
     "@eslint/core": "npm:^1.2.1"
-    "@eslint/plugin-kit": "npm:^0.7.1"
+    "@eslint/plugin-kit": "npm:^0.7.2"
     "@humanfs/node": "npm:^0.16.6"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@humanwhocodes/retry": "npm:^0.4.2"
@@ -2941,7 +2941,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/7d8131e5ef65754f61afd807d875377403f1c89b5f5529f23506776c2df504ba0d53d378b8aeec1996c66c6d428ea3e2ea5c04b226474ce89b6e28443fd3b7b6
+  checksum: 10/5722bd0ec1a87f49ee4511c7549dcfa69df0076927b0290b0a3b145425fd357906ffe6dc1307214a0bd344131bf53795fa2cdebfd36ee9146c01d98147044679
   languageName: node
   linkType: hard
 
@@ -3699,7 +3699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.10.1":
+"ioredis@npm:^5.11.1":
   version: 5.11.1
   resolution: "ioredis@npm:5.11.1"
   dependencies:
@@ -4516,9 +4516,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:11.7.5":
-  version: 11.7.5
-  resolution: "mocha@npm:11.7.5"
+"mocha@npm:11.7.6":
+  version: 11.7.6
+  resolution: "mocha@npm:11.7.6"
   dependencies:
     browser-stdout: "npm:^1.3.1"
     chokidar: "npm:^4.0.1"
@@ -4544,7 +4544,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 10/878fcec45d79dad3ec01b896ae75eabd0075b8f91866b338b81b2ef8a2279f1e70fb07fc89054108a46864fbc1e6f6898dc31e64c033ded585748c5fcbf7e704
+  checksum: 10/a083a65d4a2e74129ef06a77246088159e6dda09f3098e53b93edfd3df32a16d4c32a8ad37845da896365c29da44d1c0d5e6daa8062ad21dec2ebff71ce785c6
   languageName: node
   linkType: hard
 
@@ -4620,7 +4620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"morgan@npm:^1.10.1":
+"morgan@npm:^1.11.0":
   version: 1.11.0
   resolution: "morgan@npm:1.11.0"
   dependencies:
@@ -4675,7 +4675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:^14.0.14":
+"nock@npm:^14.0.15":
   version: 14.0.15
   resolution: "nock@npm:14.0.15"
   dependencies:
