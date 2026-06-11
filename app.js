@@ -25,7 +25,7 @@ app.disable(poweredByHeader);
 appHealth.disable(poweredByHeader);
 
 const healthConfig = {
-  checks: {},
+  checks: {}
 };
 healthcheck.addTo(appHealth, healthConfig);
 app.use(appHealth);
@@ -69,7 +69,7 @@ app.use((err, req, res, next) => {
 
   res.status(err.status || 500);
   res.json({
-    message: err.message,
+    message: err.message
   });
 });
 
