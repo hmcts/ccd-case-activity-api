@@ -1,6 +1,43 @@
+import java.nio.file.Files
+import java.nio.file.LinkOption
+import java.nio.file.StandardCopyOption
+
 plugins {
     id 'application'
     id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.25'
+}
+
+def projectRootPath = rootProject.projectDir.toPath().toRealPath()
+
+def projectPath = { String relativePath ->
+    def resolvedPath = projectRootPath.resolve(relativePath).normalize()
+    if (!resolvedPath.startsWith(projectRootPath)) {
+        throw new GradleException("Report path must stay inside the project directory: ${relativePath}")
+    }
+    resolvedPath
+}
+
+def failIfSymbolicLink = { path ->
+    if (Files.exists(path, LinkOption.NOFOLLOW_LINKS) && Files.isSymbolicLink(path)) {
+        throw new GradleException("Refusing to write report through symbolic link: ${path}")
+    }
+}
+
+def cucumberJsonReport = projectPath('target/cucumber.json').toFile()
+def cucumberHtmlReport = projectPath('target/cucumber/cucumber-html-reports')
+
+def replaceCucumberReportDirectory = { String reportDirectory ->
+    def destination = projectPath(reportDirectory)
+    if (!Files.exists(cucumberHtmlReport, LinkOption.NOFOLLOW_LINKS)) {
+        return
+    }
+
+    failIfSymbolicLink(cucumberHtmlReport)
+    failIfSymbolicLink(destination)
+
+    delete(destination.toFile())
+    Files.createDirectories(destination.parent)
+    Files.move(cucumberHtmlReport, destination, StandardCopyOption.REPLACE_EXISTING)
 }
 
 java {
@@ -72,7 +109,7 @@ tasks.register('smoke', Test) {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
       jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
-      args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', '@Smoke', '--glue',
+      args = ['--plugin', "json:${cucumberJsonReport}", '--tags', '@Smoke', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
   }
@@ -80,8 +117,7 @@ tasks.register('smoke', Test) {
   finalizedBy {
     generateCucumberReports {
       doLast{
-            new File("${rootDir}/BEFTA Report for Smoke Tests").mkdirs()
-            file("${rootDir}/target/cucumber/cucumber-html-reports").renameTo(file("${rootDir}/BEFTA Report for Smoke Tests"))
+            replaceCucumberReportDirectory('BEFTA Report for Smoke Tests')
       }
     }
   }
@@ -99,7 +135,7 @@ tasks.register('functional', Test) {
       main = "uk.gov.hmcts.ccd.caseactivity.befta.CaseActivityBeftaMain"
       classpath += configurations.cucumberRuntime + sourceSets.aat.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
       jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
-      args = ['--plugin', "json:${rootDir}/target/cucumber.json", '--tags', 'not @Ignore', '--glue',
+      args = ['--plugin', "json:${cucumberJsonReport}", '--tags', 'not @Ignore', '--glue',
               'uk.gov.hmcts.befta.player', 'src/resources/features']
     }
   }
@@ -107,8 +143,7 @@ tasks.register('functional', Test) {
   finalizedBy {
     generateCucumberReports {
       doLast{
-        new File("${rootDir}/BEFTA Report for Functional Tests").mkdirs()
-        file("${rootDir}/target/cucumber/cucumber-html-reports").renameTo(file("${rootDir}/BEFTA Report for Functional Tests"))
+        replaceCucumberReportDirectory('BEFTA Report for Functional Tests')
       }
     }
   }
@@ -117,6 +152,6 @@ tasks.register('functional', Test) {
 }
 
 cucumberReports {
-    outputDir = file("${rootDir}/target/cucumber")
-    reports = files("${rootDir}/target/cucumber.json")
+    outputDir = projectPath('target/cucumber').toFile()
+    reports = files(cucumberJsonReport)
 }
