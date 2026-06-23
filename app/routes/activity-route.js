@@ -15,15 +15,21 @@ module.exports = (activityService, config) => {
 
   router.use(timeout(toMillis(config.get('app.requestTimeoutSec'))));
 
-  router.post('/cases/:caseid/activity', (req, res, next) => {
-    validateRequest(caseIdSchema, req.params.caseid)(req, res, next);
-  },
-  addActivity);
+  router.post(
+    '/cases/:caseid/activity',
+    (req, res, next) => {
+      validateRequest(caseIdSchema, req.params.caseid)(req, res, next);
+    },
+    addActivity,
+  );
 
-  router.get('/cases/:caseids/activity', (req, res, next) => {
-    validateRequest(Joi.array().items(caseIdSchema), req.params.caseids.split(','))(req, res, next);
-  },
-  getActivities);
+  router.get(
+    '/cases/:caseids/activity',
+    (req, res, next) => {
+      validateRequest(Joi.array().items(caseIdSchema), req.params.caseids.split(','))(req, res, next);
+    },
+    getActivities,
+  );
 
   return router;
 };
