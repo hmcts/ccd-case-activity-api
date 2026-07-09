@@ -2162,7 +2162,6 @@ __metadata:
     or: "npm:^0.2.0"
     proxyquire: "npm:^2.1.3"
     sinon: "npm:^18.0.1"
-    sinon-chai: "npm:^4.0.0"
     sinon-express-mock: "npm:^2.2.1"
     sonar-scanner: "npm:^3.1.0"
     supertest: "npm:^3.0.0"
@@ -6273,16 +6272,6 @@ __metadata:
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: 10/a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
-  languageName: node
-  linkType: hard
-
-"sinon-chai@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "sinon-chai@npm:4.0.1"
-  peerDependencies:
-    chai: ^5.0.0 || ^6.0.0
-    sinon: ">=4.0.0"
-  checksum: 10/cc417d196133353cfd08775a6b259264d06bf8b4dea135de1f601d295726010660f20cbeb601c281504935810fcb7781aef1c56596edc0eaaff57be52717bbc8
   languageName: node
   linkType: hard
 
