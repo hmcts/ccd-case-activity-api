@@ -38,7 +38,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^1.0.0",
-    "applicationinsights": "3.15.0",
+    "applicationinsights": "3.15.1",
     "body-parser": "^2.2.1",
     "config": "^1.26.1",
     "connect-timeout": "^1.9.0",
@@ -106,8 +106,8 @@
     "@grpc/grpc-js": "1.14.4",
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1",
-    "protobufjs": "7.6.4",
-    "@protobufjs/utf8": "1.1.1"
+    "protobufjs": "7.6.5",
+    "@protobufjs/utf8": "1.1.2"
   },
-  "packageManager": "yarn@4.17.0"
+  "packageManager": "yarn@4.17.1"
 }
