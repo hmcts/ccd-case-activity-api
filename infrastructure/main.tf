@@ -20,7 +20,7 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
 }
 
 module "redis-activity-service" {
-  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=4.x"
   product                       = "${var.product}-activity-service"
   location                      = var.location
   env                           = var.env
