@@ -5,7 +5,7 @@ properties(
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
-@Library("Infrastructure@cve-dashboard-v2")
+@Library("Infrastructure@2.4.4")
 
 def type = "nodejs"
 def product = "ccd"
@@ -73,7 +73,7 @@ env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN" // Temporary workaround for
 env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 withPipeline(type, product, component) {
-    enableCveDashboardIngestion()
+    //enableCveDashboardIngestion()
     onMaster {
         enableSlackNotifications('#ccd-master-builds')
     }
