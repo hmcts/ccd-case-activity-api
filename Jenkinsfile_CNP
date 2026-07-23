@@ -73,7 +73,6 @@ env.BEFTA_RESPONSE_HEADER_CHECK_POLICY = "JUST_WARN" // Temporary workaround for
 env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 withPipeline(type, product, component) {
-    enableCveDashboardIngestion()
     onMaster {
         enableSlackNotifications('#ccd-master-builds')
     }
