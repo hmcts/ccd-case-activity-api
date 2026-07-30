@@ -13,7 +13,7 @@ const scanExistingCasesKeys = (f) => {
     // only returns keys following the pattern
     match: `${REDIS_ACTIVITY_KEY_PREFIX}case:*`,
     // returns approximately 100 elements per call
-    count: 100,
+    count: 100
   });
   const keys = [];
   stream.on('data', (resultKeys) => {
