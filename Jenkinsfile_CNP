@@ -5,7 +5,7 @@ properties(
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
-@Library("Infrastructure@2.4.4")
+@Library("Infrastructure@2.4.9")
 
 def type = "nodejs"
 def product = "ccd"
@@ -74,6 +74,7 @@ env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 withPipeline(type, product, component) {
     //enableHighLevelDataSetup()
+    //enableCveDashboardIngestion()
     onMaster {
         enableSlackNotifications('#ccd-master-builds')
     }
