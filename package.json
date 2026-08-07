@@ -107,7 +107,8 @@
     "cross-spawn": "^7.0.6",
     "body-parser": "^2.2.1",
     "protobufjs": "7.6.5",
-    "@protobufjs/utf8": "1.1.2"
+    "@protobufjs/utf8": "1.1.2",
+    "@opentelemetry/propagator-jaeger": "2.9.0"
   },
   "packageManager": "yarn@4.18.0"
 }
