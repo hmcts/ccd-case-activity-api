@@ -105,30 +105,30 @@ withPipeline(type, product, component) {
 
     overrideVaultEnvironments(vaultOverrides)
     loadVaultSecrets(secrets)
-    sh '''
-        test -n "$REDIS_PASSWORD" || {
-            echo "REDIS_PASSWORD is not set"
-            exit 1
-        }
-
-        rendered_preview_values=$(mktemp)
-        trap 'rm -f "$rendered_preview_values"' EXIT
-        envsubst '$REDIS_PASSWORD' \
-            < charts/ccd-case-activity-api/values.preview.template.yaml \
-            > "$rendered_preview_values"
-
-        if grep -Fq '${REDIS_PASSWORD}' "$rendered_preview_values" || \
-           grep -Fq 'fake-password' "$rendered_preview_values"; then
-            echo "Preview Redis password was not rendered correctly"
-            exit 1
-        fi
-    '''
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
     enableHighLevelDataSetup()
 
     afterAlways('checkOut')  {
+        sh '''
+            test -n "$REDIS_PASSWORD" || {
+                echo "REDIS_PASSWORD is not set"
+                exit 1
+            }
+
+            rendered_preview_values=$(mktemp)
+            trap 'rm -f "$rendered_preview_values"' EXIT
+            envsubst '$REDIS_PASSWORD' \
+                < charts/ccd-case-activity-api/values.preview.template.yaml \
+                > "$rendered_preview_values"
+
+            if grep -Fq '${REDIS_PASSWORD}' "$rendered_preview_values" || \
+               grep -Fq 'fake-password' "$rendered_preview_values"; then
+                echo "Preview Redis password was not rendered correctly"
+                exit 1
+            fi
+        '''
         sh "yarn cache clean"
     }
 
