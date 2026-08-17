@@ -117,7 +117,8 @@ withPipeline(type, product, component) {
             < charts/ccd-case-activity-api/values.preview.template.yaml \
             > "$rendered_preview_values"
 
-        if grep -Eq '\$\{REDIS_PASSWORD\}|fake-password' "$rendered_preview_values"; then
+        if grep -Fq '${REDIS_PASSWORD}' "$rendered_preview_values" || \
+           grep -Fq 'fake-password' "$rendered_preview_values"; then
             echo "Preview Redis password was not rendered correctly"
             exit 1
         fi
