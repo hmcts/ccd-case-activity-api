@@ -20,6 +20,7 @@ def prsToUseAat              = "PR-288"  // Set this value to a PR number, or ad
 
 def secrets = [
     'ccd-${env}': [
+        secret('activity-redis-password', 'REDIS_PASSWORD'),
         secret('ccd-caseworker-autotest-email', 'CCD_CASEWORKER_AUTOTEST_EMAIL'),
         secret('ccd-caseworker-autotest-password', 'CCD_CASEWORKER_AUTOTEST_PASSWORD'),
         secret('ccd-api-gateway-oauth2-client-secret', 'OAUTH2_CLIENT_SECRET'),
@@ -105,6 +106,23 @@ withPipeline(type, product, component) {
 
     overrideVaultEnvironments(vaultOverrides)
     loadVaultSecrets(secrets)
+    sh '''
+        test -n "$REDIS_PASSWORD" || {
+            echo "REDIS_PASSWORD is not set"
+            exit 1
+        }
+
+        rendered_preview_values=$(mktemp)
+        trap 'rm -f "$rendered_preview_values"' EXIT
+        envsubst '$REDIS_PASSWORD' \
+            < charts/ccd-case-activity-api/values.preview.template.yaml \
+            > "$rendered_preview_values"
+
+        if grep -Eq '\$\{REDIS_PASSWORD\}|fake-password' "$rendered_preview_values"; then
+            echo "Preview Redis password was not rendered correctly"
+            exit 1
+        fi
+    '''
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
