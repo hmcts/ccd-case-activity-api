@@ -3,26 +3,26 @@ var config = redis = ttlScoreGenerator = {};
 var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
 var getActivitesRoute = require('../../../../app/routes/get-activities')(activityService, config);
 var httpMocks = require('node-mocks-http');
-var chai = require("chai");
-var sinon = require("sinon");
-var sinonChai = require("sinon-chai");
+var chai = require('chai');
+var sinon = require('sinon');
+var sinonChai = require('sinon-chai').default;
 chai.should();
 var expect = chai.expect;
 chai.use(sinonChai);
 var sandbox = sinon.createSandbox();
 
 function buildResponse() {
-  return httpMocks.createResponse({ eventEmitter: require('events').EventEmitter })
+  return httpMocks.createResponse({ eventEmitter: require('events').EventEmitter });
 }
 
-describe("get activities route", () => {
+describe('get activities route', () => {
 
   afterEach(function () {
     // completely restore all fakes created through the sandbox
     sandbox.restore();
   });
 
-  it("should invoke activity service and return response on successful requests", (done) => {
+  it('should invoke activity service and return response on successful requests', (done) => {
     let req = {
       params: { caseids: '111, 121' },
       authentication: { user: { id: 900 } },
@@ -31,21 +31,21 @@ describe("get activities route", () => {
     let next = () => {
     };
 
-    var res = buildResponse()
+    var res = buildResponse();
     res.on('end', function () {
-      expect(res.statusCode).to.equal(200)
-      expect(res._getData()).to.equal('"a result"')
-      done()
-    })
+      expect(res.statusCode).to.equal(200);
+      expect(res._getData()).to.equal('"a result"');
+      done();
+    });
 
     sandbox.stub(activityService, 'getActivities').returns(Promise.resolve('a result'));
 
-    getActivitesRoute(req, res, next)
+    getActivitesRoute(req, res, next);
 
-    expect(activityService.getActivities).to.have.been.calledWith(req.params.caseids.split(','), { id : 900 })
-  })
+    expect(activityService.getActivities).to.have.been.calledWith(req.params.caseids.split(','), { id : 900 });
+  });
 
-  it("should not return a result when request is successful after it has timed out", (done) => {
+  it('should not return a result when request is successful after it has timed out', (done) => {
 
     let req = {
       params: {
@@ -58,9 +58,9 @@ describe("get activities route", () => {
     let next = () => {
     };
 
-    var res = buildResponse()
+    var res = buildResponse();
     res.on('end', function () {
-      done(new Error("Received unexpected response"))
+      done(new Error('Received unexpected response'));
     });
     sandbox.stub(activityService, 'getActivities').returns(Promise.resolve('unused result'));
 
@@ -69,10 +69,10 @@ describe("get activities route", () => {
     expect(activityService.getActivities).to.have.been.called;
 
     //required to avoid false positives
-    setTimeout(done)
+    setTimeout(done);
   });
 
-  it("should not return a result when request fails after it has timed out", (done) => {
+  it('should not return a result when request fails after it has timed out', (done) => {
 
     let req = {
       params: {
@@ -82,20 +82,20 @@ describe("get activities route", () => {
       timedout: true
     };
 
-    var res = buildResponse()
+    var res = buildResponse();
 
     sandbox.stub(activityService, 'getActivities').returns(Promise.reject('error'));
     res.on('end', function () {
-      done(new Error("Received unexpected response"))
+      done(new Error('Received unexpected response'));
     });
 
     getActivitesRoute(req, res, function (error) {
-      done(new Error("Received unexpected response"))
+      done(new Error('Received unexpected response'));
     });
 
     expect(activityService.getActivities).to.have.been.called;
 
     //required to avoid false positives
-    setTimeout(done)
-  })
+    setTimeout(done);
+  });
 });

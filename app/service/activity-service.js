@@ -4,7 +4,7 @@ const debug = require('debug')('ccd-case-activity-api:activity-service');
 module.exports = (config, redis, ttlScoreGenerator) => {
   const redisActivityKeys = {
     view: (caseId) => `case:${caseId}:viewers`,
-    edit: (caseId) => `case:${caseId}:editors`,
+    edit: (caseId) => `case:${caseId}:editors`
   };
 
   const addActivity = (caseId, user, activity) => {
@@ -23,7 +23,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
 
     return redis.pipeline([
       storeUserActivity(),
-      storeUserDetails(),
+      storeUserDetails()
     ]).exec();
   };
 

@@ -8,11 +8,11 @@ const activityHealth = healthcheck.configure({
       redis.ping(),
       new Promise((_, reject) => {
         setTimeout(reject, config.get('app.requestTimeoutSec') * 1000);
-      }),
+      })
     ])
       .then(() => healthcheck.up())
-      .catch(() => healthcheck.down())),
-  },
+      .catch(() => healthcheck.down()))
+  }
 });
 
 module.exports = activityHealth;
