@@ -512,6 +512,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@epic-web/invariant@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@epic-web/invariant@npm:1.0.0"
+  checksum: 10/28b36a7447f60b84f9d6a23571480042170ef4239a577577ad8447f64a2e4f1a4e57e6fe1b592e61534c5ab53ff67776130e6c88a68cbd997eb6e9c9759a5934
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.8.0":
   version: 4.9.1
   resolution: "@eslint-community/eslint-utils@npm:4.9.1"
@@ -2361,7 +2368,7 @@ __metadata:
     config: "npm:^1.26.1"
     connect-timeout: "npm:^1.9.0"
     cookie: "npm:^2.0.0"
-    cross-env: "npm:^5.2.0"
+    cross-env: "npm:^10.0.0"
     debug: "npm:~4.4.0"
     eslint: "npm:9.39.5"
     eslint-config-airbnb-base: "npm:^14.0.0"
@@ -2741,15 +2748,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-env@npm:^5.2.0":
-  version: 5.2.1
-  resolution: "cross-env@npm:5.2.1"
+"cross-env@npm:^10.0.0":
+  version: 10.1.0
+  resolution: "cross-env@npm:10.1.0"
   dependencies:
-    cross-spawn: "npm:^6.0.5"
+    "@epic-web/invariant": "npm:^1.0.0"
+    cross-spawn: "npm:^7.0.6"
   bin:
     cross-env: dist/bin/cross-env.js
     cross-env-shell: dist/bin/cross-env-shell.js
-  checksum: 10/5a81dc207e61b90f3ec9053e7651e07ed6dc880df6098bbf739c7fdcd00f09dce057416bca36fccef6c9491fdad35f740fec9f7a401180d15648f3952998cc7e
+  checksum: 10/0e5d8bdefbbcd000460b69755e0eeb22953510abac8375e4f8b638ff7c45406141acfd57b8a4c1d1cf0b5ea42f33451b302062fb9b34408753b4d465e901b845
   languageName: node
   linkType: hard
 
@@ -4696,8 +4704,8 @@ __metadata:
   linkType: hard
 
 "joi@npm:^18.0.0":
-  version: 18.2.5
-  resolution: "joi@npm:18.2.5"
+  version: 18.2.7
+  resolution: "joi@npm:18.2.7"
   dependencies:
     "@hapi/address": "npm:^5.1.1"
     "@hapi/formula": "npm:^3.0.2"
@@ -4706,7 +4714,7 @@ __metadata:
     "@hapi/tlds": "npm:^1.1.1"
     "@hapi/topo": "npm:^6.0.2"
     "@standard-schema/spec": "npm:^1.1.0"
-  checksum: 10/f12ed810c5ab3b03a05ca153a24da8dd6cddf2d54b454e8e8b2686e64d03939080eed2a142536ea5505ca551ba6ebb438f2e99bbd9d71e5825c992f8b540a3e1
+  checksum: 10/b113654858e6642cacc42455b6da826a057a7b51a1386c775dee03c2fa92610f6dbfc6e9a171f524e0e7887423bf016cb004d0550558d6bfa5ea62039049b58b
   languageName: node
   linkType: hard
 
@@ -5921,9 +5929,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:7.6.5":
-  version: 7.6.5
-  resolution: "protobufjs@npm:7.6.5"
+"protobufjs@npm:7.6.6":
+  version: 7.6.6
+  resolution: "protobufjs@npm:7.6.6"
   dependencies:
     "@protobufjs/aspromise": "npm:^1.1.2"
     "@protobufjs/base64": "npm:^1.1.2"
@@ -5936,7 +5944,7 @@ __metadata:
     "@protobufjs/utf8": "npm:^1.1.1"
     "@types/node": "npm:>=13.7.0"
     long: "npm:^5.3.2"
-  checksum: 10/58a5a635fbe0632a5c48a1ab659fabfc26d5b994915a20ad623a2cfb59a2ca7411d9f4f690ca79074967b632e2db58ecc184ab507927f5b7d0852fc16568d3da
+  checksum: 10/a894f38c793a0d741f77a7fbf8595141618e8c1cb3433637d2d0309ea9baca59bd9c44ec95f46ee839d063de5d5ae1bc78ef8d474359866af52ee4ceef7fec4f
   languageName: node
   linkType: hard
 
