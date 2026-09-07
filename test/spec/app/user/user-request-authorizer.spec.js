@@ -2,7 +2,7 @@ const proxyquire = require('proxyquire');
 const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
-const sinonChai = require('sinon-chai');
+const sinonChai = require('sinon-chai').default;
 chai.use(sinonChai);
 
 
@@ -167,7 +167,7 @@ describe('UserRequestAuthorizer', () => {
           done();
         })
         .catch((error) => {
-          done(new Error('Promise should have been resolved'))
+          done(new Error('Promise should have been resolved'));
         });
     });
   });

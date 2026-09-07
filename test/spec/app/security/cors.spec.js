@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
-const sinonChai = require('sinon-chai');
+const sinonChai = require('sinon-chai').default;
 const sinonExpressMock = require('sinon-express-mock');
 chai.use(sinonChai);
 
