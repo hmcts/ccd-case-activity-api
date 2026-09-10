@@ -93,7 +93,7 @@
     "underscore": "^1.13.1",
     "ansi-regex": "^6.0.0",
     "path-parse": "^1.0.7",
-    "glob-parent": "^5.1.2",
+    "glob-parent": "^6.0.0",
     "moment": "^2.29.4",
     "ajv": "6.15.0",
     "json5": "^2.2.2",
