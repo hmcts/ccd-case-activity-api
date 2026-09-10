@@ -55,7 +55,7 @@
     "morgan": "^1.9.1",
     "nocache": "^4.0.0",
     "node-cache": "^5.1.0",
-    "node-cron": "^1.2.1",
+    "node-cron": "^4.0.0",
     "node-fetch": "^2.6.7",
     "or": "^0.2.0",
     "yarn": "^1.22.22"

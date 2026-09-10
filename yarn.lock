@@ -2387,7 +2387,7 @@ __metadata:
     nocache: "npm:^4.0.0"
     nock: "npm:^12.0.3"
     node-cache: "npm:^5.1.0"
-    node-cron: "npm:^1.2.1"
+    node-cron: "npm:^4.0.0"
     node-fetch: "npm:^2.6.7"
     node-mocks-http: "npm:^1.7.0"
     nyc: "npm:^15.0.0"
@@ -5319,10 +5319,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-cron@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "node-cron@npm:1.2.1"
-  checksum: 10/f02af9df5aca65d646e9fdedc406bd072e9d6c0d842030b42639fb1375d4db2e62a01d56edb48eb98abd77352f818243be723b09962f1ad3a23854c3f93b9300
+"node-cron@npm:^4.0.0":
+  version: 4.6.0
+  resolution: "node-cron@npm:4.6.0"
+  checksum: 10/87a996b7aa69886bc2e5e9b922ab5edb195b7e21808a22b65cf8c268c90f9002038b74ffef9372ac4f0d499991e0180a887a92444310c3e9d0498c277daa5b89
   languageName: node
   linkType: hard
 
