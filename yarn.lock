@@ -2384,7 +2384,7 @@ __metadata:
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.29.4"
     morgan: "npm:^1.9.1"
-    nocache: "npm:^2.1.0"
+    nocache: "npm:^4.0.0"
     nock: "npm:^12.0.3"
     node-cache: "npm:^5.1.0"
     node-cron: "npm:^1.2.1"
@@ -5225,15 +5225,15 @@ __metadata:
   linkType: hard
 
 "morgan@npm:^1.9.1":
-  version: 1.11.0
-  resolution: "morgan@npm:1.11.0"
+  version: 1.12.0
+  resolution: "morgan@npm:1.12.0"
   dependencies:
     basic-auth: "npm:~2.0.1"
     debug: "npm:2.6.9"
     depd: "npm:~2.0.0"
     on-finished: "npm:~2.4.1"
     on-headers: "npm:~1.1.0"
-  checksum: 10/d6e72d98ccaab1eb191f9455b224711b626e235e7ace217060b3d44e23a3cdc4ba6d9097b30e9195728ef86ecd53589685f211b8acb4c16dbf958fa787bc5ec0
+  checksum: 10/0dc0a228b97451961b5cdf74831d73444a8d0823a57613d345ad82556f56ac6ff8b5240fcd054ff0bc651148f3731b6c31ae70afa9baa5b3fc2c66891e40be86
   languageName: node
   linkType: hard
 
@@ -5291,10 +5291,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nocache@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "nocache@npm:2.1.0"
-  checksum: 10/cea7277b22a8113243991b2bd4516db2b7de8013750b7634eb34c3debb04575021aa6c20eb9f8cdea7b7060036b969463eeab6c507a3c1961c6e12f85b2b644b
+"nocache@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nocache@npm:4.0.0"
+  checksum: 10/5b018b7900fbc580c327b1a87decb20e8d9d233face8b8dfa286a54304f2cc11bfaea9828d0d4b635ca55a73539269a6b64a85185c4a363cc288fd706f6e3825
   languageName: node
   linkType: hard
 
@@ -5976,13 +5976,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.15.3":
-  version: 6.15.3
-  resolution: "qs@npm:6.15.3"
+"qs@npm:6.16.0":
+  version: 6.16.0
+  resolution: "qs@npm:6.16.0"
   dependencies:
     es-define-property: "npm:^1.0.1"
     side-channel: "npm:^1.1.1"
-  checksum: 10/1cbb4b050872a19ba8a311445be29babb8f66ea5d6462b3c48c6efb2c95187cd286b69734cd4caea1878cca3b9d1f0e9b49335336be9e999a7d8d7cf137ba60d
+  checksum: 10/7fbf9c2eb9c9bbd8997700caecc4b057ac259635873deefd5027fb26d06d79426cf468da55da87ffd147a24e93d3641352d8ac6664bd84688ad5b2f0b8d04828
   languageName: node
   linkType: hard
 
