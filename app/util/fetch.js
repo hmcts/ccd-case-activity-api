@@ -1,7 +1,6 @@
-// node-fetch v3 is ESM-only, so load it dynamically from this CommonJS module.
-const nodeFetch = import('node-fetch').then(({ default: fetcher }) => fetcher);
+const nodeFetch = require('node-fetch');
 
-const fetch = (...args) => nodeFetch.then((fetcher) => fetcher(...args))
+const fetch = (...args) => nodeFetch(...args)
   .then((res) => {
     if (res.status >= 200 && res.status < 300) {
       return res;
