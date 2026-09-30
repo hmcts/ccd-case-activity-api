@@ -25,5 +25,5 @@ appInsights:
 
 secrets:
   ccd:
-    activity-redis-password: testPassword
+    activity-redis-password: ""
     app-insights-connection-string: ""

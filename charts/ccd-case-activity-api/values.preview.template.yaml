@@ -4,7 +4,7 @@ nodejs:
   environment:
     REDIS_HOST: "{{ .Release.Name }}-redis-master"
     REDIS_PORT: 6379
-    REDIS_PASSWORD: fake-password
+    REDIS_PASSWORD: "${REDIS_PASSWORD}"
     REDIS_SSL_ENABLED: ""
     CORS_ORIGIN_WHITELIST: "*"
   keyVaults:
@@ -14,4 +14,4 @@ redis:
   architecture: standalone
   auth:
     enabled: true
-    password: "fake-password"
+    password: "${REDIS_PASSWORD}"
