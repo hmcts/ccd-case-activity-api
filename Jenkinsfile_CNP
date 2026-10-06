@@ -5,7 +5,8 @@ properties(
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
-@Library("Infrastructure@cve-dashboard")
+//@Library("Infrastructure@cve-dashboard")
+@Library("Infrastructure@2.11.2")
 
 def type = "nodejs"
 def product = "ccd"
