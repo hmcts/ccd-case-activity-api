@@ -1,1 +1,10 @@
+pluginManagement {
+    repositories {
+        maven {
+            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
+        }
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = 'ccd-case-activity-api'
