@@ -13,7 +13,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v11
+      - uses: actions/stale@v10
         with:
           # Stale issues configuration
           days-before-issue-stale: 90
@@ -32,7 +32,6 @@ jobs:
           # Exemptions
           # Note: Renovate PRs typically have the "dependencies" label which is also excluded
           exempt-pr-labels: 'pinned,dependencies,keep_open'
-          exempt-issue-labels: 'pinned,dependencies,keep_open'
           exempt-all-pr-assignees: false
           exempt-all-issue-assignees: false
           
