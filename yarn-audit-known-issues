@@ -1,0 +1,1 @@
+{"value":"joi","children":{"ID":1241211,"Issue":"joi messages compilation allows prototype replacement through __proto__ error codes","URL":"https://github.com/advisories/GHSA-wr44-6hxh-3jwq","Severity":"moderate","Vulnerable Versions":">=18.0.0 <18.2.9","Tree Versions":["18.2.7"],"Dependents":["ccd-case-activity-api@workspace:."]}}
