@@ -7,7 +7,7 @@
 [![HitCount](http://hits.dwyl.io/hmcts/ccd-case-activity-api.svg)](#ccd-activity-api)
 [![Issue Stats](http://issuestats.com/github/hmcts/ccd-case-activity-api/badge/pr)](http://issuestats.com/github/hmcts/ccd-case-activity-api)
 
-Real-time tracking of case activity (viewers, editors,...)
+Real-time tracking of case activity (viewers, editors,....)
 
 ## Quickstart
 
