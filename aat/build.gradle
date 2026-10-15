@@ -11,15 +11,24 @@ java {
 
 // tag::repositories[]
 repositories {
-    mavenLocal()
-    maven {
+    mavenLocal{
+      name = 'MavenLocal'
+    }
+    // Jenkins must resolve through Artifactory because Maven Central rate-limits it (HTTP 429).
+    // Local machines and GitHub hosted runners cannot reach Artifactory, so it is skipped there.
+    if (System.getenv('JENKINS_URL') || System.getenv('JENKINS_HOME')) {
+      maven {
+        name = 'HmctsArtifactory'
         url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
+      }
     }
     maven {
-        name = "AzureArtifacts"
-        url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
+      name = 'HmctsAzureArtifacts'
+      url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
     }
-    mavenCentral()
+    mavenCentral {
+      name = 'MavenCentral'
+    }
 }
 // end::repositories[]
 
