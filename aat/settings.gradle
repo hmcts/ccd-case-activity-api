@@ -1,5 +1,18 @@
 pluginManagement {
     repositories {
+        // This plugin dependency is available in the HMCTS Azure feed.
+        // Keep it off the Plugin Portal, which redirects it to rate-limited Maven Central.
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'HmctsAzureArtifacts'
+                    url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
+                }
+            }
+            filter {
+                includeModule('net.masterthought', 'cucumber-reporting')
+            }
+        }
         // Resolve public plugins and their dependencies before the Artifactory mirror.
         // Gradle uses the repository that supplied a module's metadata for its JARs too.
         gradlePluginPortal()
