@@ -1,9 +1,13 @@
 pluginManagement {
     repositories {
-        maven {
-            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
-        }
+        // Resolve public plugins and their dependencies before the Artifactory mirror.
+        // Gradle uses the repository that supplied a module's metadata for its JARs too.
         gradlePluginPortal()
+        if (System.getenv('JENKINS_URL') || System.getenv('JENKINS_HOME')) {
+            maven {
+                url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
+            }
+        }
     }
 }
 
