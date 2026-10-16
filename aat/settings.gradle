@@ -1,10 +1,7 @@
 pluginManagement {
     repositories {
-        // Used first for Gradle plugin dependencies such as
-        // jackson-databind, commons-io, plexus-utils and jsoup
-        mavenCentral()
+        gradlePluginPortal()
 
-        // HMCTS Artifactory
         maven {
             name = 'HMCTSArtifactory'
             url = uri(
@@ -12,8 +9,7 @@ pluginManagement {
             )
         }
 
-        // Required to locate plugins published only to the Gradle Plugin Portal
-        gradlePluginPortal()
+        mavenCentral()
     }
 }
 
