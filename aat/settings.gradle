@@ -6,6 +6,9 @@ pluginManagement {
                 'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
             )
         }
+
+        gradlePluginPortal()
+        mavenCentral()
     }
 }
 
@@ -28,6 +31,8 @@ dependencyResolutionManagement {
                 includeGroup 'com.github.hmcts'
             }
         }
+
+        mavenCentral()
 
         if (!System.getenv('CI')) {
             mavenLocal()
