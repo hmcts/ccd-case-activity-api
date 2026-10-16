@@ -1,5 +1,10 @@
 pluginManagement {
     repositories {
+        // Used first for Gradle plugin dependencies such as
+        // jackson-databind, commons-io, plexus-utils and jsoup
+        mavenCentral()
+
+        // HMCTS Artifactory
         maven {
             name = 'HMCTSArtifactory'
             url = uri(
@@ -7,13 +12,14 @@ pluginManagement {
             )
         }
 
+        // Required to locate plugins published only to the Gradle Plugin Portal
         gradlePluginPortal()
-        mavenCentral()
     }
 }
 
 dependencyResolutionManagement {
     repositories {
+        // First choice for normal project dependencies
         maven {
             name = 'HMCTSArtifactory'
             url = uri(
@@ -21,6 +27,7 @@ dependencyResolutionManagement {
             )
         }
 
+        // HMCTS libraries
         maven {
             name = 'HMCTSAzureArtifacts'
             url = uri(
@@ -32,8 +39,10 @@ dependencyResolutionManagement {
             }
         }
 
+        // Fallback for normal project dependencies
         mavenCentral()
 
+        // Local development only
         if (!System.getenv('CI')) {
             mavenLocal()
         }
