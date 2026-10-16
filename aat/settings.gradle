@@ -1,27 +1,33 @@
 pluginManagement {
     repositories {
-        // This plugin dependency is available in the temporary Maven Central mirror.
-        // Keep it off the Plugin Portal, which redirects it to rate-limited Maven Central.
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'HmctsMavenCentralMirror'
-                    url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/temp-maven-central-mirror/maven/v1')
-                }
-            }
-            filter {
-                includeModule('net.masterthought', 'cucumber-reporting')
-            }
+        maven {
+            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
         }
-        // Resolve public plugins and their dependencies before the Artifactory mirror.
-        // Gradle uses the repository that supplied a module's metadata for its JARs too.
+        maven {
+            url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
+        }
         gradlePluginPortal()
-        if (System.getenv('JENKINS_URL') || System.getenv('JENKINS_HOME')) {
-            maven {
-                url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
-            }
-        }
     }
 }
 
-rootProject.name = 'ccd-case-activity-api'
+dependencyResolutionManagement {
+    repositories {
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
+        }
+
+        maven {
+            name = 'HMCTSAzureArtifacts'
+            url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
+            content {
+                includeGroup 'com.github.hmcts'
+            }
+        }
+
+        if (!System.getenv('CI')) {
+            mavenLocal()
+            mavenCentral()
+        }
+    }
+}
