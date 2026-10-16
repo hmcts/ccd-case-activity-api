@@ -1,33 +1,37 @@
-pluginManagement {
-    repositories {
-        maven {
-            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
-        }
-        maven {
-            url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
-        }
-        gradlePluginPortal()
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
-        maven {
-            name = 'HMCTSArtifactory'
-            url = uri('https://artifactory.platform.hmcts.net/artifactory/maven-remotes')
-        }
-
+        // Azure Artifacts must be first and must allow all dependency groups
         maven {
             name = 'HMCTSAzureArtifacts'
-            url = uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
-            content {
-                includeGroup 'com.github.hmcts'
+            url = uri(
+                'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+            )
+
+            credentials {
+                username = System.getenv('AZURE_ARTIFACTS_USERNAME')
+                password = System.getenv('AZURE_ARTIFACTS_TOKEN')
+            }
+
+            authentication {
+                basic(BasicAuthentication)
             }
         }
 
+        // Keep Artifactory only for HMCTS/private dependencies
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
+
+            content {
+                includeGroupByRegex 'com\\.github\\.hmcts.*'
+            }
+        }
+
+        // Local development only; never use Maven Central directly
         if (!System.getenv('CI')) {
             mavenLocal()
-            mavenCentral()
         }
     }
 }
