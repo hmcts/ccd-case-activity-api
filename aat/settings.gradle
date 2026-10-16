@@ -1,23 +1,23 @@
-dependencyResolutionManagement {
+pluginManagement {
     repositories {
-        // Try HMCTS Artifactory first
         maven {
             name = 'HMCTSArtifactory'
             url = uri(
                 'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
             )
+        }
+    }
+}
 
-            credentials {
-                username = System.getenv('ARTIFACTORY_USERNAME')
-                password = System.getenv('ARTIFACTORY_PASSWORD')
-            }
-
-            authentication {
-                basic(BasicAuthentication)
-            }
+dependencyResolutionManagement {
+    repositories {
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
         }
 
-        // HMCTS libraries
         maven {
             name = 'HMCTSAzureArtifacts'
             url = uri(
@@ -25,23 +25,10 @@ dependencyResolutionManagement {
             )
 
             content {
-                includeGroupByRegex 'com\\.github\\.hmcts.*'
-            }
-
-            credentials {
-                username = System.getenv('AZURE_ARTIFACTS_USERNAME')
-                password = System.getenv('AZURE_ARTIFACTS_TOKEN')
-            }
-
-            authentication {
-                basic(BasicAuthentication)
+                includeGroup 'com.github.hmcts'
             }
         }
 
-        // Fallback only if the dependency is unavailable above
-        mavenCentral()
-
-        // Local development only
         if (!System.getenv('CI')) {
             mavenLocal()
         }
