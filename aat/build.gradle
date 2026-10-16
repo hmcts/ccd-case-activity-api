@@ -1,3 +1,21 @@
+buildscript {
+    repositories {
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
+        }
+
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath 'com.github.spacialcircumstances:gradle-cucumber-reporting:0.1.25'
+        classpath 'net.masterthought:cucumber-reporting:5.7.2'
+    }
+}
+
 plugins {
     id 'application'
     id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.25'
