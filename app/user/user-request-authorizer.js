@@ -6,17 +6,17 @@ const AUTHORIZATION = 'Authorization';
 const ERROR_TOKEN_MISSING = {
   error: 'Bearer token missing',
   status: 401,
-  message: 'You are not authorized to access this resource',
+  message: 'You are not authorized to access this resource'
 };
 const ERROR_UNAUTHORISED_ROLE = {
   error: 'Unauthorised role',
   status: 403,
-  message: 'You are not authorized to access this resource',
+  message: 'You are not authorized to access this resource'
 };
 const ERROR_UNAUTHORISED_USER_ID = {
   error: 'Unauthorised user',
   status: 403,
-  message: 'You are not authorized to access this resource',
+  message: 'You are not authorized to access this resource'
 };
 
 const authorizeRoles = (request, user) => new Promise((resolve, reject) => {
