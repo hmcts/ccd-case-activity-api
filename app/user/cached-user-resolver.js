@@ -5,7 +5,7 @@ const jwtUtil = require('../util/jwt');
 // NB: names match the user-resolver which this module mirrors
 const getUserDetails = (jwt) => userInfoCache.getOrElseUpdate(
   jwtUtil.removeBearer(jwt),
-  () => userResolver.getUserDetails(jwt),
+  () => userResolver.getUserDetails(jwt)
 );
 
 exports.getUserDetails = getUserDetails;

@@ -13,7 +13,7 @@ const redis = new Redis({
   tls: config.get('redis.ssl'),
   keyPrefix: config.get('redis.keyPrefix'),
   // log unhandled redis errors
-  showFriendlyErrorStack: ENV === 'test' || ENV === 'dev',
+  showFriendlyErrorStack: ENV === 'test' || ENV === 'dev'
 });
 
 /* redis pipeline returns a reply of the form [[op1error, op1result], [op2error, op2result], ...].
