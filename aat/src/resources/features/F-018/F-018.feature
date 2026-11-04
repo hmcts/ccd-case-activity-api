@@ -7,7 +7,7 @@ Background: Load test data for the scenario
       Given an appropriate test context as detailed in the test data source
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-001 @Smoke @Ignore
+@S-001 @Smoke
 Scenario: must successfully add an activity with a correct and complete invocation
 
     Given a user with [an active profile in CCD],
@@ -22,7 +22,9 @@ Scenario: must successfully add an activity with a correct and complete invocati
       And another call [to observe the new activity just added on the case above] will get the expected response as in [S-014-Verification-call].
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-002 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
+# RDM-8986: resolved in the API implementation. Invalid activity values return 400;
+# keep this expectation aligned with app/routes/add-activity.js.
+@S-002
 Scenario: must return a negative response when activity is missing
 
     Given a user with [an active profile in CCD],
@@ -37,7 +39,7 @@ Scenario: must return a negative response when activity is missing
       And the response has all the details as expected.
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@S-003 @Ignore #RDM-8986 should return 400 Bad Request but returning 422
+@S-003
 Scenario: must return a negative response when activity is unknown
 
     Given a user with [an active profile in CCD],
@@ -76,4 +78,17 @@ Scenario: must return a negative response for a missing Case ID
       And it is submitted to call the [Add Activity] operation of [CCD Case Activity API],
 
      Then a negative response is received,
+      And the response has all the details as expected.
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-006
+Scenario: must return the activity summary for a case with no activity
+
+    Given a user with [an active profile in CCD],
+      And a case that has just been created as in [Standard_Full_Case_Creation_Data],
+
+     When a request is prepared with appropriate values,
+      And it is submitted to call the [Get Activity] operation of [CCD Case Activity API],
+
+     Then a positive response is received,
       And the response has all the details as expected.
