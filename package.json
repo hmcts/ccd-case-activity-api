@@ -11,6 +11,7 @@
     "test": "NODE_ENV=test mocha --exit --recursive test/spec app/user",
     "test:end2end": "NODE_ENV=test mocha --exit test/e2e --timeout 15000",
     "test:a11y": "echo 'No UI accessibility tests apply to this API service'",
+    "test:smoke": "echo 'No smoke tests apply to this API service'",
     "test:functional": "./aat/gradlew -p aat functional",
     "fortifyScan": "./aat/gradlew -p aat fortifyScan",
     "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --cache false yarn run test",
