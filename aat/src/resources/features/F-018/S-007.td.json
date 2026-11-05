@@ -1,0 +1,39 @@
+{
+	"_guid_": "S-007",
+	"_extends_": "F-018_Test_Data_Base",
+	"title": "must return activity summaries for multiple cases",
+
+	"specs": [
+		"an active profile in CCD"
+	],
+
+	"operationName": "Get Activity",
+	"method": "GET",
+	"uri": "/cases/{cid}/activity",
+	"request": {
+		"pathVariables": {
+			"cid": "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]},123456789"
+		}
+	},
+	"expectedResponse": {
+		"_extends_": "Common_200_Response",
+		"body": {
+			"arrayInMap": [
+				{
+					"caseId": "${}${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}",
+					"viewers": [],
+					"unknownViewers": 0,
+					"editors": [],
+					"unknownEditors": 0
+				},
+				{
+					"caseId": "123456789",
+					"viewers": [],
+					"unknownViewers": 0,
+					"editors": [],
+					"unknownEditors": 0
+				}
+			]
+		}
+	}
+}

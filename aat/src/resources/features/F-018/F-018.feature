@@ -92,3 +92,39 @@ Scenario: must return the activity summary for a case with no activity
 
      Then a positive response is received,
       And the response has all the details as expected.
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-007
+Scenario: must return activity summaries for multiple cases
+
+    Given a user with [an active profile in CCD],
+      And a case that has just been created as in [Standard_Full_Case_Creation_Data],
+
+     When a request is prepared with appropriate values,
+      And it is submitted to call the [Get Activity] operation of [CCD Case Activity API],
+
+     Then a positive response is received,
+      And the response has all the details as expected.
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-008
+Scenario: must return a negative response for a malformed case ID on GET Activity
+
+    Given a user with [an active profile in CCD],
+
+     When a request is prepared with appropriate values,
+      And the request [contains a malformed caseID],
+      And it is submitted to call the [Get Activity] operation of [CCD Case Activity API],
+
+     Then a negative response is received,
+      And the response has all the details as expected.
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@S-009
+Scenario: must reject GET Activity when authorization is missing
+
+     When a request is prepared with appropriate values,
+      And it is submitted to call the [Get Activity Without Authorization] operation of [CCD Case Activity API],
+
+     Then a negative response is received,
+      And the response has all the details as expected.
