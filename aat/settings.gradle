@@ -1,1 +1,46 @@
-rootProject.name = 'ccd-case-activity-api'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
+        }
+
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        // First choice for normal project dependencies
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
+        }
+
+        // HMCTS libraries
+        maven {
+            name = 'HMCTSAzureArtifacts'
+            url = uri(
+                'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+            )
+
+            content {
+                includeGroup 'com.github.hmcts'
+            }
+        }
+
+        // Fallback for normal project dependencies
+        mavenCentral()
+
+        // Local development only
+        if (!System.getenv('CI')) {
+            mavenLocal()
+        }
+    }
+}

@@ -1,3 +1,21 @@
+buildscript {
+    repositories {
+        maven {
+            name = 'HMCTSArtifactory'
+            url = uri(
+                'https://artifactory.platform.hmcts.net/artifactory/maven-remotes'
+            )
+        }
+
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath 'com.github.spacialcircumstances:gradle-cucumber-reporting:0.1.25'
+        classpath 'net.masterthought:cucumber-reporting:5.7.2'
+    }
+}
+
 plugins {
     id 'application'
     id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.25'
@@ -8,17 +26,6 @@ java {
     languageVersion = JavaLanguageVersion.of(21)
   }
 }
-
-// tag::repositories[]
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        name = "AzureArtifacts"
-        url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
-    }
-}
-// end::repositories[]
 
 // tag::dependencies[]
 dependencies {
