@@ -158,6 +158,25 @@ describe("activity service", () => {
     }).catch(err => console.log('error', done(err)));
   })
 
+  it("getActivities should return empty collections and zero unknown counts when there are no activities", async () => {
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(redis, "pipeline").callsFake((commands) => ({
+      exec: () => Promise.resolve(
+        commands.some(([command]) => command === 'zrangebyscore') ? [[null, []]] : [],
+      ),
+    }));
+
+    const result = await activityService.getActivities(['767'], { uid: '900' });
+
+    expect(result).to.deep.equal([{
+      caseId: '767',
+      viewers: [],
+      unknownViewers: 0,
+      editors: [],
+      unknownEditors: 0,
+    }]);
+  });
+
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
