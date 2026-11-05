@@ -17,6 +17,9 @@
 	},
 
 	"expectedResponse": {
-		"responseCode": 401
+		"responseCode": 401,
+		"body": {
+			"message": "You are not authorized to access this resource"
+		}
 	}
 }
