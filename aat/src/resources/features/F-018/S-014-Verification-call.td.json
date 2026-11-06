@@ -14,7 +14,7 @@
 
 	"users": {
 		"invokingUser": {
-			"username": "caseworker1@gmail.com",
+			"username": "[[$CCD_CASEWORKER_AUTOTEST_EMAIL]]",
 			"password": "[[$CCD_BEFTA_CASEWORKER_1_PWD]]"
 		}
 	},
