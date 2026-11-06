@@ -61,4 +61,14 @@ describe('CORS', () => {
     expect(res.set).not.to.have.been.calledWith('Access-Control-Allow-Origin', ORIGIN_2);
   });
 
+  it('should end preflight requests with a successful response', () => {
+    req.method = 'OPTIONS';
+
+    handleCors(req, res, next);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.end).to.have.been.calledOnce;
+    expect(next).not.to.have.been.called;
+  });
+
 });
