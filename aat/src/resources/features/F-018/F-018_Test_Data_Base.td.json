@@ -21,9 +21,6 @@
 		},
 		"pathVariables": {
 			"cid": "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}"
-		},
-		"body": {
-			"activity": "edit"
 		}
 	},
 

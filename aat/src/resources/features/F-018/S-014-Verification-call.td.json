@@ -1,6 +1,6 @@
 {
 	"_guid_": "S-014-Verification-call",
-	"title": "Get Activity by case Id",
+	"title": "Get Activity by case Id as a different user",
 
 	"productName": "Case Activity API",
 	"operationName": "GET Activity",
@@ -14,8 +14,8 @@
 
 	"users": {
 		"invokingUser": {
-			"username": "master.caseworker@gmail.com",
-			"password": "[[$CCD_BEFTA_MASTER_CASEWORKER_PWD]]"
+			"username": "[[$CCD_CASEWORKER_AUTOTEST_EMAIL]]",
+			"password": "[[$CCD_CASEWORKER_AUTOTEST_PASSWORD]]"
 		}
 	},
 
@@ -37,7 +37,12 @@
 					"caseId": "${}${[scenarioContext][testData][request][pathVariables][cid]}",
 					"viewers": [],
 					"unknownViewers": 0,
-					"editors": [],
+					"editors": [
+						{
+							"forename": "[[ANYTHING_PRESENT]]",
+							"surname": "[[ANYTHING_PRESENT]]"
+						}
+					],
 					"unknownEditors": 0
 				}
 			]

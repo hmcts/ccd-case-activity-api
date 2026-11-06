@@ -45,6 +45,21 @@ describe("get activities route", () => {
     expect(activityService.getActivities).to.have.been.calledWith(req.params.caseids.split(','), { id : 900 })
   })
 
+  it("should pass activity service errors to next when request has not timed out", async () => {
+    const req = {
+      params: { caseids: '111,121' },
+      authentication: { user: { id: 900 } },
+      timedout: false
+    };
+    const next = sinon.spy();
+    sandbox.stub(activityService, 'getActivities').returns(Promise.reject(new Error('redis unavailable')));
+
+    getActivitesRoute(req, buildResponse(), next);
+    await new Promise((resolve) => setImmediate(resolve));
+
+    sinon.assert.calledOnceWithExactly(next, 'redis unavailable');
+  });
+
   it("should not return a result when request is successful after it has timed out", (done) => {
 
     let req = {

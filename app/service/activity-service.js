@@ -7,6 +7,15 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     edit: (caseId) => `case:${caseId}:editors`,
   };
 
+  const rejectPipelineFailures = (result, operation) => {
+    redis.logPipelineFailures(result, operation);
+    if (Array.isArray(result)) {
+      const failedOperation = result.find(([error]) => error);
+      if (failedOperation) throw failedOperation[0];
+    }
+    return result;
+  };
+
   const addActivity = (caseId, user, activity) => {
     const storeUserActivity = () => {
       const key = redisActivityKeys[activity](caseId);
@@ -35,7 +44,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
     const getUserDetails = () => redis.pipeline(uniqueUserIds.map((userId) => ['get', `user:${userId}`])).exec();
     const extractUniqueUserIds = (result) => {
       result.forEach((item) => {
-        item[1].forEach((userId) => {
+        (item[1] || []).forEach((userId) => {
           if (!uniqueUserIds.includes(userId)) {
             uniqueUserIds.push(userId);
           }
@@ -46,7 +55,7 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       .pipeline(caseIds.map((caseId) => ['zrangebyscore', `case:${caseId}:viewers`, now, '+inf']))
       .exec()
       .then((result) => {
-        redis.logPipelineFailures(result, 'caseViewersPromise');
+        rejectPipelineFailures(result, 'caseViewersPromise');
         caseViewers = result;
         extractUniqueUserIds(result);
       });
@@ -54,34 +63,36 @@ module.exports = (config, redis, ttlScoreGenerator) => {
       .pipeline(caseIds.map((caseId) => ['zrangebyscore', `case:${caseId}:editors`, now, '+inf']))
       .exec()
       .then((result) => {
-        redis.logPipelineFailures(result, 'caseEditorsPromise');
+        rejectPipelineFailures(result, 'caseEditorsPromise');
         caseEditors = result;
         extractUniqueUserIds(result);
       });
     return Promise.all([caseViewersPromise, caseEditorsPromise])
       .then(() => getUserDetails())
-      .then((userDetails) => caseIds.map((elem, index) => {
-        redis.logPipelineFailures(userDetails, 'userDetails');
-        const caseStatus = {};
-        caseStatus.caseId = elem;
-        caseStatus.viewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter((element) => element !== user.uid.toString())
-          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .filter((item) => item) : [];
-        caseStatus.unknownViewers = caseViewers[index][1] ? caseViewers[index][1]
-          .filter((element) => element !== user.uid.toString())
-          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
-        caseStatus.editors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter((element) => element !== user.uid.toString())
-          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .filter((item) => item) : [];
-        caseStatus.unknownEditors = caseEditors[index][1] ? caseEditors[index][1]
-          .filter((element) => element !== user.uid.toString())
-          .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
-          .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : [];
-        return caseStatus;
-      }));
+      .then((result) => {
+        const userDetails = rejectPipelineFailures(result, 'userDetails');
+        return caseIds.map((elem, index) => {
+          const caseStatus = {};
+          caseStatus.caseId = elem;
+          caseStatus.viewers = caseViewers[index][1] ? caseViewers[index][1]
+            .filter((element) => element !== user.uid.toString())
+            .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+            .filter((item) => item) : [];
+          caseStatus.unknownViewers = caseViewers[index][1] ? caseViewers[index][1]
+            .filter((element) => element !== user.uid.toString())
+            .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+            .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : 0;
+          caseStatus.editors = caseEditors[index][1] ? caseEditors[index][1]
+            .filter((element) => element !== user.uid.toString())
+            .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+            .filter((item) => item) : [];
+          caseStatus.unknownEditors = caseEditors[index][1] ? caseEditors[index][1]
+            .filter((element) => element !== user.uid.toString())
+            .map((item) => JSON.parse(userDetails[uniqueUserIds.indexOf(item)][1]))
+            .reduce((sum, el) => (!el ? sum + 1 : sum), 0) : 0;
+          return caseStatus;
+        });
+      });
   };
   return { addActivity, getActivities };
 };
