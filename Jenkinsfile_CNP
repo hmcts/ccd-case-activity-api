@@ -119,6 +119,10 @@ withPipeline(type, product, component) {
 
     afterAlways('test') {
         sh 'yarn test:coverage'
+        recordCoverage(
+            tools: [[parser: 'LCOV', pattern: 'coverage/lcov.info']],
+            name: 'Unit Test Coverage'
+        )
         publishHTML target: [
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
