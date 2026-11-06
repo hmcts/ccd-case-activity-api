@@ -196,6 +196,27 @@ describe("activity service", () => {
     }]);
   });
 
+  it("getActivities should reject when a Redis activity command fails", async () => {
+    const redisError = new Error('WRONGTYPE Operation against a key holding the wrong kind of value');
+    sandbox.stub(moment, 'now').returns(TIMESTAMP);
+    sandbox.stub(redis, "pipeline").callsFake((commands) => ({
+      exec: () => Promise.resolve(
+        commands.some(([command, key]) => command === 'zrangebyscore' && key.endsWith(':viewers'))
+          ? [[redisError, null]]
+          : [[null, []]],
+      ),
+    }));
+
+    let caughtError;
+    try {
+      await activityService.getActivities(['767'], { uid: '900' });
+    } catch (error) {
+      caughtError = error;
+    }
+
+    expect(caughtError).to.equal(redisError);
+  });
+
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
     sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
