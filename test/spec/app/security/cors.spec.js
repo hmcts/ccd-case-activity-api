@@ -71,4 +71,16 @@ describe('CORS', () => {
     expect(next).not.to.have.been.called;
   });
 
+  it('omits the allowed methods header when no methods are configured', () => {
+    const cors = proxyquire('../../../../app/security/cors', {
+      config: {
+        get: (key) => (key === 'security.cors_origin_whitelist' ? ORIGIN : undefined),
+      },
+    });
+
+    cors(req, res, next);
+
+    expect(res.set).not.to.have.been.calledWith('Access-Control-Allow-Methods');
+  });
+
 });
