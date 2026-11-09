@@ -26,7 +26,8 @@
 			"jurisdiction": "BEFTA_MASTER",
 			"case_type_id": "FT_MasterCaseType",
 			"case_data": {
-				"_extends_": "Standard_Full_Case_Data"
+				"_extends_": "Standard_Full_Case_Data",
+				"SearchCriteria": {}
 			},
 			"data_classification": {
 				"AddressUKField": {
@@ -68,48 +69,10 @@
 							}
 						}
 					}
-				}
-			},
-			"security_classifications": {
-				"AddressUKField": {
-					"classification": "PUBLIC",
-					"value": {
-						"AddressLine1": "PUBLIC",
-						"AddressLine2": "PUBLIC",
-						"AddressLine3": "PUBLIC",
-						"PostTown": "PUBLIC",
-						"County": "PUBLIC",
-						"PostCode": "PUBLIC",
-						"Country": "PUBLIC"
-					}
 				},
-				"OrganisationPolicyField2": {
+				"SearchCriteria": {
 					"classification": "PUBLIC",
-					"value": {
-						"OrgPolicyCaseAssignedRole": "PUBLIC",
-						"OrgPolicyReference": "PUBLIC",
-						"Organisation": {
-							"classification": "PUBLIC",
-							"value": {
-								"OrganisationID": "PUBLIC",
-								"OrganisationName": "PUBLIC"
-							}
-						}
-					}
-				},
-				"OrganisationPolicyField1": {
-					"classification": "PUBLIC",
-					"value": {
-						"OrgPolicyCaseAssignedRole": "PUBLIC",
-						"OrgPolicyReference": "PUBLIC",
-						"Organisation": {
-							"classification": "PUBLIC",
-							"value": {
-								"OrganisationID": "PUBLIC",
-								"OrganisationName": "PUBLIC"
-							}
-						}
-					}
+					"value": {}
 				}
 			}
 		}

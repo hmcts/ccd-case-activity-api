@@ -57,7 +57,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .set('Authorization', Token)
       .send(body)
       .end((err, res) => {
-        res.should.have.status(422);
+        res.should.have.status(400);
         res.should.be.json; // eslint-disable-line no-unused-expressions
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: undefined');
@@ -74,7 +74,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .set('Authorization', Token)
       .send(body)
       .end((err, res) => {
-        res.should.have.status(422);
+        res.should.have.status(400);
         res.should.be.json; // eslint-disable-line no-unused-expressions
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: vie');
