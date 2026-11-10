@@ -22,6 +22,7 @@ const fetch = (...args) => nodeFetch(...args)
       }
     }
     const error = new Error(`Upstream HTTP ${res.status} ${res.statusText}: ${body}`);
+    error.name = 'UpstreamResponseError';
     error.status = res.status;
     if (cause) {
       error.cause = cause;

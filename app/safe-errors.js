@@ -1,5 +1,6 @@
 const { STATUS_CODES } = require('http');
 const { Logger } = require('@hmcts/nodejs-logging');
+const { withFailureDiagnostics } = require('./failure-diagnostics');
 
 const logger = Logger.getLogger('safeErrors');
 // Only errors created here can carry approved public validation details.
@@ -62,9 +63,11 @@ const errorHandler = (err, req, res, next) => {
     body.message = err.message;
   }
   const original = err instanceof Error ? err : (err && err.cause) || err;
-  logger[body.status >= 500 ? 'error' : 'warn'](
-    `Request failed: code=${body.code} status=${body.status}`, { error: diagnosticError(original) },
-  );
+  withFailureDiagnostics(body.status, original, (fields) => {
+    logger[body.status >= 500 ? 'error' : 'warn'](
+      `Request failed: code=${body.code} status=${body.status}`, { error: diagnosticError(original), ...fields },
+    );
+  }, activityValidationErrors.has(err) ? 'ACTIVITY_VALUE_INVALID' : undefined);
   if (res.headersSent) {
     return next(err);
   }

@@ -1,5 +1,51 @@
 # CCD-7882: controlled error responses
 
+## Docker operational verification — 10 November 2026
+
+This supersedes earlier open native-parser findings for the tested local candidates.
+Native malformed-request responses and controlled application errors remained sanitised. The existing public response keys are unchanged.
+
+Controlled failures at normal INFO logging exported one correlated failure event with
+private `failureCode` and `httpStatus` dimensions and the existing request operation ID.
+No public fields or generic public category codes were introduced. Existing approved
+business/NoC API codes remain. Java uses scoped MDC and the existing agent log collector;
+Node's Winston 2 path needs one explicit SDK exception export because its automatic
+instrumentation provides correlation but does not export those records. Node cause
+chains are retained in private properties; activity now initialises telemetry before
+loading Express/HTTP. No second exception is emitted for the controlled failure.
+
+Validation for this follow-up: 111 focused Java tests and 55 Node tests passed across the repositories; Java main/test Checkstyle, targeted ESLint and diff checks passed.
+
+Evidence: parent workspace `review-reports/CCD-7882/operational-telemetry-results.json`.
+The real agent/SDK delivered to a local synthetic ingestion collector. Tests used INFO,
+DEBUG disabled, 100% sampling and a disabled Node trace-rate limiter in staged test
+configuration. Production sampling/rate limits were not changed. Existing production
+sampling can discard request records and needs explicit operational acceptance.
+
+These runs used current rebuilt JARs/staged Node source with cached substitute runtimes,
+not each exact production Dockerfile or ingress. Artifact hashes identify the tested
+payloads; HEAD revisions alone do not include the uncommitted fixes. Azure RBAC,
+production ingestion, sampling, retention, exact images and ingress remain release checks.
+
+
+## Current contract — 10 November 2026
+
+This section supersedes earlier response examples and verification descriptions below.
+CCD-7882, CCD-7108 and CME-984 require sanitised public errors and retained private
+diagnostics. They do not require new public category codes. Consumers have not adopted
+those codes, so remediation-only code fields have been removed. Existing message fields,
+HTTP statuses and approved business feedback are retained; implementation details are
+replaced with safe values. Existing text, JSON and framework response formats are preserved
+where applicable. Internal logging categories are not public response fields.
+
+Public errors retain master's message-only shape; status/error/code metadata used internally is not serialised into responses. Approved invalid-activity guidance remains available.
+
+Verification: 39 tests passed, zero failures/errors/skips. Targeted ESLint passed.
+These are local source/test results, not deployed acceptance. Broker Pact verification,
+effective runtime overrides, ingress behaviour and restricted log access/collection/retention
+remain release checks. Earlier verification entries are historical evidence.
+
+
 ## Current support logging policy
 
 Public exception responses remain generic. Missing or unsupported activities return the fixed
@@ -102,3 +148,16 @@ change was needed in this follow-up. Keep approved business validation feedback 
 existing statuses; technical details belong in restricted operator logs. Tests for
 this service were not rerun in this follow-up. Consumer Pact/BEFTA verification is
 still required before release; field presence does not establish exact-text compatibility.
+
+## Telemetry export isolation — 10 November 2026
+
+Synchronous SDK failures are isolated from HTTP response handling. The original
+normal-level server diagnostic is emitted first; if preparation/export fails, a fixed
+non-sensitive warning is written directly to stderr without invoking the SDK again.
+If stderr also fails synchronously, the original callback result is still retained.
+Existing response statuses, body keys and approved messages are unchanged.
+
+24 focused tests passed, including actual HTTP 400/500 responses with a throwing SDK,
+no private diagnostic leakage, one export attempt and the combined SDK/stderr failure.
+Targeted ESLint and diff checks passed. Docker's prior healthy-collector evidence does
+not replace these fault-injection checks; Docker was not rerun for this isolation-only fix.
