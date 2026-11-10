@@ -25,8 +25,7 @@ describe('CCD-7882 validation and bounded diagnostics', () => {
         params: { caseid: '123' }, authentication: { user: { uid: 'review' } }, body,
       }, {}, (error) => { result = publicResponse(error); });
       assert.strictEqual(result.status, 400);
-      assert.strictEqual(result.body.message, 'activity must be one of: view, edit');
-      assert.strictEqual(result.body.code, 'INVALID_REQUEST');
+      assert.deepStrictEqual(result.body, { message: 'activity must be one of: view, edit' });
       assert(!JSON.stringify(result).includes('PRIVATE'));
     });
   });

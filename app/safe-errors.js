@@ -68,7 +68,7 @@ const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  return res.status(body.status).json(body);
+  return res.status(body.status).json({ message: body.message });
 };
 
 module.exports = {

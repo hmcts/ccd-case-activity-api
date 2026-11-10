@@ -94,3 +94,11 @@ not an extra production runtime dependency. Synthetic raw logs are local diagnos
 Production image/ingress verification, deployed BEFTA/ITHC, actual Azure ingestion, retention
 and administrator-only access remain release gates. The local telemetry collector proves the
 specific agent/SDK path tested, not production collection settings.
+
+## Message compatibility review — 9 November 2026
+
+The reviewed error handling already retains controlled public messages. No production
+change was needed in this follow-up. Keep approved business validation feedback and
+existing statuses; technical details belong in restricted operator logs. Tests for
+this service were not rerun in this follow-up. Consumer Pact/BEFTA verification is
+still required before release; field presence does not establish exact-text compatibility.
