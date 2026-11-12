@@ -30,7 +30,7 @@ describe("activity service", () => {
     pipStub.exec = () => "result";
     sandbox.stub(redis, 'pipeline').returns(pipStub);
     sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'edit');
 
@@ -45,7 +45,7 @@ describe("activity service", () => {
     sandbox.stub(redis, 'pipeline').returns(pipStub);
     sandbox.stub(ttlScoreGenerator, 'getScore').returns(SCORE);
 
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
 
     const result = activityService.addActivity(CASE_ID, { uid: USER_ID }, 'view')
     expect(redis.pipeline).to.have.been.calledWith([['zadd', `case:${CASE_ID}:viewers`, SCORE, USER_ID], ['set', `user:${USER_ID}`, '{}', 'EX', USER_DETAILS_TTL]]);
@@ -55,7 +55,7 @@ describe("activity service", () => {
 
   it("getActivities should create a redis pipeline with the correct redis commands for getViewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
@@ -92,7 +92,7 @@ describe("activity service", () => {
 
   it("getActivities should return unknown users if users detail are missing", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
@@ -126,7 +126,7 @@ describe("activity service", () => {
 
   it("getActivities should not return in the list of viewers the requesting user id", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
@@ -160,7 +160,7 @@ describe("activity service", () => {
 
   it("getActivities should not return the requesting user id in the list of unknown viewers", (done) => {
     sandbox.stub(moment, 'now').returns(TIMESTAMP);
-    sandbox.stub(config, 'get').returns(USER_DETAILS_TTL);
+    sandbox.stub(Object.getPrototypeOf(config), 'get').returns(USER_DETAILS_TTL);
     sandbox.stub(redis, "pipeline").callsFake(function (arguments) {
       argStr = JSON.stringify(arguments);
       if (argStr.includes('zrangebyscore')) {
