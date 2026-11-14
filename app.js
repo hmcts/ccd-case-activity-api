@@ -1,12 +1,15 @@
+// Telemetry must initialise before modules load Express/HTTP.
+// eslint-disable-next-line import/order
+const enableAppInsights = require('./app/app-insights/app-insights');
+
+enableAppInsights();
+
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('config');
 const debug = require('debug')('ccd-case-activity-api:app');
-const enableAppInsights = require('./app/app-insights/app-insights');
-
-enableAppInsights();
 
 const storeCleanupJob = require('./app/job/store-cleanup-job');
 const authCheckerUserOnlyFilter = require('./app/user/auth-checker-user-only-filter');
@@ -57,20 +60,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// error handler
-// FIXME `next` MUST be kept for error handling, even though it causes linting to fail
-/* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
-  debug(`Error processing request: ${err}`);
-
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  res.status(err.status || 500);
-  res.json({
-    message: err.message,
-  });
-});
+// Fixed public errors in every environment, including development.
+app.use(require('./app/safe-errors').errorHandler);
 
 module.exports = app;

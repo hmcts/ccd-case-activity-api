@@ -1,8 +1,8 @@
 const debug = require('debug')('ccd-case-activity-api:add-activity');
 const utils = require('../util/utils');
+const { invalidActivityError } = require('../safe-errors');
 
 const Activity = ['view', 'edit'];
-const BAD_REQUEST = 400;
 const { ifNotTimedOut } = utils;
 
 const addActivity = (activityService) => (req, res, next) => {
@@ -13,10 +13,7 @@ const addActivity = (activityService) => (req, res, next) => {
   debug(`ADD_ACTIVITY request - caseId: ${caseId}, userId:${user.uid}, activity:${activity}`);
 
   if (!Activity.includes(activity)) {
-    const err = new Error(`unknown activity: ${activity}`);
-    err.status = BAD_REQUEST;
-    res.status(BAD_REQUEST).json({ message: `unknown activity: ${activity}` });
-    next(err);
+    next(invalidActivityError());
   } else {
     activityService.addActivity(caseId, user, activity)
       .then((result) => ifNotTimedOut(req, () => {
@@ -24,7 +21,7 @@ const addActivity = (activityService) => (req, res, next) => {
         res.status(201).json({ case: caseId, user: user.uid.toString(), activity });
       }))
       .catch((err) => ifNotTimedOut(req, () => {
-        next(err.message);
+        next(err);
       }));
   }
 };

@@ -1,7 +1,5 @@
-const { Logger } = require('@hmcts/nodejs-logging');
+const { safeError } = require('../safe-errors');
 const userRequestAuthorizer = require('./user-request-authorizer');
-
-const logger = Logger.getLogger('authCheckerUserOnlyFilter');
 
 const isBadGatewayError = (error) => error.message !== undefined && (error.message.includes('getaddrinfo ENOTFOUND')
   || error.message.includes('socket hang up')
@@ -11,19 +9,7 @@ const isBadGatewayError = (error) => error.message !== undefined && (error.messa
   || error.message.includes('ECONNREFUSED'));
 
 const mapFetchErrors = (error, next) => {
-  if (isBadGatewayError(error)) {
-    next({
-      error: 'Bad Gateway',
-      status: 502,
-      message: error.message,
-    });
-  } else {
-    next({
-      error: 'Internal Server Error',
-      status: 500,
-      message: error.message,
-    });
-  }
+  next(safeError(isBadGatewayError(error) ? 502 : 500, error));
 };
 
 const authCheckerUserOnlyFilter = (req, res, next) => {
@@ -37,10 +23,8 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
     .then(() => next())
     .catch((error) => {
       if (error.name === 'FetchError') {
-        logger.error(error);
         mapFetchErrors(error, next);
       } else {
-        logger.warn('Unsuccessful user authentication', error);
         error.status = error.status || 401; // eslint-disable-line no-param-reassign
         next(error);
       }

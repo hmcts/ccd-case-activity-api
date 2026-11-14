@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const proxyquire = require('proxyquire');
+const proxyquire = require('proxyquire').noCallThru();
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 
@@ -80,7 +80,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(500);
         expect(error.error).to.equal('Internal Server Error');
-        expect(error.message).to.equal('some message');
+        expect(error.message).to.equal('Internal Server Error');
         done();
       });
     });
@@ -117,7 +117,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah getaddrinfo ENOTFOUND blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -132,7 +132,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah socket hang up blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -148,7 +148,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah socket hang up blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -163,7 +163,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah getaddrinfo EAI_AGAIN blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -178,7 +178,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah connect ETIMEOUT blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -193,7 +193,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah ECONNRESET blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -208,7 +208,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(502);
         expect(error.error).to.equal('Bad Gateway');
-        expect(error.message).to.equal('blah ECONNREFUSED blah');
+        expect(error.message).to.equal('Bad Gateway');
         done();
       });
     });
@@ -223,7 +223,7 @@ describe('authCheckerUserOnlyFilter', () => {
       filter(req, res, error => {
         expect(error.status).to.equal(500);
         expect(error.error).to.equal('Internal Server Error');
-        expect(error.message).to.equal(undefined);
+        expect(error.message).to.equal('Internal Server Error');
         done();
       });
     });
