@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const assert = sinon.assert;
 const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
-const nock = require('nock');
+const nock = require('nock').default;
 const CacheService = require('../../../../app/cache/cache-service');
 const NodeCache = require('node-cache');
 
