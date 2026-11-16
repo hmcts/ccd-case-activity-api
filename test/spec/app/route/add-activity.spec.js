@@ -6,7 +6,7 @@ var addActivityRoute = require('../../../../app/routes/add-activity')(activitySe
 var httpMocks = require('node-mocks-http')
 var chai = require("chai");
 var sinon = require("sinon");
-var sinonChai = require("sinon-chai");
+var sinonChai = require("sinon-chai").default;
 chai.should();
 var expect = chai.expect;
 chai.use(sinonChai);
