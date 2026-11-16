@@ -38,9 +38,9 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^1.0.0",
-    "applicationinsights": "3.16.0",
-    "body-parser": "^2.2.1",
-    "config": "^1.26.1",
+    "applicationinsights": "3.17.0",
+    "body-parser": "2.4.0",
+    "config": "^5.0.0",
     "connect-timeout": "^1.9.0",
     "cookie": "^2.0.0",
     "cross-env": "^10.0.0",
@@ -48,7 +48,7 @@
     "express": "^5.0.1",
     "formidable": "^3.5.4",
     "ioredis": "^6.0.0",
-    "joi": "18.2.9",
+    "joi": "18.3.2",
     "jwt-decode": "^4.0.0",
     "lodash": "4.18.1",
     "moment": "^2.29.4",
@@ -78,7 +78,7 @@
     "sinon-chai": "^3.5.0",
     "sinon-express-mock": "^2.2.1",
     "sonar-scanner": "^3.1.0",
-    "supertest": "^3.0.0"
+    "supertest": "^7.0.0"
   },
   "overrides": {
     "qs": "6.16.1"
@@ -103,10 +103,9 @@
     "cookiejar": "^2.1.4",
     "flat": "^5.0.1",
     "qs": "6.16.1",
-    "semver": "7.8.5",
-    "@grpc/grpc-js": "1.14.6",
+    "semver": "7.8.6",
+    "@grpc/grpc-js": "1.14.7",
     "cross-spawn": "^7.0.6",
-    "body-parser": "^2.2.1",
     "protobufjs": "7.6.6",
     "@protobufjs/utf8": "1.1.2"
   },
