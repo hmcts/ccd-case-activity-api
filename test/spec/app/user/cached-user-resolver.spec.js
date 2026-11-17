@@ -3,7 +3,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
 const assert = sinon.assert;
-const sinonChai = require('sinon-chai');
+const sinonChai = require('sinon-chai').default;
 chai.use(sinonChai);
 const nock = require('nock');
 const CacheService = require('../../../../app/cache/cache-service');
