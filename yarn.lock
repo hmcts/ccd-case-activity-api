@@ -6071,9 +6071,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sinon-chai@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "sinon-chai@npm:4.0.1"
 "signal-exit@npm:^4.0.1":
   version: 4.1.0
   resolution: "signal-exit@npm:4.1.0"
@@ -6081,9 +6078,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sinon-chai@npm:^3.5.0":
-  version: 3.7.0
-  resolution: "sinon-chai@npm:3.7.0"
+"sinon-chai@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "sinon-chai@npm:4.0.1"
   peerDependencies:
     chai: ^5.0.0 || ^6.0.0
     sinon: ">=4.0.0"
