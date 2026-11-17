@@ -5,7 +5,7 @@ var activityService = require('../../../../app/service/activity-service')(config
 var moment = require('moment');
 var chai = require("chai");
 var sinon = require("sinon");
-var sinonChai = require("sinon-chai");
+var sinonChai = require("sinon-chai").default;
 chai.should();
 var expect = chai.expect;
 chai.use(sinonChai);
