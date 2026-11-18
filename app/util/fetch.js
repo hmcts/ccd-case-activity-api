@@ -1,4 +1,4 @@
-const nodeFetch = require('node-fetch');
+const nodeFetch = require('node-fetch').default;
 
 const fetch = (...args) => nodeFetch(...args)
   .then(async (res) => {
@@ -6,17 +6,27 @@ const fetch = (...args) => nodeFetch(...args)
       return res;
     }
 
-    // node-fetch v2 enforces these limits while consuming the error body.
+    // Bound error diagnostics while consuming the response body.
     // Successful responses retain their existing limits and behaviour.
     res.size = 4096;
-    res.timeout = 1000;
     let body = '[Diagnostic body unavailable]';
     let cause;
+    let timer;
     try {
-      body = await res.text();
+      body = await Promise.race([
+        res.text(),
+        new Promise((resolve, reject) => {
+          timer = setTimeout(() => {
+            const timeout = new Error('Upstream diagnostic body timed out');
+            timeout.type = 'body-timeout';
+            reject(timeout);
+          }, 1000);
+        })
+      ]);
     } catch (error) {
       cause = error;
     } finally {
+      clearTimeout(timer);
       if (res.body) {
         res.body.destroy();
       }

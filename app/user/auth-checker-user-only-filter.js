@@ -25,7 +25,7 @@ const authCheckerUserOnlyFilter = (req, res, next) => {
       if (error.name === 'FetchError') {
         mapFetchErrors(error, next);
       } else {
-        error.status = error.status || 401; // eslint-disable-line no-param-reassign
+        error.status = error.status || 401;
         next(error);
       }
     });

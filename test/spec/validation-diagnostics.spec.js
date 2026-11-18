@@ -39,7 +39,7 @@ describe('CCD-7882 validation and bounded diagnostics', () => {
   const failingFetch = (body) => {
     const response = new Response(body, { status: 502, statusText: 'Bad Gateway' });
     return proxyquire('../../app/util/fetch', {
-      'node-fetch': () => Promise.resolve(response),
+      'node-fetch': { default: () => Promise.resolve(response) },
     });
   };
 

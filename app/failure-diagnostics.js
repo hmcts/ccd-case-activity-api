@@ -18,7 +18,7 @@ const configureFailureTelemetry = (client) => { telemetryClient = client; };
 
 const withFailureDiagnostics = (status, error, callback, businessCode) => {
   const fields = {
-    failureCode: businessCode || failureCode(error, status), httpStatus: String(status),
+    failureCode: businessCode || failureCode(error, status), httpStatus: String(status)
   };
   const result = callback(fields);
   if (telemetryClient) {
@@ -38,7 +38,7 @@ const withFailureDiagnostics = (status, error, callback, businessCode) => {
         properties.causeChain = causes.join('\nCaused by: ');
       }
       telemetryClient.trackException({
-        exception: original, properties, severity: status >= 500 ? 3 : 2,
+        exception: original, properties, severity: status >= 500 ? 3 : 2
       });
     } catch (exportError) { // eslint-disable-line no-unused-vars
       // Bypass console/SDK hooks so reporting a failure cannot call the failed exporter again.

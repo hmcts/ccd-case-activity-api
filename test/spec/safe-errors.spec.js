@@ -152,11 +152,11 @@ describe('CCD-7882 nested diagnostics', () => {
 describe('CCD-7882 upstream HTTP diagnostics', () => {
   it('retains the upstream status and body in a private Error', async () => {
     const fetch = proxyquire('../../app/util/fetch', {
-      'node-fetch': () => Promise.resolve({
+      'node-fetch': { default: () => Promise.resolve({
         status: 500,
         statusText: 'Internal Server Error',
         text: () => Promise.resolve('PRIVATE_UPSTREAM_DIAGNOSTIC'),
-      }),
+      }) },
     });
     await assert.rejects(fetch('http://synthetic.invalid'), (error) => (
       error.status === 500 && error.message.includes('PRIVATE_UPSTREAM_DIAGNOSTIC')

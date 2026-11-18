@@ -1,5 +1,4 @@
 // Telemetry must initialise before modules load Express/HTTP.
-// eslint-disable-next-line import/order
 const enableAppInsights = require('./app/app-insights/app-insights');
 
 enableAppInsights();
@@ -28,7 +27,7 @@ app.disable(poweredByHeader);
 appHealth.disable(poweredByHeader);
 
 const healthConfig = {
-  checks: {},
+  checks: {}
 };
 healthcheck.addTo(appHealth, healthConfig);
 app.use(appHealth);
