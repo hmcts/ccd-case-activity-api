@@ -1,5 +1,6 @@
 var config = require('config');
-var config = redis = ttlScoreGenerator = {};
+var redis = require('../../../../app/redis/redis-client');
+var ttlScoreGenerator = require('../../../../app/service/ttl-score-generator');
 var activityService = require('../../../../app/service/activity-service')(config, redis, ttlScoreGenerator);
 var getActivitesRoute = require('../../../../app/routes/get-activities')(activityService, config);
 var httpMocks = require('node-mocks-http');
