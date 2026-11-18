@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const assert = sinon.assert;
 const sinonChai = require('sinon-chai').default;
 chai.use(sinonChai);
-const nock = require('nock');
+const nock = require('nock').default;
 const CacheService = require('../../../../app/cache/cache-service');
 const NodeCache = require('node-cache');
 
@@ -26,7 +26,9 @@ describe('getCachedUserDetails', () => {
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
-    clock = sandbox.useFakeTimers();
+    clock = sandbox.useFakeTimers({
+      toFake: ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'],
+    });
     nodeCacheSpy = sandbox.spy(NodeCache.prototype, 'set');
     userInfoCache = new CacheService('UserInfoCache', CACHE_TTL_SECONDS, 120);
     userInfoCacheSpy = sandbox.spy(userInfoCache, 'getOrElseUpdate');
