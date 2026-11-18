@@ -26,7 +26,9 @@ describe('getCachedUserDetails', () => {
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
-    clock = sandbox.useFakeTimers();
+    clock = sandbox.useFakeTimers({
+      toFake: ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'],
+    });
     nodeCacheSpy = sandbox.spy(NodeCache.prototype, 'set');
     userInfoCache = new CacheService('UserInfoCache', CACHE_TTL_SECONDS, 120);
     userInfoCacheSpy = sandbox.spy(userInfoCache, 'getOrElseUpdate');
