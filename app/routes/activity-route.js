@@ -6,8 +6,8 @@ const validateRequest = require('./validate-request');
 const router = express.Router();
 
 module.exports = (activityService, config) => {
-  const addActivity = require('./add-activity')(activityService); // eslint-disable-line global-require
-  const getActivities = require('./get-activities')(activityService); // eslint-disable-line global-require
+  const addActivity = require('./add-activity')(activityService);  
+  const getActivities = require('./get-activities')(activityService);  
 
   const toMillis = (timeSec) => timeSec * 1000;
 
