@@ -10,7 +10,7 @@ properties(
 def type = "nodejs"
 def product = "ccd"
 def component = "case-activity-api"
-def branchesToSync = ['demo', 'ithc', 'perftest']
+def branchesToSync = ['demo', 'ithc']
 
 // Variables to switch pipeline logic and wiring per type of build
 def definitionStoreDevelopPr = "PR-575"  // This doesn't change frequently, but when it does, only change this value.
@@ -115,6 +115,30 @@ withPipeline(type, product, component) {
 
     afterAlways('build') {
         sh "yarn --check-cache"
+    }
+
+    afterAlways('test') {
+    
+      publishHTML target: [
+        allowMissing         : true,
+        alwaysLinkToLastBuild: true,
+        keepAll              : true,
+        reportDir            : "mochawesome-report",
+        reportFiles          : "unit.html",
+        reportName           : "Unit Test Report"
+      ]
+    }
+
+    afterAlways('test:coverage') {
+
+      publishHTML target: [
+        allowMissing         : true,
+        alwaysLinkToLastBuild: true,
+        keepAll              : true,
+        reportDir            : "coverage/lcov-report",
+        reportFiles          : "index.html",
+        reportName           : "Code Coverage Report"
+      ]
     }
 
     afterAlways('smoketest:preview') {
