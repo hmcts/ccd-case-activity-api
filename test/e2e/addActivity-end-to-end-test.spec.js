@@ -25,7 +25,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
 
   it('smoke - should POST a user activity on a case', (done) => {
     const body = {
-      activity: 'view',
+      activity: 'view'
     };
     chai.request(server)
       .post('/cases/55/activity')
@@ -34,7 +34,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .end((err, res) => {
         const assertEndpointResult = new Promise((resolve) => {
           res.should.have.status(201);
-          res.should.be.json; // eslint-disable-line no-unused-expressions
+          res.should.be.json;  
           res.body.should.be.a('object');
           res.body.case.should.equal('55');
           res.body.user.should.equal('242');
@@ -58,7 +58,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .send(body)
       .end((err, res) => {
         res.should.have.status(422);
-        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.should.be.json;  
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: undefined');
         done();
@@ -67,7 +67,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
 
   it('should not POST a user activity if the activity type is unknown', (done) => {
     const body = {
-      activity: 'vie',
+      activity: 'vie'
     };
     chai.request(server)
       .post('/cases/55/activity')
@@ -75,7 +75,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .send(body)
       .end((err, res) => {
         res.should.have.status(422);
-        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.should.be.json;  
         res.body.should.be.a('object');
         res.body.message.should.equal('unknown activity: vie');
         done();
@@ -84,7 +84,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
 
   it('should return 400 BadRequest if the case Id is malformed', (done) => {
     const body = {
-      activity: 'view',
+      activity: 'view'
     };
     chai.request(server)
       .post('/cases/55%234/activity')
@@ -92,7 +92,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
       .send(body)
       .end((err, res) => {
         res.should.have.status(400);
-        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.should.be.json;  
         res.body.error.should.equal('"Malformed caseId" must be a number');
         done();
       });
@@ -101,7 +101,7 @@ describe('Activity Service - activityTtlSec:5, userDetailsTtlSec:2', () => {
   it('should not POST a user activity if authentication is not provided', (done) => {
     const body = {
 
-      activity: 'view',
+      activity: 'view'
     };
     chai.request(server)
       .post('/cases/55/activity')
