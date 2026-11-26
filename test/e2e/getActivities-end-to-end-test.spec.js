@@ -48,7 +48,7 @@ describe('Activity Service - GetActivities', () => {
           .set('Authorization', Token)
           .end((err, res) => {
             res.should.have.status(200);
-            res.should.be.json; // eslint-disable-line no-unused-expressions
+            res.should.be.json;  
             res.body.should.be.a('array');
             res.body.length.should.equal(1);
             res.body[0].caseId.should.equal('111');
@@ -78,7 +78,7 @@ describe('Activity Service - GetActivities', () => {
           .set('Authorization', Token)
           .end((err, res) => {
             res.should.have.status(200);
-            res.should.be.json; // eslint-disable-line no-unused-expressions
+            res.should.be.json;  
             res.body.should.be.a('array');
             res.body.length.should.equal(2);
             res.body[0].caseId.should.equal('111');
@@ -124,7 +124,7 @@ describe('Activity Service - GetActivities', () => {
             .set('Authorization', Token)
             .end((err, res) => {
               res.should.have.status(200);
-              res.should.be.json; // eslint-disable-line no-unused-expressions
+              res.should.be.json;  
               res.body.should.be.a('array');
               res.body[0].caseId.should.equal('111');
               res.body[1].caseId.should.equal('121');
@@ -168,7 +168,7 @@ describe('Activity Service - GetActivities', () => {
             .set('Authorization', Token)
             .end((err, res) => {
               res.should.have.status(200);
-              res.should.be.json; // eslint-disable-line no-unused-expressions
+              res.should.be.json;  
               res.body.should.be.a('array');
               res.body[0].caseId.should.equal('111');
               res.body[1].caseId.should.equal('121');
@@ -192,7 +192,7 @@ describe('Activity Service - GetActivities', () => {
       .set('Authorization', Token)
       .end((err, res) => {
         res.should.have.status(400);
-        res.should.be.json; // eslint-disable-line no-unused-expressions
+        res.should.be.json;  
         res.body.error.should.equal('"Malformed caseId" must be a number');
         done();
       });
