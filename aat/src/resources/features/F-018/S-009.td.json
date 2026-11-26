@@ -1,0 +1,25 @@
+{
+	"_guid_": "S-009",
+	"title": "must reject GET Activity when authorization is missing",
+
+	"productName": "CCD Case Activity API",
+	"operationName": "Get Activity Without Authorization",
+	"method": "GET",
+	"uri": "/cases/{cid}/activity",
+
+	"request": {
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"pathVariables": {
+			"cid": "123456789"
+		}
+	},
+
+	"expectedResponse": {
+		"responseCode": 401,
+		"body": {
+			"message": "You are not authorized to access this resource"
+		}
+	}
+}

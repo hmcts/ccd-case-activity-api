@@ -8,7 +8,7 @@ const { logPipelineFailures } = redis;
 const now = () => moment().valueOf();
 const REDIS_ACTIVITY_KEY_PREFIX = config.get('redis.keyPrefix');
 
-const scanExistingCasesKeys = (f) => {
+const scanExistingCasesKeys = () => new Promise((resolve, reject) => {
   const stream = redis.scanStream({
     // only returns keys following the pattern
     match: `${REDIS_ACTIVITY_KEY_PREFIX}case:*`,
@@ -24,11 +24,10 @@ const scanExistingCasesKeys = (f) => {
   });
   stream.on('end', () => {
     debug(`scan completed keys: ${keys}`);
-    f(keys);
+    resolve(keys);
   });
-};
-
-const getCasesWithActivities = (f) => scanExistingCasesKeys(f);
+  stream.on('error', reject);
+});
 
 const cleanupActivitiesCommand = (key) => ['zremrangebyscore', key, '-inf', now()];
 
@@ -40,17 +39,18 @@ const pipeline = (cases) => {
 
 const storeCleanup = () => {
   debug('store cleanup starting...');
-  getCasesWithActivities((cases) => {
-    // scan returns the prefixed keys. Remove them since the redis client will add it back
-    const casesWithoutPrefix = cases.map((k) => k.replace(REDIS_ACTIVITY_KEY_PREFIX, ''));
+  return scanExistingCasesKeys()
+    .then((cases) => {
+      // scan returns the prefixed keys. Remove them since the redis client will add it back
+      const casesWithoutPrefix = cases.map((k) => k.replace(REDIS_ACTIVITY_KEY_PREFIX, ''));
 
-    debug(`about to cleanup the following cases: ${casesWithoutPrefix}`);
-    return pipeline(casesWithoutPrefix).exec()
-      .then((pipelineOutcome) => logPipelineFailures(pipelineOutcome, 'error in store cleanup job'))
-      .catch((err) => {
-        debug('Error in getCasesWithActivities', err.message);
-      });
-  });
+      debug(`about to cleanup the following cases: ${casesWithoutPrefix}`);
+      return pipeline(casesWithoutPrefix).exec()
+        .then((pipelineOutcome) => logPipelineFailures(pipelineOutcome, 'error in store cleanup job'));
+    })
+    .catch((err) => {
+      debug('Error in getCasesWithActivities', err.message);
+    });
 };
 
 exports.start = (crontab) => {
@@ -62,5 +62,5 @@ exports.start = (crontab) => {
 
 exports.force = () => {
   debug('forced store cleanup');
-  storeCleanup();
+  return storeCleanup();
 };

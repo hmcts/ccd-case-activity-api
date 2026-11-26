@@ -1,0 +1,37 @@
+{
+	"_guid_": "S-006",
+	"_extends_": "F-018_Test_Data_Base",
+	"title": "must return the activity summary for a case with no activity",
+
+	"specs": [
+		"an active profile in CCD"
+	],
+
+	"operationName": "Get Activity",
+	"method": "GET",
+	"uri": "/cases/{cid}/activity",
+	"request": {
+		"headers": {
+			"_extends_": "Common_Request_Headers",
+			"Content-Type": "application/json"
+		},
+		"pathVariables": {
+			"cid": "${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}"
+		}
+	},
+
+	"expectedResponse": {
+		"_extends_": "Common_200_Response",
+		"body": {
+			"arrayInMap": [
+				{
+					"caseId": "${}${[scenarioContext][childContexts][Standard_Full_Case_Creation_Data][testData][actualResponse][body][id]}",
+					"viewers": [],
+					"unknownViewers": 0,
+					"editors": [],
+					"unknownEditors": 0
+				}
+			]
+		}
+	}
+}

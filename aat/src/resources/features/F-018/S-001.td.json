@@ -7,6 +7,11 @@
 		"an active profile in CCD",
 		"is to add an activity for the case created above"
 	],
+	"request": {
+		"body": {
+			"activity": "edit"
+		}
+	},
 
 	"expectedResponse": {
 		"_extends_": "Common_201_Response",
