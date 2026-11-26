@@ -47,7 +47,7 @@ jobs:
           
       - name: Commit suppressed CVEs if there are changes
         if: steps.check_git_changes.outputs.has_changes == 'true' && steps.check_yarn_errors.outputs.has_yarn_errors == 'false'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Auto-suppress CVEs
           branch: master
