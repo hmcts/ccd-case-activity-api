@@ -774,10 +774,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ioredis/commands@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@ioredis/commands@npm:2.0.0"
-  checksum: 10/03c0e0735ac75dae14380a153e6b330391d3c7fcef47de13d0bfbe7de1f83ad8d617c6629c25b478eb3d4013a95f0b602840acfd047981d8796438f5e7ddffbb
+"@ioredis/commands@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@ioredis/commands@npm:2.4.0"
+  checksum: 10/b9454a5d32fd1fc80025bd30981cb34f6c4fbdb5d404dc28b36466e1fbfada188233c5f065a12a54a39972a6ed1e22355e947e68e64f2033da915463fedae4db
   languageName: node
   linkType: hard
 
@@ -2364,13 +2364,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cluster-key-slot@npm:1.1.1":
-  version: 1.1.1
-  resolution: "cluster-key-slot@npm:1.1.1"
-  checksum: 10/2b926e8ebe7c350f4d87f0156a581cdaf3d26722b1256ec7c0b970c136e51dddd3cd2dc69acee61d5c310dc3730531705eac6ecaf9fec51903cf3a9f9287babf
-  languageName: node
-  linkType: hard
-
 "coffeescript@npm:~1.12.7":
   version: 1.12.7
   resolution: "coffeescript@npm:1.12.7"
@@ -3659,16 +3652,15 @@ __metadata:
   linkType: hard
 
 "ioredis@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "ioredis@npm:6.0.0"
+  version: 6.1.0
+  resolution: "ioredis@npm:6.1.0"
   dependencies:
-    "@ioredis/commands": "npm:2.0.0"
-    cluster-key-slot: "npm:1.1.1"
+    "@ioredis/commands": "npm:2.4.0"
     debug: "npm:4.4.3"
     denque: "npm:2.1.0"
     redis-errors: "npm:1.2.0"
     standard-as-callback: "npm:2.1.0"
-  checksum: 10/afd383b034ff8fdf9d1fed0b4b4524e7d73bc0d0f5cad9ad93d2787d0b70f025ed0170eceab19a4d37f460eb7f2edfc544e86936492779149f1e5ec0e94f0910
+  checksum: 10/82a136edd723b7a977a82522a1a993f797ea7b2f48caece012442c5249fd489aeeda46e36b0c09e74e99523e22ff0d8582fdf8a08b5386109c9afe8842c1d4ae
   languageName: node
   linkType: hard
 
