@@ -1,5 +1,6 @@
 const config = require('config');
 const appInsights = require('applicationinsights');
+const { configureFailureTelemetry } = require('../failure-diagnostics');
 
 const enabled = config.get('appInsights.enabled');
 
@@ -16,6 +17,7 @@ const enableAppInsights = () => {
     appInsights.defaultClient.context.keys.cloudRole] = appInsightsRoleName;
   appInsights.defaultClient.config.samplingPercentage = 1;
   appInsights.start();
+  configureFailureTelemetry(appInsights.defaultClient);
 };
 
 module.exports = enableAppInsights;

@@ -94,3 +94,9 @@ $ yarn start
   ccd-case-activity-api:server Listening on port 3000 +19ms
   ccd-case-activity-api:redis-client connected to Redis +7ms
 ```
+
+## Support investigation
+
+For failure investigation, see the
+[support investigation guide](docs/CCD-7882-error-contract.md#support) for Application Insights
+Logs, KQL examples, correlation and local/production verification limits.

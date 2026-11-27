@@ -14,7 +14,7 @@ const getActivities = (activityService) => (req, res, next) => {
       res.status(200).json(result);
     }))
     .catch((err) => ifNotTimedOut(req, () => {
-      next(err.message);
+      next(err);
     }));
 };
 
