@@ -2,6 +2,12 @@ variable "product" {
   default     = "ccd"
   description = "The name of your application"
 }
+
+variable "component" {
+  default     = "case-activity-api"
+  description = "The name of the application component"
+}
+
 variable "location" {
   default = "UK South"
 }
@@ -26,4 +32,16 @@ variable "sku_name" {
 variable "capacity" {
   default     = "1"
   description = "The size of the Redis cache to deploy. Valid values are 1, 2, 3, 4, 5"
+}
+
+variable "managed_redis_sku" {
+  default     = "Balanced_B0"
+  description = "The Azure Managed Redis SKU to deploy. Override per environment in tfvars."
+  type        = string
+}
+
+variable "private_dns_subscription_id" {
+  default     = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
+  description = "The subscription ID containing the shared private DNS zones."
+  type        = string
 }
